@@ -37,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
         redpacketView.setImageResource(R.drawable.red_big_middle);
         redpacketView.setEndView(ivRight);
         redpacketView.setGuideView(ivGuideView, ivGuideMiddleView, tvPriceBottomView);
+        progressImg.setEndListener(new ProgressImageView.EndListener() {
+            @Override
+            public void endListener() {
+                redpacketView.startNormalAnim();
+            }
+
+            @Override
+            public void startListener() {
+                redpacketView.setStartViewPosition();
+            }
+        });
     }
 
     @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_normal})
@@ -53,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_normal:
                 progressImg.setProgress(100);
-                redpacketView.setStartViewPosition();
-                redpacketView.startNormalAnim();
-
                 break;
         }
     }
