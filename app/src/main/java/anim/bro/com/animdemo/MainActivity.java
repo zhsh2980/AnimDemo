@@ -26,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivGuideMiddleView;
     @BindView(R.id.tv_price_bottom_view)
     TextView tvPriceBottomView;
+    @BindView(R.id.progressImg)
+    ProgressImageView progressImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        redpacketView.setBackgroundResource(R.drawable.red_big_middle);
+        redpacketView.setImageResource(R.drawable.red_big_middle);
         redpacketView.setEndView(ivRight);
         redpacketView.setGuideView(ivGuideView, ivGuideMiddleView, tvPriceBottomView);
     }
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.btn_normal:
+                progressImg.setProgress(100);
                 redpacketView.setStartViewPosition();
                 redpacketView.startNormalAnim();
 

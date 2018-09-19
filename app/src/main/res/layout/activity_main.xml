@@ -5,34 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <anim.bro.com.animdemo.util.RedPacketAnimView
-        android:id="@+id/iv_left"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:id="@+id/iv_left_re"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:layout_marginBottom="100dp"
-        android:layout_marginLeft="10dp"
-        tools:src="@drawable/red"/>
+        android:layout_marginLeft="10dp">
+
+        <anim.bro.com.animdemo.util.RedPacketAnimView
+            android:id="@+id/iv_left"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            tools:clipChildren="true"
+            tools:src="@drawable/red" />
+
+        <anim.bro.com.animdemo.ProgressImageView
+            android:id="@+id/progressImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
 
     <ImageView
         android:id="@+id/iv_guide_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/iv_left"
+        android:layout_above="@+id/iv_left_re"
         android:layout_marginLeft="10dp"
         android:src="@drawable/guide_bubble"/>
-
 
     <ImageView
         android:id="@+id/iv_guide_middle_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/iv_left"
+        android:layout_above="@+id/iv_left_re"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/red_login"/>
+        android:src="@drawable/red_login" />
 
     <ImageView
         android:id="@+id/iv_right"
@@ -41,7 +53,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="120dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
