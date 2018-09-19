@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import anim.bro.com.animdemo.util.RedPacketAnimView;
 import butterknife.BindView;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivGuideView;
     @BindView(R.id.iv_guide_middle_content)
     ImageView ivGuideMiddleView;
+    @BindView(R.id.tv_price_bottom_view)
+    TextView tvPriceBottomView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         redpacketView.setBackgroundResource(R.drawable.red_big_middle);
         redpacketView.setEndView(ivRight);
-        redpacketView.setGuideView(ivGuideView, ivGuideMiddleView);
+        redpacketView.setGuideView(ivGuideView, ivGuideMiddleView, tvPriceBottomView);
     }
 
     @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_normal})
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.btn_normal:
+                redpacketView.setStartViewPosition();
+                redpacketView.startNormalAnim();
 
                 break;
         }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -28,6 +29,10 @@ public class RedPacketAnimView extends AppCompatImageView {
     private View guideFirstView;
     //红包下方的引导文案
     private View guideSecondView;
+    //底部价格
+    private View tvPriceBottomView;
+    //底部价格
+    private float curTranslationY;
     //红包每一次从头飞时,是否暂停过
     boolean isStoped = false;
     AnimatorSet animatorSetGuide;
@@ -52,7 +57,6 @@ public class RedPacketAnimView extends AppCompatImageView {
 
         if (endView == null) return;
         if (guideFirstView == null) return;
-        guideFirstView.setVisibility(VISIBLE);
         setVisibility(View.VISIBLE);
 
         LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
@@ -103,10 +107,6 @@ public class RedPacketAnimView extends AppCompatImageView {
             }
         });
 
-//        final ObjectAnimator scaleX_red = ObjectAnimator.ofFloat(this, "scaleX", 1.0f, 1.5f, 1.0f);
-//        final ObjectAnimator scaleY_red = ObjectAnimator.ofFloat(this, "scaleY", 1.0f, 1.5f, 1.0f);
-//        scaleX_red.setInterpolator(new DecelerateAccelerateInterpolator());
-//        scaleY_red.setInterpolator(new DecelerateAccelerateInterpolator());
         //-------------------------再走弧形-------------------------------
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(valueAnimator1, valueAnimator2);
@@ -124,23 +124,6 @@ public class RedPacketAnimView extends AppCompatImageView {
 //                        setVisibility(View.INVISIBLE);
                 endView.clearAnimation();
                 Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.add_tab_shake_anim);
-//                        shake.setAnimationListener(new Animation.AnimationListener() {
-//                            @Override
-//                            public void onAnimationStart(Animation animation) {
-////                                LogUtils.i("AddCartAnimManager --> ", String.format("|||==>>  onAnimationStart([animation]):%s \n", "抖动动画开始"));
-//
-//                            }
-//
-//                            @Override
-//                            public void onAnimationEnd(Animation animation) {
-////                                LogUtils.i("AddCartAnimManager --> ", String.format("|||==>>  onAnimationStart([animation]):%s \n", "抖动动画结束"));
-//                            }
-//
-//                            @Override
-//                            public void onAnimationRepeat(Animation animation) {
-//
-//                            }
-//                        });
                 endView.startAnimation(shake);
 
             }
@@ -150,9 +133,6 @@ public class RedPacketAnimView extends AppCompatImageView {
 //        animatorSet.start();
 
         //------------------------------动画集合--------------------------------
-
-
-        //------------------------------先走文字缩小--------------------------------
         AnimatorSet animatorSet_textContent = new AnimatorSet();  //组合动画
         animatorSet_textContent.setDuration(1000);  //动画时间
         animatorSet_textContent.setInterpolator(new AccelerateInterpolator());  //设置插值器
@@ -162,14 +142,12 @@ public class RedPacketAnimView extends AppCompatImageView {
 
     /**
      * 第二次引导登陆动效
-     * 圆形精度条 --> 圆形精度条缩小 --> 红包弧形变大飞 --> 中间停止 --> 下方气泡渐变弹开 ->  气泡停顿 --> 气泡渐变收起 --> 红包缩小飞
+     * 圆形精度条 --> 圆形精度条渐变缩小 --> 红包弧形变大飞 --> 中间停止 --> 下方气泡渐变弹开 ->  气泡停顿 --> 气泡渐变收起 --> 红包缩小飞
      */
     public void startGuideLoginAnim() {
         if (endView == null) return;
 
         setVisibility(View.VISIBLE);
-//        guideSecondView.setAlpha(0);
-//        guideSecondView.setVisibility(VISIBLE);
 //        LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
         //----------------------------文案放大缩小--------------------------------
         //---------------------------文字的缩小和渐变-------------------------
@@ -215,7 +193,6 @@ public class RedPacketAnimView extends AppCompatImageView {
                 setTranslationY(value - pos.y);
             }
         });
-
         valueAnimator2.setInterpolator(new AccelerateInterpolator());
         valueAnimator2.setEvaluator(new TypeEvaluator<Float>() {
             @Override
@@ -230,7 +207,6 @@ public class RedPacketAnimView extends AppCompatImageView {
                 return (1 - fraction) * (1 - fraction) * pos.y + 2 * fraction * (1 - fraction) * screenWidthAndHeight[1] * 0.5f + fraction * fraction * endPos.y;
             }
         });
-
 
         //-------------------------弧形-------------------------------
         animatorSetGuide = new AnimatorSet();
@@ -262,7 +238,112 @@ public class RedPacketAnimView extends AppCompatImageView {
         }, 6000);
     }
 
-//    public void
+
+    /**
+     * 登陆后红包动效
+     * 圆形精度条 --> 圆形精度条渐变缩小 --> 红包弧形变大飞  --> 红包缩小飞
+     * ---------------------------------------------------> 中间时下方价格弹出 --> 价格渐变放大 ->  价格渐变消失
+     */
+    public void startNormalAnim() {
+        if (endView == null) return;
+
+        setVisibility(View.VISIBLE);
+//        LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
+        //----------------------------文案放大缩小--------------------------------
+        //---------------------------文字的缩小和渐变-------------------------
+
+        ObjectAnimator animator = ObjectAnimator.ofFloat(tvPriceBottomView, "translationY", curTranslationY, curTranslationY - 300f, curTranslationY - 350f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(tvPriceBottomView, "alpha", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(guideSecondView, "scaleX", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(guideSecondView, "scaleY", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+
+        //------------------------------先走文字缩小--------------------------------
+        final AnimatorSet animatorPriceView;  //组合动画
+        animatorPriceView = new AnimatorSet();
+        animatorPriceView.setDuration(1200);  //动画时间
+        animatorPriceView.setInterpolator(new AccelerateInterpolator());  //设置插值器
+        animatorPriceView.play(scaleX).with(scaleY).with(alpha).with(animator);  //同时执行
+
+        //----------------------------弧形--------------------------------
+        final ValueAnimator valueAnimator1 = ValueAnimator.ofFloat(0, 1);
+        final ValueAnimator valueAnimator2 = ValueAnimator.ofFloat(0, 1);
+
+        valueAnimator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                float scale;
+                if (value < 0.4) {
+                    scale = 1 + (value / 2);
+                } else if (value < 0.6) {
+                    scale = 1.2f;
+                } else {
+                    scale = (float) (1.2 - (value - 0.6) / 2);
+                }
+                setTranslationX(value * (endPos.x - pos.x));
+                setScaleX(scale);
+                setScaleY(scale);
+            }
+        });
+        valueAnimator1.setInterpolator(new AccelerateInterpolator());
+
+        valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Float value = (Float) animation.getAnimatedValue();
+                setTranslationY(value - pos.y);
+            }
+        });
+        valueAnimator2.setInterpolator(new AccelerateInterpolator());
+        valueAnimator2.setEvaluator(new TypeEvaluator<Float>() {
+            @Override
+            public Float evaluate(float fraction, Float startValue, Float endValue) {
+                if (fraction > 0.3 && !isStoped) {
+//                    pauseSet();
+                    isStoped = !isStoped;
+                    // TODO: 2018/9/19 开始文案放大缩小的动画
+                    animatorPriceView.start();  //启动动画
+                }
+                int[] screenWidthAndHeight = UIUtils.getScreenWidthAndHeight();
+                return (1 - fraction) * (1 - fraction) * pos.y + 2 * fraction * (1 - fraction) * screenWidthAndHeight[1] * 0.5f + fraction * fraction * endPos.y;
+            }
+        });
+
+        //-------------------------弧形-------------------------------
+        animatorSetGuide = new AnimatorSet();
+        animatorSetGuide.playTogether(valueAnimator1, valueAnimator2);
+        animatorSetGuide.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                setAlpha(1f);
+                setScaleX(1);
+                setScaleY(1);
+                setTranslationX(0);//回到原点
+                setTranslationY(0);//回到原点
+//                tvPriceBottomView.setTranslationX(0);
+//                tvPriceBottomView.setTranslationY(0);
+//                tvPriceBottomView.setAlpha(0);
+//                tvPriceBottomView.setScaleX(1);
+//                tvPriceBottomView.setScaleY(1);
+                isStoped = false;
+//                        setVisibility(View.INVISIBLE);
+                endView.clearAnimation();
+                Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.add_tab_shake_anim);
+                endView.startAnimation(shake);
+            }
+
+        });
+        animatorSetGuide.setDuration(1000);
+        animatorSetGuide.start();
+//        postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                resumeSet();
+//                LogUtils.i("resumeSet");
+//            }
+//        }, 6000);
+
+    }
 
 
     public void pauseSet() {
@@ -278,11 +359,16 @@ public class RedPacketAnimView extends AppCompatImageView {
         this.endView = endView;
     }
 
-    public void setGuideView(View guideFirstView, View guideSecondView) {
+    public void setGuideView(View guideFirstView, View guideSecondView, TextView tvPriceBottomView) {
         this.guideFirstView = guideFirstView;
         this.guideSecondView = guideSecondView;
-        guideFirstView.setVisibility(GONE);
-        guideSecondView.setAlpha(0);
+        this.tvPriceBottomView = tvPriceBottomView;
+        this.guideFirstView.setAlpha(0);
+        this.guideSecondView.setAlpha(0);
+        this.tvPriceBottomView.setAlpha(0);
+        if (this.tvPriceBottomView != null) {
+            curTranslationY = this.tvPriceBottomView.getTranslationY();
+        }
     }
 
     public void setStartViewPosition() {
