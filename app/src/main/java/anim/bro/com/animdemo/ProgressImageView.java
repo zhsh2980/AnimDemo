@@ -146,7 +146,23 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
         if (progress > maxProgress) {
             progress = maxProgress;
         }
+        stopAnim();
         startAnim(progress);
+    }
+
+    /**
+     * 终止动画操作
+     */
+    private void stopAnim() {
+        if (animAlpha != null) {
+            animAlpha.pause();
+        }
+        if (animator != null) {
+            animator.pause();
+
+        }
+        progress = 0;
+        postInvalidate();
     }
 
     private void startAnim(float startProgress) {
@@ -245,7 +261,7 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
     private ObjectAnimator animAlpha = ObjectAnimator.ofFloat(this, "alpha", 1f, 0.0f);
 
     private void startAlpha() {//动画渐变开始
-        if (isAlpha && animAlpha != null && !animAlpha.isRunning()) {
+        if (isAlpha && animAlpha != null) {
             isAlpha = false;
             animAlpha.setDuration(1000);// 动画持续时间
             animAlpha.start();
