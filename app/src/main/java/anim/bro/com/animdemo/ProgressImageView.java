@@ -38,6 +38,7 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
 
     private long isStartTime = 75;//延迟执行
     private boolean isStart = true;//执行一定时间进行回调
+    private boolean isSetProgress = true;//手动传值
 
     enum DirectionEnum {
         LEFT(0, 180.0f),
@@ -141,18 +142,42 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
 
     //加锁保证线程安全,能在线程中使用 progress 表示最大到多少,支持不到最大
     public synchronized void setProgress(int progress, EndListener listener) {
+        if (progress < 0) {
+            throw new IllegalArgumentException("progress should not be less than 0");
+        }
         setEndListener(listener);
         setVisibility(VISIBLE);
         ProgressImageView.this.setAlpha(1f);
         isAlpha = true;
-        if (progress < 0) {
-            throw new IllegalArgumentException("progress should not be less than 0");
-        }
         if (progress > maxProgress) {
             progress = maxProgress;
         }
         stopAnim();
         startAnim(progress);
+    }
+
+
+    /**
+     * 外界传值操作
+     *
+     * @param progress
+     * @param isSetProgress 是否需要进度
+     */
+    public void setProgress(float progress, boolean isSetProgress) {
+        if (isSetProgress) {
+            if (progress < 0) {
+                throw new IllegalArgumentException("progress should not be less than 0");
+            }
+            setVisibility(VISIBLE);
+            ProgressImageView.this.setAlpha(1f);
+            if (progress >= maxProgress && endListener != null) {
+                endListener.endListener();
+                stopAnim();
+            } else {
+                this.progress = progress;
+                postInvalidate();
+            }
+        }
     }
 
     /**

@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     TextView tvPriceBottomView;
     @BindView(R.id.progressImg)
     ProgressImageView progressImg;
+    @BindView(R.id.btn_normal_out)
+    Button btn_normal_out;
+
+    private float progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_normal})
+    @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_normal, R.id.btn_normal_out})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_guide_first:
@@ -93,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 break;
+            case R.id.btn_normal_out:
+                progress+=10;
+                progressImg.setProgress(progress, true);
+                break;
         }
+
     }
+
 }
