@@ -135,8 +135,13 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
         canvas.drawArc(oval, DirectionEnum.getDegree(direction), 360 * (progress / maxProgress), false, paint);  //根据进度画圆弧
     }
 
+    public synchronized void setProgress(EndListener listener) {
+        setProgress(100, listener);
+    }
+
     //加锁保证线程安全,能在线程中使用 progress 表示最大到多少,支持不到最大
-    public synchronized void setProgress(int progress) {
+    public synchronized void setProgress(int progress, EndListener listener) {
+        setEndListener(listener);
         setVisibility(VISIBLE);
         ProgressImageView.this.setAlpha(1f);
         isAlpha = true;

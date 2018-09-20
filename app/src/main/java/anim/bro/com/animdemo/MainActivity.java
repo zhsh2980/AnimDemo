@@ -37,33 +37,61 @@ public class MainActivity extends AppCompatActivity {
         redpacketView.setImageResource(R.drawable.red_big_middle);
         redpacketView.setEndView(ivRight);
         redpacketView.setGuideView(ivGuideView, ivGuideMiddleView, tvPriceBottomView);
-        progressImg.setEndListener(new ProgressImageView.EndListener() {
+        //首次进页面或者下拉刷新调用
+        redpacketView.postDelayed(new Runnable() {
             @Override
-            public void endListener() {
-                redpacketView.startNormalAnim();
-            }
-
-            @Override
-            public void startListener() {
+            public void run() {
                 redpacketView.setStartViewPosition();
             }
-        });
+        }, 500);
+
     }
 
     @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_normal})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_guide_first:
-                redpacketView.setStartViewPosition();
-                redpacketView.startGuideFirstAnim();
+                progressImg.setProgress(new ProgressImageView.EndListener() {
+
+                    @Override
+                    public void endListener() {
+
+                    }
+
+                    @Override
+                    public void startListener() {
+                        redpacketView.startGuideFirstAnim();
+                    }
+                });
                 break;
             case R.id.btn_guide:
-                redpacketView.setStartViewPosition();
-                redpacketView.startGuideLoginAnim();
+                progressImg.setProgress(new ProgressImageView.EndListener() {
 
+                    @Override
+                    public void endListener() {
+                        redpacketView.startGuideLoginAnim();
+                    }
+
+                    @Override
+                    public void startListener() {
+
+                    }
+                });
                 break;
             case R.id.btn_normal:
-                progressImg.setProgress(100);
+
+                progressImg.setProgress(new ProgressImageView.EndListener() {
+
+                    @Override
+                    public void endListener() {
+                        redpacketView.startNormalAnim();
+                    }
+
+                    @Override
+                    public void startListener() {
+
+                    }
+                });
                 break;
         }
     }
