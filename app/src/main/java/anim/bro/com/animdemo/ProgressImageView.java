@@ -36,8 +36,9 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
     private long animTime = 3000;//动画时间
     private long delayAnimTime = 300;//延迟执行
 
-    private long isStartTime = 75;//延迟执行
-    private boolean isStart = true;//执行一定时间进行回调
+    private long isStartPercentTime = 75;//延迟执行
+    private boolean isStartPercent = true;//执行一定时间进行回调
+    private boolean isStartFromZero = true;//执行一定时间进行回调
     private boolean isSetProgress = true;//手动传值
 
     enum DirectionEnum {
@@ -163,20 +164,39 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
      * @param progress
      * @param isSetProgress 是否需要进度
      */
-    public void setProgress(float progress, boolean isSetProgress) {
+    public void setProgress(float progress, boolean isSetProgress, EndListener listener) {
+        setEndListener(listener);
+        isStartFromZero = true;
         if (isSetProgress) {
             if (progress < 0) {
                 throw new IllegalArgumentException("progress should not be less than 0");
             }
             setVisibility(VISIBLE);
-            ProgressImageView.this.setAlpha(1f);
-            if (progress >= maxProgress && endListener != null) {
-                endListener.endListener();
-                stopAnim();
-            } else {
-                this.progress = progress;
-                postInvalidate();
+
+            if (ProgressImageView.this.progress >= 0) {
+                if (endListener != null && isStartFromZero) {
+                    endListener.startFromZeroListener();
+                    isStartFromZero = false;
+                }
             }
+
+            this.progress = progress;
+            postInvalidate();
+
+            ProgressImageView.this.setAlpha(1f);
+            if (progress >= maxProgress) {
+                if (endListener != null) {
+                    endListener.endListener();
+                    setVisibility(GONE);
+                    ProgressImageView.this.progress = 0;
+                    postInvalidate();
+//                    stopAnim();
+                }
+            }
+//            else {
+//                this.progress = progress;
+//                postInvalidate();
+//            }
         }
     }
 
@@ -196,19 +216,26 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
     }
 
     private void startAnim(float startProgress) {
-        isStart = true;
+        isStartPercent = true;
+        isStartFromZero = true;
         animator = ObjectAnimator.ofFloat(0, startProgress);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 ProgressImageView.this.progress = (float) animation.getAnimatedValue();
-                if (ProgressImageView.this.progress >= isStartTime) {
-                    if (endListener != null && isStart) {
-                        endListener.startListener();
-                        isStart = false;
+                if (ProgressImageView.this.progress >= isStartPercentTime) {
+                    if (endListener != null && isStartPercent) {
+                        endListener.startPercentListener();
+                        isStartPercent = false;
                     }
                 }
-                if (ProgressImageView.this.progress >= isStartTime) {
+                if (ProgressImageView.this.progress >= 0) {
+                    if (endListener != null && isStartFromZero) {
+                        endListener.startFromZeroListener();
+                        isStartFromZero = false;
+                    }
+                }
+                if (ProgressImageView.this.progress >= isStartPercentTime) {
                     startAlpha();
                 }
                 Log.e("aaaaaaa", "ProgressImageView.this.progress:" + ProgressImageView.this.progress);
@@ -261,7 +288,9 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
 
         void endListener();//执行完毕回调
 
-        void startListener();//进度到一定比列回调
+        void startPercentListener();//进度到一定比列回调
+
+        void startFromZeroListener();//开始播放了
     }
 
     @Override
