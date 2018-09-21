@@ -13,8 +13,8 @@
 
     <RelativeLayout
         android:id="@+id/iv_left_re"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:layout_marginBottom="100dp"
@@ -22,11 +22,10 @@
 
         <anim.bro.com.animdemo.util.RedPacketAnimView
             android:id="@+id/iv_left"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
             android:layout_centerInParent="true"
-            tools:clipChildren="true"
-            tools:src="@drawable/red"/>
+            tools:src="@drawable/red_big_middle"/>
 
         <anim.bro.com.animdemo.ProgressImageView
             android:id="@+id/progressImg"
@@ -37,10 +36,10 @@
 
     <ImageView
         android:id="@+id/iv_middle"
-        android:src="@drawable/red"
-        android:layout_centerInParent="true"
         android:layout_width="200dp"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/red_big_middle"/>
 
 
     <ImageView
@@ -49,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/iv_left_re"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/guide_bubble"/>
+        android:src="@drawable/guide_bubble"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/iv_guide_middle_content"
@@ -57,7 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/iv_left_re"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/red_login"/>
+        android:src="@drawable/red_login"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/iv_right"
@@ -121,7 +122,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-10dp"
         android:text="+¥3.6"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

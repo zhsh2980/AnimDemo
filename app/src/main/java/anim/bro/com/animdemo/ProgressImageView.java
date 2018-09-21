@@ -25,8 +25,8 @@ import static android.graphics.Paint.Style.STROKE;
 public class ProgressImageView extends android.support.v7.widget.AppCompatImageView {
 
     private int outsideColor = ContextCompat.getColor(getContext(), android.R.color.holo_red_light);    //进度的颜色
-    private float outsideRadius = 30f;    //外圆半径大小
-    private float progressWidth = 3f;    //圆环的宽度
+    private float outsideRadius = 23f;    //外圆半径大小
+    private float progressWidth = 5f;    //圆环的宽度
     private int maxProgress = 100;    //最大进度
     private float progress = 0f;    //当前进度
     private int direction = 1;    //进度从哪里开始(设置了4个值,上左下右)
