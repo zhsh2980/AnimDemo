@@ -263,8 +263,8 @@ public class RedPacketAnimView extends AppCompatImageView {
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(tvPriceBottomView, "translationY", curTranslationY, curTranslationY - 300f, curTranslationY - 350f);
         ObjectAnimator alpha = ObjectAnimator.ofFloat(tvPriceBottomView, "alpha", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(guideSecondView, "scaleX", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(guideSecondView, "scaleY", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvPriceBottomView, "scaleX", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0.3f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvPriceBottomView, "scaleY", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0.3f);
 
         //------------------------------先走文字缩小--------------------------------
         animatorPriceView = new AnimatorSet();
