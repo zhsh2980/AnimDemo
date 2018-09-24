@@ -25,8 +25,8 @@ import static android.graphics.Paint.Style.STROKE;
 public class ProgressImageView extends android.support.v7.widget.AppCompatImageView {
 
     private int outsideColor = ContextCompat.getColor(getContext(), android.R.color.holo_red_light);    //进度的颜色
-    private float outsideRadius = 30f;    //外圆半径大小
-    private float progressWidth = 3f;    //圆环的宽度
+    private float outsideRadius = 23f;    //外圆半径大小
+    private float progressWidth = 5f;    //圆环的宽度
     private int maxProgress = 100;    //最大进度
     private float progress = 0f;    //当前进度
     private int direction = 1;    //进度从哪里开始(设置了4个值,上左下右)
@@ -36,8 +36,10 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
     private long animTime = 3000;//动画时间
     private long delayAnimTime = 300;//延迟执行
 
-    private long isStartTime = 75;//延迟执行
-    private boolean isStart = true;//执行一定时间进行回调
+    private long isStartPercentTime = 75;//延迟执行
+    private boolean isStartPercent = true;//执行一定时间进行回调
+    private boolean isStartFromZero = true;//执行一定时间进行回调
+    private boolean isSetProgress = true;//手动传值
 
     enum DirectionEnum {
         LEFT(0, 180.0f),
@@ -135,19 +137,67 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
         canvas.drawArc(oval, DirectionEnum.getDegree(direction), 360 * (progress / maxProgress), false, paint);  //根据进度画圆弧
     }
 
+    public synchronized void setProgress(EndListener listener) {
+        setProgress(100, listener);
+    }
+
     //加锁保证线程安全,能在线程中使用 progress 表示最大到多少,支持不到最大
-    public synchronized void setProgress(int progress) {
-        setVisibility(VISIBLE);
-        ProgressImageView.this.setAlpha(1f);
-        isAlpha = true;
+    public synchronized void setProgress(int progress, EndListener listener) {
         if (progress < 0) {
             throw new IllegalArgumentException("progress should not be less than 0");
         }
+        setEndListener(listener);
+        setVisibility(VISIBLE);
+        ProgressImageView.this.setAlpha(1f);
+        isAlpha = true;
         if (progress > maxProgress) {
             progress = maxProgress;
         }
         stopAnim();
         startAnim(progress);
+    }
+
+
+    /**
+     * 外界传值操作
+     *
+     * @param progress
+     * @param isSetProgress 是否需要进度
+     */
+    public void setProgress(float progress, boolean isSetProgress, EndListener listener) {
+        setEndListener(listener);
+        isStartFromZero = true;
+        if (isSetProgress) {
+            if (progress < 0) {
+                throw new IllegalArgumentException("progress should not be less than 0");
+            }
+            setVisibility(VISIBLE);
+
+            if (ProgressImageView.this.progress >= 0) {
+                if (endListener != null && isStartFromZero) {
+                    endListener.startFromZeroListener();
+                    isStartFromZero = false;
+                }
+            }
+
+            this.progress = progress;
+            postInvalidate();
+
+            ProgressImageView.this.setAlpha(1f);
+            if (progress >= maxProgress) {
+                if (endListener != null) {
+                    endListener.endListener();
+                    setVisibility(GONE);
+                    ProgressImageView.this.progress = 0;
+                    postInvalidate();
+//                    stopAnim();
+                }
+            }
+//            else {
+//                this.progress = progress;
+//                postInvalidate();
+//            }
+        }
     }
 
     /**
@@ -166,19 +216,26 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
     }
 
     private void startAnim(float startProgress) {
-        isStart = true;
+        isStartPercent = true;
+        isStartFromZero = true;
         animator = ObjectAnimator.ofFloat(0, startProgress);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 ProgressImageView.this.progress = (float) animation.getAnimatedValue();
-                if (ProgressImageView.this.progress >= isStartTime) {
-                    if (endListener != null && isStart) {
-                        endListener.startListener();
-                        isStart = false;
+                if (ProgressImageView.this.progress >= isStartPercentTime) {
+                    if (endListener != null && isStartPercent) {
+                        endListener.startPercentListener();
+                        isStartPercent = false;
                     }
                 }
-                if (ProgressImageView.this.progress >= isStartTime) {
+                if (ProgressImageView.this.progress >= 0) {
+                    if (endListener != null && isStartFromZero) {
+                        endListener.startFromZeroListener();
+                        isStartFromZero = false;
+                    }
+                }
+                if (ProgressImageView.this.progress >= isStartPercentTime) {
                     startAlpha();
                 }
                 Log.e("aaaaaaa", "ProgressImageView.this.progress:" + ProgressImageView.this.progress);
@@ -231,7 +288,9 @@ public class ProgressImageView extends android.support.v7.widget.AppCompatImageV
 
         void endListener();//执行完毕回调
 
-        void startListener();//进度到一定比列回调
+        void startPercentListener();//进度到一定比列回调
+
+        void startFromZeroListener();//开始播放了
     }
 
     @Override

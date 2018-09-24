@@ -4,11 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
 
     <RelativeLayout
         android:id="@+id/iv_left_re"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:layout_marginBottom="100dp"
@@ -16,11 +25,10 @@
 
         <anim.bro.com.animdemo.util.RedPacketAnimView
             android:id="@+id/iv_left"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
             android:layout_centerInParent="true"
-            tools:clipChildren="true"
-            tools:src="@drawable/red" />
+            tools:src="@drawable/red_big_middle" />
 
         <anim.bro.com.animdemo.ProgressImageView
             android:id="@+id/progressImg"
@@ -29,14 +37,11 @@
             android:layout_centerInParent="true" />
     </RelativeLayout>
 
-
-    <ImageView
+    <anim.bro.com.animdemo.UpSeeMoreView
         android:id="@+id/iv_bg_red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/iv_left_re"
-        android:layout_alignBottom="@id/tv_price_bottom_view"
-        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
         android:src="@drawable/bg_red" />
 
     <ImageView
@@ -45,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/iv_left_re"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/guide_bubble" />
+        android:src="@drawable/guide_bubble"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/iv_guide_middle_content"
@@ -53,7 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/iv_left_re"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/red_login" />
+        android:src="@drawable/red_login"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/iv_right"
@@ -64,13 +71,12 @@
         android:layout_marginBottom="120dp"
         android:background="@color/colorPrimary" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
         android:layout_marginTop="50dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
@@ -78,21 +84,35 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="第一次引导" />
+            android:text="首次引导" />
 
         <Button
             android:id="@+id/btn_guide"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="第二次引导" />
+            android:text="二次引导" />
 
         <Button
-            android:id="@+id/btn_normal"
+            android:id="@+id/btn_price"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="正常红包" />
+            android:text="价格飞" />
+
+        <Button
+            android:id="@+id/btn_normal_out"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="传值" />
+
+        <Button
+            android:id="@+id/btn_normal_restart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="从头走" />
     </LinearLayout>
 
     <TextView
@@ -103,7 +123,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-10dp"
         android:text="+¥3.6"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

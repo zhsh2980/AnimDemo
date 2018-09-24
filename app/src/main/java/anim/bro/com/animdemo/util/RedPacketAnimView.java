@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -35,7 +36,13 @@ public class RedPacketAnimView extends AppCompatImageView {
     private float curTranslationY;
     //红包每一次从头飞时,是否暂停过
     boolean isStoped = false;
+    //第三种动画,价格是否出现过
+    boolean isShownPrice = false;
+    AnimatorSet animatorSetGuideFirst;
     AnimatorSet animatorSetGuide;
+    AnimatorSet animatorNormal;
+    AnimatorSet animatorSetSecondView;  //组合动画
+    AnimatorSet animatorPriceView;  //组合动画
 
     public RedPacketAnimView(Context context) {
         this(context, null);
@@ -54,10 +61,10 @@ public class RedPacketAnimView extends AppCompatImageView {
      * 气泡缩小 + 圆形精度条 --> 圆形精度条缩小 --> 红包弧形飞 + 先变大后变小
      */
     public void startGuideFirstAnim() {
-
         if (endView == null) return;
         if (guideFirstView == null) return;
         setVisibility(View.VISIBLE);
+        guideFirstView.setVisibility(VISIBLE);
 
         LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
 
@@ -121,7 +128,7 @@ public class RedPacketAnimView extends AppCompatImageView {
                 setTranslationX(0);//回到原点
                 setTranslationY(0);//回到原点
                 LogUtils.i("动画结束之后坐标是: " + "pos.x + pos.y: " + pos.x + ":" + pos.y);
-//                        setVisibility(View.INVISIBLE);
+                setVisibility(View.INVISIBLE);
                 endView.clearAnimation();
                 Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.add_tab_shake_anim);
                 endView.startAnimation(shake);
@@ -133,11 +140,11 @@ public class RedPacketAnimView extends AppCompatImageView {
 //        animatorSet.start();
 
         //------------------------------动画集合--------------------------------
-        AnimatorSet animatorSet_textContent = new AnimatorSet();  //组合动画
-        animatorSet_textContent.setDuration(1000);  //动画时间
-        animatorSet_textContent.setInterpolator(new AccelerateInterpolator());  //设置插值器
-        animatorSet_textContent.play(scaleX).with(scaleY).with(alpha).before(animatorSet);  //同时执行
-        animatorSet_textContent.start();  //启动动画
+        animatorSetGuideFirst = new AnimatorSet();//组合动画
+        animatorSetGuideFirst.setDuration(1000);  //动画时间
+        animatorSetGuideFirst.setInterpolator(new AccelerateInterpolator());  //设置插值器
+        animatorSetGuideFirst.play(scaleX).with(scaleY).with(alpha).before(animatorSet);  //同时执行
+        animatorSetGuideFirst.start();  //启动动画
     }
 
     /**
@@ -146,8 +153,11 @@ public class RedPacketAnimView extends AppCompatImageView {
      */
     public void startGuideLoginAnim() {
         if (endView == null) return;
-
         setVisibility(View.VISIBLE);
+        guideSecondView.setVisibility(VISIBLE);
+        guideSecondView.setAlpha(0f);
+        guideSecondView.setScaleX(0.1f);
+        guideSecondView.setScaleY(0.1f);
 //        LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
         //----------------------------文案放大缩小--------------------------------
         //---------------------------文字的缩小和渐变-------------------------
@@ -157,7 +167,6 @@ public class RedPacketAnimView extends AppCompatImageView {
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(guideSecondView, "scaleY", 0f, 1.0f, 1.0f, 1.0f, 0);
         ObjectAnimator alpha = ObjectAnimator.ofFloat(guideSecondView, "alpha", 0f, 1.0f, 1.0f, 1.0f, 0);
         //------------------------------先走文字缩小--------------------------------
-        final AnimatorSet animatorSetSecondView;  //组合动画
         animatorSetSecondView = new AnimatorSet();
         animatorSetSecondView.setDuration(4000);  //动画时间
         animatorSetSecondView.setInterpolator(new AccelerateInterpolator());  //设置插值器
@@ -184,7 +193,7 @@ public class RedPacketAnimView extends AppCompatImageView {
                 setScaleY(scale);
             }
         });
-        valueAnimator1.setInterpolator(new AccelerateInterpolator());
+        valueAnimator1.setInterpolator(new LinearInterpolator());
 
         valueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -193,14 +202,14 @@ public class RedPacketAnimView extends AppCompatImageView {
                 setTranslationY(value - pos.y);
             }
         });
-        valueAnimator2.setInterpolator(new AccelerateInterpolator());
+        valueAnimator2.setInterpolator(new LinearInterpolator());
         valueAnimator2.setEvaluator(new TypeEvaluator<Float>() {
             @Override
             public Float evaluate(float fraction, Float startValue, Float endValue) {
                 if (fraction > 0.47 && !isStoped) {
                     pauseSet();
                     isStoped = !isStoped;
-                    // TODO: 2018/9/19 开始文案放大缩小的动画
+                    // 开始文案放大缩小的动画
                     animatorSetSecondView.start();  //启动动画
                 }
                 int[] screenWidthAndHeight = UIUtils.getScreenWidthAndHeight();
@@ -220,7 +229,7 @@ public class RedPacketAnimView extends AppCompatImageView {
                 setTranslationX(0);//回到原点
                 setTranslationY(0);//回到原点
                 isStoped = false;
-//                        setVisibility(View.INVISIBLE);
+                setVisibility(View.INVISIBLE);
                 endView.clearAnimation();
                 Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.add_tab_shake_anim);
                 endView.startAnimation(shake);
@@ -235,7 +244,7 @@ public class RedPacketAnimView extends AppCompatImageView {
                 resumeSet();
                 LogUtils.i("resumeSet");
             }
-        }, 6000);
+        }, 5000);
     }
 
 
@@ -246,23 +255,22 @@ public class RedPacketAnimView extends AppCompatImageView {
      */
     public void startNormalAnim() {
         if (endView == null) return;
-
         setVisibility(View.VISIBLE);
+//        tvPriceBottomView.setVisibility(VISIBLE);
 //        LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
         //----------------------------文案放大缩小--------------------------------
         //---------------------------文字的缩小和渐变-------------------------
-
-        ObjectAnimator animator = ObjectAnimator.ofFloat(tvPriceBottomView, "translationY", curTranslationY, curTranslationY - 300f, curTranslationY - 350f);
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(tvPriceBottomView, "alpha", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(guideSecondView, "scaleX", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(guideSecondView, "scaleY", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
-
-        //------------------------------先走文字缩小--------------------------------
-        final AnimatorSet animatorPriceView;  //组合动画
-        animatorPriceView = new AnimatorSet();
-        animatorPriceView.setDuration(1200);  //动画时间
-        animatorPriceView.setInterpolator(new AccelerateInterpolator());  //设置插值器
-        animatorPriceView.play(scaleX).with(scaleY).with(alpha).with(animator);  //同时执行
+//
+//        ObjectAnimator animator = ObjectAnimator.ofFloat(tvPriceBottomView, "translationY", curTranslationY, curTranslationY - 300f, curTranslationY - 350f);
+//        ObjectAnimator alpha = ObjectAnimator.ofFloat(tvPriceBottomView, "alpha", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+//        ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvPriceBottomView, "scaleX", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0.3f);
+//        ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvPriceBottomView, "scaleY", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0.3f);
+//
+//        //------------------------------先走文字缩小--------------------------------
+//        animatorPriceView = new AnimatorSet();
+//        animatorPriceView.setDuration(1200);  //动画时间
+//        animatorPriceView.setInterpolator(new AccelerateInterpolator());  //设置插值器
+//        animatorPriceView.play(scaleX).with(scaleY).with(alpha).with(animator);  //同时执行
 
         //----------------------------弧形--------------------------------
         final ValueAnimator valueAnimator1 = ValueAnimator.ofFloat(0, 1);
@@ -298,21 +306,20 @@ public class RedPacketAnimView extends AppCompatImageView {
         valueAnimator2.setEvaluator(new TypeEvaluator<Float>() {
             @Override
             public Float evaluate(float fraction, Float startValue, Float endValue) {
-                if (fraction > 0.3 && !isStoped) {
-//                    pauseSet();
-                    isStoped = !isStoped;
-                    // TODO: 2018/9/19 开始文案放大缩小的动画
-                    animatorPriceView.start();  //启动动画
-                }
+//                if (fraction > 0.3 && !isShownPrice) {
+//                    isShownPrice = !isShownPrice;
+//                    // TODO: 2018/9/19 开始文案放大缩小的动画
+//                    animatorPriceView.start();  //启动动画
+//                }
                 int[] screenWidthAndHeight = UIUtils.getScreenWidthAndHeight();
                 return (1 - fraction) * (1 - fraction) * pos.y + 2 * fraction * (1 - fraction) * screenWidthAndHeight[1] * 0.5f + fraction * fraction * endPos.y;
             }
         });
 
         //-------------------------弧形-------------------------------
-        animatorSetGuide = new AnimatorSet();
-        animatorSetGuide.playTogether(valueAnimator1, valueAnimator2);
-        animatorSetGuide.addListener(new AnimatorListenerAdapter() {
+        animatorNormal = new AnimatorSet();
+        animatorNormal.playTogether(valueAnimator1, valueAnimator2);
+        animatorNormal.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 setAlpha(1f);
@@ -325,16 +332,16 @@ public class RedPacketAnimView extends AppCompatImageView {
 //                tvPriceBottomView.setAlpha(0);
 //                tvPriceBottomView.setScaleX(1);
 //                tvPriceBottomView.setScaleY(1);
-                isStoped = false;
-//                        setVisibility(View.INVISIBLE);
+//                isShownPrice = false;
+                setVisibility(View.INVISIBLE);
                 endView.clearAnimation();
                 Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.add_tab_shake_anim);
                 endView.startAnimation(shake);
             }
 
         });
-        animatorSetGuide.setDuration(1000);
-        animatorSetGuide.start();
+        animatorNormal.setDuration(1000);
+        animatorNormal.start();
 //        postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -345,6 +352,24 @@ public class RedPacketAnimView extends AppCompatImageView {
 
     }
 
+    public void startMoneyTextAnim(String moneyText) {
+        tvPriceBottomView.setVisibility(VISIBLE);
+        tvPriceBottomView.setAlpha(0f);
+        tvPriceBottomView.setScaleX(0.1f);
+        tvPriceBottomView.setScaleY(0.1f);
+        ((TextView) tvPriceBottomView).setText("+" + moneyText);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(tvPriceBottomView, "translationY", curTranslationY, curTranslationY - 300f, curTranslationY - 350f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(tvPriceBottomView, "alpha", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvPriceBottomView, "scaleX", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvPriceBottomView, "scaleY", 0.3f, 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+
+        //------------------------------先走文字缩小--------------------------------
+        animatorPriceView = new AnimatorSet();
+        animatorPriceView.setDuration(1200);  //动画时间
+        animatorPriceView.setInterpolator(new AccelerateInterpolator());  //设置插值器
+        animatorPriceView.play(scaleX).with(scaleY).with(alpha).with(animator);  //同时执行
+        animatorPriceView.start();
+    }
 
     public void pauseSet() {
         animatorSetGuide.pause();
@@ -363,9 +388,12 @@ public class RedPacketAnimView extends AppCompatImageView {
         this.guideFirstView = guideFirstView;
         this.guideSecondView = guideSecondView;
         this.tvPriceBottomView = tvPriceBottomView;
-        this.guideFirstView.setAlpha(0);
-        this.guideSecondView.setAlpha(0);
-        this.tvPriceBottomView.setAlpha(0);
+        this.guideFirstView.setVisibility(INVISIBLE);
+        this.guideSecondView.setVisibility(INVISIBLE);
+        this.tvPriceBottomView.setVisibility(INVISIBLE);
+//        this.guideFirstView.setAlpha(0);
+//        this.guideSecondView.setAlpha(0);
+//        this.tvPriceBottomView.setAlpha(0);
         if (this.tvPriceBottomView != null) {
             curTranslationY = this.tvPriceBottomView.getTranslationY();
         }
@@ -387,6 +415,42 @@ public class RedPacketAnimView extends AppCompatImageView {
             endPos.x = outLocation[0];
             endPos.y = outLocation[1];
         }
+    }
+
+    /**
+     * 取消动画
+     */
+    public void cancleAnim() {
+        if (animatorSetGuideFirst != null) {
+            animatorSetGuideFirst.cancel();
+            guideFirstView.setScaleX(0);
+            guideFirstView.setScaleY(0);
+            guideFirstView.setAlpha(0);
+        }
+        if (animatorSetGuide != null) {
+            animatorSetGuide.cancel();
+            if (animatorSetSecondView != null) {
+                animatorSetSecondView.end();
+            }
+        }
+        if (animatorNormal != null) {
+            animatorNormal.cancel();
+            if (animatorPriceView != null) {
+                animatorPriceView.end();
+            }
+        }
+
+        if (endView != null) {
+            endView.clearAnimation();
+        }
+
+        //红包出现
+        setVisibility(VISIBLE);
+        setAlpha(1f);
+        setScaleX(1);
+        setScaleY(1);
+        setTranslationX(0);//回到原点
+        setTranslationY(0);//回到原点
     }
 
 
