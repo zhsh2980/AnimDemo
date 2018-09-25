@@ -24,6 +24,7 @@
         android:layout_marginLeft="10dp">
 
         <anim.bro.com.animdemo.util.RedPacketAnimView
+            android:visibility="invisible"
             android:id="@+id/iv_left"
             android:layout_width="32dp"
             android:layout_height="35dp"
@@ -31,6 +32,7 @@
             tools:src="@drawable/red_big_middle" />
 
         <anim.bro.com.animdemo.ProgressImageView
+            android:visibility="invisible"
             android:id="@+id/progressImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -113,6 +115,13 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:text="从头走" />
+
+        <Button
+            android:id="@+id/btn_red_fly"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="红包走" />
     </LinearLayout>
 
     <TextView

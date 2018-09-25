@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
         redpacketView.setEndView(ivRight);
         redpacketView.setGuideView(ivGuideView, ivGuideMiddleView, tvPriceBottomView);
         //首次进页面或者下拉刷新调用
-        redpacketView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                redpacketView.setStartViewPosition();
-            }
-        }, 500);
+//        redpacketView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                redpacketView.setStartViewPosition();
+//            }
+//        }, 500);
 
     }
 
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_price, R.id.btn_normal_out, R.id.btn_normal_restart})
+    @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_price, R.id.btn_normal_out, R.id.btn_normal_restart,R.id.btn_red_fly})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_guide_first:
@@ -221,6 +221,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_normal_restart:
                 progress = 0;
+                break;
+            case R.id.btn_red_fly:
+
+                redpacketView.startNormalAnim();
+
                 break;
         }
 

@@ -24,7 +24,7 @@ import anim.bro.com.animdemo.R;
 public class RedPacketAnimView extends AppCompatImageView {
 
     private Pos pos;
-    private Pos endPos;
+//    private Pos endPos;
     private View endView;
     //红包上方的引导文案
     private View guideFirstView;
@@ -63,6 +63,19 @@ public class RedPacketAnimView extends AppCompatImageView {
     public void startGuideFirstAnim() {
         if (endView == null) return;
         if (guideFirstView == null) return;
+
+        int[] outLocation = new int[2];
+        if (pos == null || pos.x == 0 || pos.y == 0) {
+            pos = new Pos();
+            getLocationInWindow(outLocation);
+            pos.x = outLocation[0];
+            pos.y = outLocation[1];
+        }
+        endView.getLocationInWindow(outLocation);
+        final Pos endPos = new Pos();
+        endPos.x = outLocation[0];
+        endPos.y = outLocation[1];
+
         setVisibility(View.VISIBLE);
         guideFirstView.setVisibility(VISIBLE);
 
@@ -153,6 +166,19 @@ public class RedPacketAnimView extends AppCompatImageView {
      */
     public void startGuideLoginAnim() {
         if (endView == null) return;
+
+        int[] outLocation = new int[2];
+        if (pos == null || pos.x == 0 || pos.y == 0) {
+            pos = new Pos();
+            getLocationInWindow(outLocation);
+            pos.x = outLocation[0];
+            pos.y = outLocation[1];
+        }
+        endView.getLocationInWindow(outLocation);
+        final Pos endPos = new Pos();
+        endPos.x = outLocation[0];
+        endPos.y = outLocation[1];
+
         setVisibility(View.VISIBLE);
         guideSecondView.setVisibility(VISIBLE);
         guideSecondView.setAlpha(0f);
@@ -255,6 +281,19 @@ public class RedPacketAnimView extends AppCompatImageView {
      */
     public void startNormalAnim() {
         if (endView == null) return;
+
+        int[] outLocation = new int[2];
+        if (pos == null || pos.x == 0 || pos.y == 0) {
+            pos = new Pos();
+            getLocationInWindow(outLocation);
+            pos.x = outLocation[0];
+            pos.y = outLocation[1];
+        }
+        endView.getLocationInWindow(outLocation);
+        final Pos endPos = new Pos();
+        endPos.x = outLocation[0];
+        endPos.y = outLocation[1];
+
         setVisibility(View.VISIBLE);
 //        tvPriceBottomView.setVisibility(VISIBLE);
 //        LogUtils.i("pos.x + pos.y: " + pos.x + ":" + pos.y + " -------endPos.x + endPos.y: " + endPos.x + ":" + +endPos.y);
@@ -399,23 +438,23 @@ public class RedPacketAnimView extends AppCompatImageView {
         }
     }
 
-    public void setStartViewPosition() {
-        if (pos == null) {
-            int[] outLocation = new int[2];
-            pos = new Pos();
-            this.getLocationInWindow(outLocation);
-            LogUtils.i("首次 getLocationInWindow 坐标是: " + outLocation[0] + ":" + outLocation[1]);
-            pos.x = outLocation[0];
-            pos.y = outLocation[1];
-        }
-        if (endPos == null && endView != null) {
-            int[] outLocation = new int[2];
-            endView.getLocationInWindow(outLocation);
-            endPos = new Pos();
-            endPos.x = outLocation[0];
-            endPos.y = outLocation[1];
-        }
-    }
+//    public void setStartViewPosition() {
+//        if (pos == null) {
+//            int[] outLocation = new int[2];
+//            pos = new Pos();
+//            this.getLocationInWindow(outLocation);
+//            LogUtils.i("首次 getLocationInWindow 坐标是: " + outLocation[0] + ":" + outLocation[1]);
+//            pos.x = outLocation[0];
+//            pos.y = outLocation[1];
+//        }
+//        if (endPos == null && endView != null) {
+//            int[] outLocation = new int[2];
+//            endView.getLocationInWindow(outLocation);
+//            endPos = new Pos();
+//            endPos.x = outLocation[0];
+//            endPos.y = outLocation[1];
+//        }
+//    }
 
     /**
      * 取消动画
