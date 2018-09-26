@@ -1,11 +1,14 @@
 package anim.bro.com.animdemo;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,10 +44,11 @@ public class MainActivity extends AppCompatActivity {
     Button btnGuide;
     @BindView(R.id.btn_price)
     Button btnPrice;
-    @BindView(R.id.iv_bg_red)
-    UpSeeMoreView ivBgRed;
+//    @BindView(R.id.iv_bg_red)
+//    UpSeeMoreView ivBgRed;
 
     private float progress;
+    View redBackground;
 
     private int mTouchShop;//最小滑动距离
     protected float mFirstY;//触摸下去的位置
@@ -71,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         initListView();
 
+        initRedBackground();
+
         redpacketView.setImageResource(R.drawable.red_big_middle);
         redpacketView.setEndView(ivRight);
         redpacketView.setGuideView(ivGuideView, ivGuideMiddleView, tvPriceBottomView);
@@ -82,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }, 500);
 
+    }
+
+    private void initRedBackground() {
+        redBackground = getRedBackground(this);
     }
 
     private void initListView() {
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (direction == 1) {//判断如果是向上滑动 则执行向上滑动的动画
 //                            ivMiddle.setVisibility(View.GONE);
-                            ivBgRed.setVisibility(View.GONE);
+//                            ivBgRed.setVisibility(View.GONE);
 
                             if (mShow) {//判断动画是否执行了 执行了则改变状态
                                 //执行往上滑动的动画
@@ -116,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         } else if (direction == 0) {//判断如果是向下滑动 则执行向下滑动的动画
 //                            ivMiddle.setVisibility(View.VISIBLE);
-                            ivBgRed.setVisibility(View.VISIBLE);
+//                            ivBgRed.setVisibility(View.VISIBLE);
                             if (!mShow) {//判断动画是否执行了 执行了则改变状态
                                 //执行往下滑动的动画
 //                                tolbarAnim(0);
@@ -133,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_price, R.id.btn_normal_out, R.id.btn_normal_restart,R.id.btn_red_fly})
-    public void onViewClicked(View view) {
+    @OnClick({R.id.btn_guide_first, R.id.btn_guide, R.id.btn_price, R.id.btn_normal_out, R.id.btn_normal_restart, R.id.btn_red_fly})
+    public void onViewClicked2(View view) {
         switch (view.getId()) {
             case R.id.btn_guide_first:
 //                redpacketView.cancleAnim();
@@ -231,4 +241,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private View getRedBackground(Activity activity) {
+        UpSeeMoreView upSeeMoreView = new UpSeeMoreView(this);
+//        View view = LayoutInflater.from(activity).inflate(R.layout.sv_video_tip_to_login, null);
+        FrameLayout contentView = (FrameLayout) activity.findViewById(android.R.id.content);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        contentView.addView(upSeeMoreView, layoutParams);
+        upSeeMoreView.setVisibility(View.INVISIBLE);
+        return upSeeMoreView;
+    }
+
+    @OnClick({R.id.btn_bg_show, R.id.btn_bg_hide, R.id.btn_id_exist})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_bg_show:
+                redBackground.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_bg_hide:
+                redBackground.setVisibility(View.GONE);
+                break;
+            case R.id.btn_id_exist:
+                findIdExist();
+                redBackground.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private boolean findIdExist() {
+        View view = findViewById(R.id.rela_root);
+        if (view != null) {
+            ToastUtils.showShort("id 存在");
+            return true;
+        }
+        ToastUtils.showShort("id 不存在");
+        return false;
+    }
 }

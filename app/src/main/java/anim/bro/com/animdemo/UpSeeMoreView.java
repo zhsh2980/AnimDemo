@@ -4,7 +4,9 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,6 +21,12 @@ public class UpSeeMoreView extends RelativeLayout {
     private View view_white_line;
     private ImageView iv_hand_image;
 
+    private float mPosX;
+    private float mPosY;
+    private float mCurPosX;
+    private float mCurPosY;
+    private boolean isUpInvisible = true;
+
     public UpSeeMoreView(Context context) {
         this(context, null);
     }
@@ -30,6 +38,7 @@ public class UpSeeMoreView extends RelativeLayout {
     public UpSeeMoreView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+        setOnUpInvisible();
     }
 
     private void init(Context context) {
@@ -59,6 +68,46 @@ public class UpSeeMoreView extends RelativeLayout {
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setRepeatMode(ValueAnimator.RESTART);
         animator.start();
+    }
+
+    private void setOnUpInvisible() {
+        setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        mPosX = event.getX();
+                        mPosY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mCurPosX = event.getX();
+                        mCurPosY = event.getY();
+                        if (mCurPosY - mPosY > 0
+                                && (Math.abs(mCurPosY - mPosY) > 25)) {
+                            //向下滑動
+                        } else if (mCurPosY - mPosY < 0
+                                && (Math.abs(mCurPosY - mPosY) > 25)) {
+                            //向上滑动
+                            if (isUpInvisible) {
+                                Log.i("bro", "mCurPosY: " + mCurPosY + "-----mPosY: " + mPosY);
+                                setVisibility(GONE);
+                            }
+                        }
+
+                        break;
+                }
+                return true;
+            }
+
+        });
+
+    }
+
+    public void setUpInvisible(boolean isUpInvisible) {
+        this.isUpInvisible = isUpInvisible;
     }
 
 

@@ -24,27 +24,28 @@
         android:layout_marginLeft="10dp">
 
         <anim.bro.com.animdemo.util.RedPacketAnimView
-            android:visibility="invisible"
             android:id="@+id/iv_left"
             android:layout_width="32dp"
             android:layout_height="35dp"
             android:layout_centerInParent="true"
+            android:visibility="invisible"
             tools:src="@drawable/red_big_middle" />
 
         <anim.bro.com.animdemo.ProgressImageView
-            android:visibility="invisible"
             android:id="@+id/progressImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
     </RelativeLayout>
 
-    <anim.bro.com.animdemo.UpSeeMoreView
-        android:id="@+id/iv_bg_red"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/bg_red" />
+    <!--<anim.bro.com.animdemo.UpSeeMoreView-->
+        <!--android:id="@+id/iv_bg_red"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:visibility="invisible"-->
+        <!--android:src="@drawable/bg_red" />-->
 
     <ImageView
         android:id="@+id/iv_guide_content"
@@ -122,6 +123,37 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:text="红包走" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_bg_show"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="蒙层显示" />
+
+        <Button
+            android:id="@+id/btn_bg_hide"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="蒙层消失" />
+
+        <Button
+            android:id="@+id/btn_id_exist"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="id 存在否" />
+
     </LinearLayout>
 
     <TextView
