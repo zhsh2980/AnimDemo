@@ -80,13 +80,14 @@ public class RedNewAnimView extends AppCompatImageView {
             public void onAnimationCancel(Animator animation) {
                 super.onAnimationCancel(animation);
                 isFront = false;
-
+                setVisibility(GONE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 isFront = false;
+                setVisibility(GONE);
             }
         });
     }
