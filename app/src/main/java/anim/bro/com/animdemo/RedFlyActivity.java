@@ -16,16 +16,13 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 import anim.bro.com.animdemo.util.RedPacketAnimView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class RedFlyActivity extends AppCompatActivity {
 
     @BindView(R.id.rela_activi_root)
     RelativeLayout rela_activi_root;
@@ -283,18 +280,19 @@ public class MainActivity extends AppCompatActivity {
                 redBackground.setVisibility(View.GONE);
                 break;
             case R.id.btn_glide_invisible:
-                Glide.with(this).load("http://mp5.jmstatic.com/mobile/api/other/icon/red_bubble.png").listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        ivGuideMiddleView.setVisibility(View.INVISIBLE);
-                        return false;
-                    }
-                }).into(ivGuideMiddleView);
+//                Glide.with(this).load("http://mp5.jmstatic.com/mobile/api/other/icon/red_bubble.png").listener(new RequestListener<String, GlideDrawable>() {
+//                    @Override
+//                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                        ivGuideMiddleView.setVisibility(View.INVISIBLE);
+//                        return false;
+//                    }
+//                }).into(ivGuideMiddleView);
+                Glide.with(this).load("http://mp5.jmstatic.com/mobile/api/other/icon/red_bubble.png").into(ivGuideMiddleView);
                 break;
         }
     }

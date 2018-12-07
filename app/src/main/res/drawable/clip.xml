@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-</resources>
+<clip xmlns:android="http://schemas.android.com/apk/res/android"
+      android:clipOrientation="vertical"
+      android:drawable="@drawable/guide_bubble"
+      android:gravity="top">
+</clip>

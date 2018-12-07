@@ -1,83 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/rela_activi_root"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipChildren="false">>
+                android:layout_height="match_parent">>
 
-    <ListView
-        android:id="@+id/lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_red"
-        android:visibility="gone"/>
-
-    <RelativeLayout
-        android:id="@+id/iv_left_re"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="10dp">
-
-        <anim.bro.com.animdemo.util.RedPacketAnimView
-            android:id="@+id/iv_left"
-            android:layout_width="32dp"
-            android:layout_height="35dp"
-            android:layout_centerInParent="true"
-            android:visibility="invisible"
-            tools:src="@drawable/red_big_middle"/>
-
-        <anim.bro.com.animdemo.ProgressImageView
-            android:id="@+id/progressImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="invisible"/>
-    </RelativeLayout>
-
-    <!--<anim.bro.com.animdemo.UpSeeMoreView-->
-    <!--android:id="@+id/iv_bg_red"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:visibility="invisible"-->
-    <!--android:src="@drawable/bg_red" />-->
-
-    <ImageView
-        android:id="@+id/iv_guide_content"
-        android:layout_width="175dp"
-        android:layout_height="46dp"
-        android:layout_above="@+id/iv_left_re"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/guide_bubble"
-        android:visibility="invisible"/>
-
-    <ImageView
-        android:id="@+id/iv_guide_middle_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/iv_left_re"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/red_login"
-        android:visibility="invisible"/>
-
-    <ImageView
-        android:id="@+id/iv_right"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="120dp"
-        android:background="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,96 +13,27 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_guide_first"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="首次引导"/>
-
-        <Button
-            android:id="@+id/btn_guide"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="二次引导"/>
-
-        <Button
-            android:id="@+id/btn_price"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="价格飞"/>
-
-        <Button
-            android:id="@+id/btn_normal_out"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="传值"/>
-
-        <Button
-            android:id="@+id/btn_normal_restart"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="从头走"/>
-
-        <Button
             android:id="@+id/btn_red_fly"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="红包走"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+            android:text="打开红包飞"/>
 
         <Button
-            android:id="@+id/btn_bg_show"
+            android:id="@+id/btn_praise"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="蒙层显示"/>
+            android:text="打开点赞"/>
 
         <Button
-            android:id="@+id/btn_bg_hide"
+            android:id="@+id/btn_red_new"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="蒙层消失"/>
-
-        <Button
-            android:id="@+id/btn_id_exist"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="id 存在否"/>
-
-        <Button
-            android:id="@+id/btn_glide_invisible"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="glide_invisible"/>
+            android:text="跳转到 red new activity"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_price_bottom_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-10dp"
-        android:text="+¥3.6"
-        android:textSize="15dp"
-        android:visibility="invisible"/>
 
 
 </RelativeLayout>

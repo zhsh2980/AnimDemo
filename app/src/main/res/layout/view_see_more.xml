@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rela_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_red">
+                android:id="@+id/rela_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_red"/>
 
     <anim.bro.com.animdemo.GestureLineView
         android:id="@+id/view_white_line"
@@ -11,7 +17,7 @@
         android:layout_height="130dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="30dp"/>
 
     <ImageView
         android:id="@+id/iv_hand_image"
@@ -21,6 +27,6 @@
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="-10dp"
         android:layout_toRightOf="@+id/view_white_line"
-        android:src="@drawable/hand_image" />
+        android:src="@drawable/hand_image"/>
 
 </RelativeLayout>

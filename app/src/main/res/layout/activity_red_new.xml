@@ -1,10 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RedNewActivity">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_border">
+
+        <!--小点位移-->
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/iv_round_point_1"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:radius="3dp"
+            app:ring_color="@color/colorAccent"
+            app:ring_width="3dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/iv_round_point_2"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:radius="3dp"
+            app:ring_color="@color/colorPrimary"
+            app:ring_width="3dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/iv_round_point_3"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:radius="3dp"
+            app:ring_color="@color/colorPrimaryDark"
+            app:ring_width="3dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/round_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/round_view_2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/round_view_3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <anim.bro.com.animdemo.util.RedNewAnimView
+            android:id="@+id/iv_red_move"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/red"
+            android:visibility="invisible"/>
+
+        <anim.bro.com.animdemo.view.SwapAnimImageView
+            android:id="@+id/iv_red_origin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/red"/>
+
+
+        <anim.bro.com.animdemo.view.clipImageView
+            android:id="@+id/iv_clip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/clip"/>
+
+        <anim.bro.com.animdemo.view.clipImageView
+            android:id="@+id/iv_clip_view_2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/clip_2"/>
+
+        <anim.bro.com.animdemo.view.ClipProgressView
+            android:id="@+id/iv_progress_clip_view"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_toRightOf="@+id/iv_red_origin"
+            android:background="@drawable/shape_progress_bg"
+            android:src="@drawable/clip_progress"/>
+
+        <ImageView
+            android:id="@+id/iv_3d"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/red"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_red_translate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="放大平移"/>
+
+        <Button
+            android:id="@+id/btn_cicle_expand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="圆环扩散"/>
+
+        <Button
+            android:id="@+id/btn_pop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="小气泡"/>
+
+        <Button
+            android:id="@+id/btn_coin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="硬币位移"/>
+
+        <Button
+            android:id="@+id/btn_3d"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3D 旋转"/>
+
+        <Button
+            android:id="@+id/btn_clip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="裁剪"/>
+
+        <Button
+            android:id="@+id/btn_progress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="进度"/>
+
+        <Button
+            android:id="@+id/btn_radar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="转圈"/>
+
+    </LinearLayout>
+
+</FrameLayout>

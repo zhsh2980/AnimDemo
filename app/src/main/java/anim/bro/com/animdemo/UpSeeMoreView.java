@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -51,7 +52,7 @@ public class UpSeeMoreView extends RelativeLayout {
         int minHeight = UIUtils.dip2px(30);
         final int maxHeight = UIUtils.dip2px(130);
         ValueAnimator animator = ValueAnimator.ofInt(minHeight, maxHeight);
-        animator.setDuration(2000);
+        animator.setDuration(1100);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -67,6 +68,7 @@ public class UpSeeMoreView extends RelativeLayout {
         });
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setRepeatMode(ValueAnimator.RESTART);
+        animator.setInterpolator(new DecelerateInterpolator());
         animator.start();
     }
 
