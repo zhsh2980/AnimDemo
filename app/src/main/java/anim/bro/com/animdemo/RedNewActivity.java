@@ -164,7 +164,7 @@ public class RedNewActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_red_translate:
-//                mIvRedMove.setAnimViewReal(mIvRedOrigin);
+                mIvRedMove.setAnimViewReal(mIvRedOrigin);
                 mIvRedMove.startRedNewAnim();
                 break;
             case R.id.btn_cicle_expand:
