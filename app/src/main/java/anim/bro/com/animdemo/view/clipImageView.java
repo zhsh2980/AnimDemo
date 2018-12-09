@@ -177,7 +177,7 @@ public class clipImageView extends AppCompatImageView {
 
     }
 
-    private void resetAnim() {
+    public void resetAnim() {
         if (mAnimatorSet != null && mAnimatorSet.isRunning()) {
             mAnimatorSet.cancel();
         }

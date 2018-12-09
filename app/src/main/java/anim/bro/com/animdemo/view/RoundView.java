@@ -26,7 +26,7 @@ import anim.bro.com.animdemo.R;
  * 自定义进度圆环
  */
 public class RoundView extends View {
-    
+
     private final String TAG = "RoundView";
 
     // Y轴坐标
@@ -121,7 +121,6 @@ public class RoundView extends View {
 
         int size = MeasureSpec.getSize(widthMeasureSpec);
 
-
         if (mode == MeasureSpec.EXACTLY) {
             width = size;
         } else {
@@ -193,17 +192,17 @@ public class RoundView extends View {
     }
 
     public void startCircleAnim(final int startRadius, final int endRadius) {
-        resetCircleAnim();
+        resetAnim();
         setVisibility(VISIBLE);
         //1.实心圆先放大
 //        final int startRadius = ConvertUtils.px2dp(mRadius);
         //半径变化范围
-        mCircleAnimator = ValueAnimator.ofInt(startRadius, endRadius);
+        mCircleAnimator = ValueAnimator.ofFloat(startRadius, endRadius);
         mCircleAnimator.setDuration(500);
         mCircleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (Integer) animation.getAnimatedValue();
+                float value = (float) animation.getAnimatedValue();
 
                 mRadius = ConvertUtils.dp2px(value);
 
@@ -234,8 +233,9 @@ public class RoundView extends View {
     }
 
     public void startTranslateAnim(int xOffset, int yOffset, long duration) {
-        resetCircleAnim();
+        resetAnim();
         setVisibility(VISIBLE);
+        setAlpha(1.0f);
 //        setAlpha(0.5f);
         //X坐标变化
         mTranslateXAnimator = ValueAnimator.ofFloat(curTranslationX, curTranslationX + xOffset);
@@ -256,13 +256,14 @@ public class RoundView extends View {
             }
         });
 
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(this, "scaleX", 1.0f, 1.8F, 0f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(this, "scaleY", 1.0f, 1.8F, 0f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(this, "scaleX", 1.0f, 1.8F, 0.2f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(this, "scaleY", 1.0f, 1.8F, 0.2f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(this, "alpha", 1.0f, 1.0f, 1.0f, 0f);
 
         mTranslateAnimSet = new AnimatorSet();
         mTranslateAnimSet.setDuration(duration);
         mTranslateAnimSet.setInterpolator(new LinearInterpolator());
-        mTranslateAnimSet.playTogether(mTranslateXAnimator, mTranslateYAnimator, scaleX, scaleY);
+        mTranslateAnimSet.playTogether(mTranslateXAnimator, mTranslateYAnimator, scaleX, scaleY, alpha);
         mTranslateAnimSet.start();
         mTranslateAnimSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -280,7 +281,7 @@ public class RoundView extends View {
 
     }
 
-    private void resetCircleAnim() {
+    public void resetAnim() {
         if (mCircleAnimator != null && mCircleAnimator.isRunning()) {
             mCircleAnimator.cancel();
         }

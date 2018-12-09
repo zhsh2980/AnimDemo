@@ -11,7 +11,7 @@
     <!--android:color="#66a5fd">-->
     <!--</stroke>-->
     <solid
-        android:color="#E02270"
+        android:color="@color/jumeired"
         >
 
     </solid>

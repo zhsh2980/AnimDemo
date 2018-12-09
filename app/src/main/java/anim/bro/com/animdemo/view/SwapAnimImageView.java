@@ -118,7 +118,7 @@ public class SwapAnimImageView extends AppCompatImageView {
     }
 
     public void startAnim() {
-        startAnim(2000);
+        startAnim(1900);
     }
 
     public void startAnim(long duration) {
@@ -149,7 +149,7 @@ public class SwapAnimImageView extends AppCompatImageView {
         });
     }
 
-    private void resetAnim() {
+    public void resetAnim() {
         if (mAnimator != null && mAnimator.isRunning()) {
             mAnimator.cancel();
         }

@@ -45,6 +45,10 @@ public class RedNewAnimView extends AppCompatImageView {
     }
 
     public void startRedNewAnim() {
+        startRedNewAnim(720);
+    }
+
+    public void startRedNewAnim(long duration) {
         resetAnim();
         setVisibility(VISIBLE);
         float max = 1.3f;
@@ -70,7 +74,7 @@ public class RedNewAnimView extends AppCompatImageView {
             }
         });
         mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.setDuration(800);
+        mAnimatorSet.setDuration(duration);
         mAnimatorSet.setInterpolator(new LinearInterpolator());
         mAnimatorSet.playTogether(scaleX, scaleY, animTranstationY);
         mAnimatorSet.setStartDelay(200);
@@ -92,7 +96,7 @@ public class RedNewAnimView extends AppCompatImageView {
         });
     }
 
-    private void resetAnim() {
+    public void resetAnim() {
         if (mAnimatorSet != null && mAnimatorSet.isRunning()) {
             mAnimatorSet.cancel();
         }

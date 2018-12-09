@@ -14,54 +14,123 @@
         android:layout_gravity="center"
         android:background="@drawable/shape_border">
 
-        <!--小点位移-->
+        <!-- ↓↓↓↓↓↓ 小点位移  ↓↓↓↓↓↓ -->
         <anim.bro.com.animdemo.view.RoundView
             android:id="@+id/iv_round_point_1"
+            style="@style/round_view_small_pop"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            app:radius="3dp"
-            app:ring_color="@color/colorAccent"
-            app:ring_width="3dp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="55dp"
+            app:radius="2dp"
+            app:ring_color="@color/jumeired"
+            app:ring_width="2dp"/>
 
         <anim.bro.com.animdemo.view.RoundView
             android:id="@+id/iv_round_point_2"
+            style="@style/round_view_small_pop"
             android:layout_width="12dp"
             android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="130dp"
+            android:layout_marginBottom="35dp"
             app:radius="3dp"
-            app:ring_color="@color/colorPrimary"
+            app:ring_color="@color/social_tag_4"
             app:ring_width="3dp"/>
 
         <anim.bro.com.animdemo.view.RoundView
             android:id="@+id/iv_round_point_3"
+            style="@style/round_view_small_pop"
             android:layout_width="12dp"
             android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="15dp"
             app:radius="3dp"
-            app:ring_color="@color/colorPrimaryDark"
+            app:ring_color="@color/jumeired"
             app:ring_width="3dp"/>
 
         <anim.bro.com.animdemo.view.RoundView
-            android:id="@+id/round_view"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/iv_round_point_4"
+            style="@style/round_view_small_pop"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginBottom="3dp"
+            app:radius="1.5dp"
+            app:ring_color="@color/social_tag_2"
+            app:ring_width="1.5dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/iv_round_point_5"
+            style="@style/round_view_small_pop"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="65dp"
+            android:layout_marginBottom="3dp"
+            app:radius="3dp"
+            app:ring_color="@color/social_tag_2"
+            app:ring_width="3dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/iv_round_point_6"
+            style="@style/round_view_small_pop"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="95dp"
+            android:layout_marginBottom="17dp"
+            app:radius="3dp"
+            app:ring_color="@color/social_tag_2"
+            app:ring_width="3dp"/>
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/iv_round_point_7"
+            style="@style/round_view_small_pop"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginBottom="55dp"
+            app:radius="2dp"
+            app:ring_color="@color/social_tag_2"
+            app:ring_width="2dp"/>
+
+        <!-- ↑↑↑↑↑↑ 小点位移  ↑↑↑↑↑↑ -->
+
+        <anim.bro.com.animdemo.view.RoundView
+            android:id="@+id/round_view"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentBottom="true"/>
 
         <anim.bro.com.animdemo.view.RoundView
             android:id="@+id/round_view_2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="70dp"/>
 
         <anim.bro.com.animdemo.view.RoundView
             android:id="@+id/round_view_3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="25dp"/>
+
+        <anim.bro.com.animdemo.view.ClipProgressView
+            android:id="@+id/iv_progress_clip_view"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/shape_progress_bg"
+            android:src="@drawable/clip_progress"/>
 
         <anim.bro.com.animdemo.util.RedNewAnimView
             android:id="@+id/iv_red_move"
@@ -101,21 +170,15 @@
             android:layout_marginBottom="30dp"
             android:src="@drawable/clip_2"/>
 
-        <anim.bro.com.animdemo.view.ClipProgressView
-            android:id="@+id/iv_progress_clip_view"
-            android:layout_width="60dp"
-            android:layout_height="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
-            android:layout_toRightOf="@+id/iv_red_origin"
-            android:background="@drawable/shape_progress_bg"
-            android:src="@drawable/clip_progress"/>
 
         <ImageView
             android:id="@+id/iv_3d"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:src="@drawable/red"/>
 
 

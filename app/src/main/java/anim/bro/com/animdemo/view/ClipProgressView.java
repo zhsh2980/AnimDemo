@@ -5,6 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.ClipDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
@@ -21,6 +25,7 @@ public class ClipProgressView extends AppCompatImageView {
     private ClipDrawable mClipDrawable;
     // Y轴坐标
     private AnimatorSet mAnimatorSet;
+    private Paint mPaint;
 
     public ClipProgressView(Context context) {
         this(context, null);
@@ -37,14 +42,45 @@ public class ClipProgressView extends AppCompatImageView {
 
     private void init() {
         mClipDrawable = (ClipDrawable) getDrawable();
+
+        mPaint = new Paint();
+        mPaint.setStrokeWidth(3);
+        mPaint.setTextSize(38);
+        mPaint.setColor(Color.WHITE);
+        mPaint.setTextAlign(Paint.Align.LEFT);
+
     }
 
     //供外界设置进度
-    public void setLevel(int level) {
+    public void setLevel(int fromSize, int totalSize) {
+        int level = fromSize * 10000 / totalSize;
         mClipDrawable.setLevel(level);
     }
 
-    public void setClipProgressAnimView(int fromSize , int gotoSize, int totalSize) {
+    String textMiddle = "";
+
+    public void setText(int fromSize, int totalSize) {
+        fromSize = Math.min(fromSize, totalSize);
+        this.textMiddle = "剩" + (totalSize - fromSize) + "个";
+        invalidate();
+    }
+
+    public void setTextColor(int color) {
+        mPaint.setColor(color);
+        invalidate();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+//        textMiddle = "剩15个";
+        Rect bounds = new Rect();
+        mPaint.getTextBounds(textMiddle, 0, textMiddle.length(), bounds);
+        canvas.drawText(textMiddle, getMeasuredWidth() / 2 - bounds.width() / 2, getMeasuredHeight() / 2 + bounds.height() / 2, mPaint);
+    }
+
+    public void setClipProgressAnimView(int fromSize, final int gotoSize, final int totalSize) {
         resetAnim();
         setVisibility(VISIBLE);
         int level = fromSize * 10000 / totalSize;
@@ -73,13 +109,14 @@ public class ClipProgressView extends AppCompatImageView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                setText(gotoSize, totalSize);
             }
         });
 
 
     }
 
-    private void resetAnim() {
+    public void resetAnim() {
         if (mAnimatorSet != null && mAnimatorSet.isRunning()) {
             mAnimatorSet.cancel();
         }
