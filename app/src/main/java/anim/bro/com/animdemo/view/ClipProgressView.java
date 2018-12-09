@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.animation.LinearInterpolator;
 
 /**
@@ -20,9 +19,7 @@ public class ClipProgressView extends AppCompatImageView {
 
     private ValueAnimator mClipAnimator;
     private ClipDrawable mClipDrawable;
-    private int mHeight;
     // Y轴坐标
-    private float curTranslationY;
     private AnimatorSet mAnimatorSet;
 
     public ClipProgressView(Context context) {
@@ -39,15 +36,6 @@ public class ClipProgressView extends AppCompatImageView {
     }
 
     private void init() {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                int viewWidth = getWidth();
-                mHeight = getHeight();
-                curTranslationY = getTranslationY();
-                Log.d(TAG, "viewWidth:" + viewWidth + "\nviewHeight:" + mHeight);
-            }
-        });
         mClipDrawable = (ClipDrawable) getDrawable();
     }
 
@@ -56,10 +44,10 @@ public class ClipProgressView extends AppCompatImageView {
         mClipDrawable.setLevel(level);
     }
 
-    public void setClipProgressAnimView(int gotoSize, int totalSize) {
+    public void setClipProgressAnimView(int fromSize , int gotoSize, int totalSize) {
         resetAnim();
         setVisibility(VISIBLE);
-        int level = mClipDrawable.getLevel();
+        int level = fromSize * 10000 / totalSize;
         int clipSize = gotoSize * 10000 / totalSize;
         //裁剪动画
         mClipAnimator = ValueAnimator.ofInt(level, clipSize);

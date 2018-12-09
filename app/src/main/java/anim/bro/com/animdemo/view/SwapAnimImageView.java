@@ -118,10 +118,14 @@ public class SwapAnimImageView extends AppCompatImageView {
     }
 
     public void startAnim() {
+        startAnim(2000);
+    }
+
+    public void startAnim(long duration) {
         resetAnim();
         isAnimRunning = true;
         mAnimator = ValueAnimator.ofInt(360, 0);
-        mAnimator.setDuration(2000);
+        mAnimator.setDuration(duration);
         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
