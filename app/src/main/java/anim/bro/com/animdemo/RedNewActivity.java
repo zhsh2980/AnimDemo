@@ -183,6 +183,7 @@ public class RedNewActivity extends AppCompatActivity {
             }
         }
     };
+    private HideShopAnimUtil mShopAnimUtil;
 
     //小点位移动画
     private void startPopAnim1() {
@@ -219,6 +220,9 @@ public class RedNewActivity extends AppCompatActivity {
         //初始化进度条个数
         mIvProgressClipView.setText(5, 20);
         mIvProgressClipView.setLevel(5, 20);
+
+        //隐藏购物车
+        mShopAnimUtil = new HideShopAnimUtil(mIvShop, mIvShopShort);
     }
 
     @OnClick({R.id.btn_red_translate, R.id.btn_cicle_expand,
@@ -304,12 +308,19 @@ public class RedNewActivity extends AppCompatActivity {
         mIvRedOrigin.resetAnim();
     }
 
-
-    @OnClick(R.id.btn_show_shop)
-    public void onShopViewClicked() {
-        //购物按钮显示
-        HideShopAnimUtil hideShopAnimUtil = new HideShopAnimUtil();
-        hideShopAnimUtil.setGuideView(this, mIvShop, mIvShopShort);
-        hideShopAnimUtil.showShopView();
+    @OnClick({R.id.iv_shop_short, R.id.btn_show_shop})
+    public void onShowViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_shop_short:
+                //购物按钮显示
+                mShopAnimUtil.resetAnim();
+                mShopAnimUtil.showShopView();
+                break;
+            case R.id.btn_show_shop:
+                //购物按钮显示
+                mShopAnimUtil.resetAnim();
+                mShopAnimUtil.showShopView();
+                break;
+        }
     }
 }
