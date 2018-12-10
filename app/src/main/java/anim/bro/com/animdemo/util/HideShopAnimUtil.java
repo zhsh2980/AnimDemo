@@ -136,7 +136,7 @@ public class HideShopAnimUtil {
                 shopView.setTranslationX(value);
             }
         });
-        mTranstationX2.setDuration(300);
+        mTranstationX2.setDuration(1000);
 
         //位移动画
         mTranstationXShort2 = ValueAnimator.ofFloat(curTranslationXShort + mWidthShort, curTranslationXShort);
