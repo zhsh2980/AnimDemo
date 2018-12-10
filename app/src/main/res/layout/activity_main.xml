@@ -33,6 +33,14 @@
             android:layout_weight="1"
             android:text="跳转到 red new activity"/>
 
+
+        <Button
+            android:id="@+id/btn_null"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="测试 null"/>
+
     </LinearLayout>
 
 

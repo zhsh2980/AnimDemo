@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import anim.bro.com.animdemo.util.HideShopAnimUtil;
 import anim.bro.com.animdemo.util.RedNewAnimView;
 import anim.bro.com.animdemo.view.ClipProgressView;
 import anim.bro.com.animdemo.view.Rotate3dAnimation;
@@ -85,6 +86,14 @@ public class RedNewActivity extends AppCompatActivity {
     RoundView mIvRoundPoint6;
     @BindView(R.id.iv_round_point_7)
     RoundView mIvRoundPoint7;
+    @BindView(R.id.iv_shop_short)
+    ImageView mIvShopShort;
+    @BindView(R.id.iv_shop)
+    ImageView mIvShop;
+    @BindView(R.id.btn_anim_all)
+    Button mBtnAnimAll;
+    @BindView(R.id.btn_show_shop)
+    Button mBtnShowShop;
     //从 0 开始
     private int mCountStart = 0;
 
@@ -266,6 +275,7 @@ public class RedNewActivity extends AppCompatActivity {
         Toast.makeText(this, "点我了", Toast.LENGTH_SHORT).show();
     }
 
+    //开始所有动画
     @OnClick(R.id.btn_anim_all)
     public void onBtnAllClicked() {
         //1. 移除消息
@@ -295,4 +305,11 @@ public class RedNewActivity extends AppCompatActivity {
     }
 
 
+    @OnClick(R.id.btn_show_shop)
+    public void onShopViewClicked() {
+        //购物按钮显示
+        HideShopAnimUtil hideShopAnimUtil = new HideShopAnimUtil();
+        hideShopAnimUtil.setGuideView(this, mIvShop, mIvShopShort);
+        hideShopAnimUtil.showShopView();
+    }
 }
