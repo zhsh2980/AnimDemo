@@ -284,4 +284,13 @@
         android:layout_weight="1"
         android:text="显示购物按钮"/>
 
+    <Button
+        android:id="@+id/btn_cancel_pop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="40dp"
+        android:layout_weight="1"
+        android:text="淡化气泡"/>
+
 </FrameLayout>
