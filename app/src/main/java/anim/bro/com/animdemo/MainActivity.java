@@ -2,15 +2,11 @@ package anim.bro.com.animdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.blankj.utilcode.util.ActivityUtils;
 
-import anim.bro.com.animdemo.bean.TestBean;
-import anim.bro.com.animdemo.bean.TestBean2;
-import anim.bro.com.animdemo.bean.TestBean3;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,21 +49,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nullClick() {
-
-        TestBean3 testBean3 = new TestBean3();
-        testBean3.setStr("test3");
-
-        TestBean2 testBean2 = new TestBean2();
-        testBean2.setStr("test2");
-        testBean2.setGetTestBean3(testBean3);
-
-        TestBean testBean = new TestBean();
-        testBean.setStr("test1");
-        testBean.setGetTestBean2(testBean2);
-
-        String str = testBean.getGetTestBean2().getGetTestBean3().getStr();
-         Log.i(TAG , str);
-
 
     }
     

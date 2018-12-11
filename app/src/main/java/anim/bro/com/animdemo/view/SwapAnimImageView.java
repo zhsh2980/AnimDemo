@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
@@ -31,6 +32,8 @@ public class SwapAnimImageView extends AppCompatImageView {
     private ValueAnimator mAnimator;
 
     boolean isAnimRunning = false;
+
+    boolean mIsSetGrey = false;
 
     public SwapAnimImageView(Context context) {
         super(context);
@@ -57,7 +60,7 @@ public class SwapAnimImageView extends AppCompatImageView {
 
         transparentColor = Color.parseColor("#884D4D4D");
 
-        redPacketBitmap = getSrcBitmap();
+        getSrcBitmap();
 
 //        redPacketBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.red);
 
@@ -75,7 +78,7 @@ public class SwapAnimImageView extends AppCompatImageView {
         //画红包图片，画到方块正中央
         canvas.drawBitmap(redPacketBitmap, (getWidth() - redPacketBitmap.getWidth()) / 2, (getHeight() - redPacketBitmap.getHeight()) / 2, mPaint);
 
-        if (isAnimRunning) {
+        if (isAnimRunning || mIsSetGrey) {
 
             mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
             //画半透明扫描的View，持续更新，实现动画
@@ -88,12 +91,25 @@ public class SwapAnimImageView extends AppCompatImageView {
     }
 
     /**
+     * 体力值不足设置红包为灰色
+     *
+     * @param isSetGrey
+     */
+    public void setImageGrey(boolean isSetGrey) {
+        mIsSetGrey = isSetGrey;
+        swapValue = -360;
+        invalidate();
+    }
+
+    /**
      * 每次加载图片之前要调用一下这个方法
      *
      * @return
      */
     public Bitmap getSrcBitmap() {
-        return ((BitmapDrawable) getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) getDrawable()).getBitmap();
+        redPacketBitmap = bitmap;
+        return bitmap;
     }
 
     public Bitmap createSrcBitmap(int width, int height) {
@@ -145,6 +161,14 @@ public class SwapAnimImageView extends AppCompatImageView {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 isAnimRunning = false;
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setImageGrey(true);
+                    }
+                }, 3000);
+
             }
         });
     }
