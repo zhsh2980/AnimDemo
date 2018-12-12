@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:background="@drawable/shape_border">
+
+    <!-- ↓↓↓↓↓↓ 小点位移  ↓↓↓↓↓↓ -->
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_1"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="55dp"
+        app:radius="2dp"
+        app:ring_color="@color/jumeired"
+        app:ring_width="2dp"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_2"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="130dp"
+        android:layout_marginBottom="35dp"
+        app:radius="3dp"
+        app:ring_color="@color/social_tag_4"
+        app:ring_width="3dp"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_3"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="15dp"
+        app:radius="3dp"
+        app:ring_color="@color/jumeired"
+        app:ring_width="3dp"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_4"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="3dp"
+        app:radius="1.5dp"
+        app:ring_color="@color/social_tag_2"
+        app:ring_width="1.5dp"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_5"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="65dp"
+        android:layout_marginBottom="3dp"
+        app:radius="3dp"
+        app:ring_color="@color/social_tag_2"
+        app:ring_width="3dp"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_6"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="95dp"
+        android:layout_marginBottom="17dp"
+        app:radius="3dp"
+        app:ring_color="@color/social_tag_2"
+        app:ring_width="3dp"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/iv_round_point_7"
+        style="@style/round_view_small_pop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginBottom="55dp"
+        app:radius="2dp"
+        app:ring_color="@color/social_tag_2"
+        app:ring_width="2dp"/>
+
+    <!-- ↑↑↑↑↑↑ 小点位移  ↑↑↑↑↑↑ -->
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/round_view"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/round_view_2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="70dp"
+        android:visibility="invisible"/>
+
+    <anim.bro.com.animdemo.view.RoundView
+        android:id="@+id/round_view_3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="25dp"
+        android:visibility="invisible"/>
+
+    <anim.bro.com.animdemo.view.ClipProgressView
+        android:id="@+id/iv_progress_clip_view"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/shape_progress_bg"
+        android:src="@drawable/clip_progress"/>
+
+    <anim.bro.com.animdemo.view.RedNewAnimView
+        android:id="@+id/iv_red_move"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/red"
+        android:visibility="invisible"/>
+
+    <anim.bro.com.animdemo.view.SwapAnimImageView
+        android:id="@+id/iv_red_origin"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/red"/>
+
+
+    <anim.bro.com.animdemo.view.clipImageView
+        android:id="@+id/iv_clip_view"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/clip"/>
+
+    <anim.bro.com.animdemo.view.clipImageView
+        android:id="@+id/iv_clip_view_2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/clip_2"/>
+
+
+    <ImageView
+        android:id="@+id/iv_3d"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/red"/>
+
+    <ImageView
+        android:id="@+id/iv_shop_short"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_progress_bg"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/iv_shop"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="-45dp"
+        android:background="@drawable/shape_progress"
+        android:visibility="visible"
+        tools:visibility="visible"/>
+
+</RelativeLayout>
