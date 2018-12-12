@@ -16,7 +16,7 @@ import android.widget.ImageView;
 /**
  * Created by zhangshan on 2018/12/7 16:06.
  */
-public class clipImageView extends AppCompatImageView {
+public class ClipImageView extends AppCompatImageView {
 
     private final String TAG = "clipImageView";
 
@@ -34,15 +34,15 @@ public class clipImageView extends AppCompatImageView {
     private ValueAnimator mTranstationY;
     private ValueAnimator mTranstationY_1_2;
 
-    public clipImageView(Context context) {
+    public ClipImageView(Context context) {
         this(context, null);
     }
 
-    public clipImageView(Context context, AttributeSet attrs) {
+    public ClipImageView(Context context, AttributeSet attrs) {
         this(context, attrs, -1);
     }
 
-    public clipImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ClipImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

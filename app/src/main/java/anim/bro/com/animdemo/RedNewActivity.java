@@ -23,7 +23,7 @@ import anim.bro.com.animdemo.view.ClipProgressView;
 import anim.bro.com.animdemo.view.Rotate3dAnimation;
 import anim.bro.com.animdemo.view.RoundView;
 import anim.bro.com.animdemo.view.SwapAnimImageView;
-import anim.bro.com.animdemo.view.clipImageView;
+import anim.bro.com.animdemo.view.ClipImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -65,11 +65,11 @@ public class RedNewActivity extends AppCompatActivity {
     @BindView(R.id.iv_round_point_3)
     RoundView mIvRoundPoint3;
     @BindView(R.id.iv_clip_view)
-    clipImageView mIvClipView;
+    ClipImageView mIvClipView;
     @BindView(R.id.btn_clip)
     Button mBtnClip;
     @BindView(R.id.iv_clip_view_2)
-    clipImageView mIvClipView2;
+    ClipImageView mIvClipView2;
     @BindView(R.id.iv_progress_clip_view)
     ClipProgressView mIvProgressClipView;
     @BindView(R.id.btn_progress)
