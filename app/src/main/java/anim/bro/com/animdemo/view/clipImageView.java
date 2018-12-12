@@ -177,6 +177,26 @@ public class clipImageView extends AppCompatImageView {
 
     }
 
+
+    public void stopAnimSetAlpha() {
+
+        if (mAnimatorSet != null ) {
+            mAnimatorSet.pause();
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(this, "alpha", 1.0f, 0f);
+            alpha.setDuration(300);
+            alpha.setInterpolator(new LinearInterpolator());
+            alpha.start();
+        }
+        if (mAnimatorSet2 != null ) {
+            mAnimatorSet2.pause();
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(iv2ndView, "alpha", 1.0f, 0f);
+            alpha.setDuration(300);
+            alpha.setInterpolator(new LinearInterpolator());
+            alpha.start();
+        }
+
+    }
+
     public void resetAnim() {
         if (mAnimatorSet != null && mAnimatorSet.isRunning()) {
             mAnimatorSet.cancel();

@@ -308,7 +308,7 @@ public class RedNewActivity extends AppCompatActivity {
         mIvRedOrigin.resetAnim();
     }
 
-    @OnClick({R.id.iv_shop_short, R.id.btn_show_shop})
+    @OnClick({R.id.iv_shop_short, R.id.btn_show_shop , R.id.btn_cancel_pop})
     public void onShowViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_shop_short:
@@ -320,6 +320,10 @@ public class RedNewActivity extends AppCompatActivity {
                 //购物按钮显示
                 mShopAnimUtil.resetAnim();
                 mShopAnimUtil.showShopView();
+                break;
+            case R.id.btn_cancel_pop:
+                //购物按钮显示
+               mIvClipView.stopAnimSetAlpha();
                 break;
         }
     }
