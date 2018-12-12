@@ -152,24 +152,32 @@
             android:layout_marginLeft="15dp"
             android:src="@drawable/red"/>
 
-
-        <anim.bro.com.animdemo.view.ClipImageView
-            android:id="@+id/iv_clip_view"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+        <RelativeLayout
+            android:id="@+id/wrapper"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/clip"/>
-
-        <anim.bro.com.animdemo.view.ClipImageView
-            android:id="@+id/iv_clip_view_2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/clip_2"/>
+            android:layout_height="wrap_content">
+
+            <anim.bro.com.animdemo.view.TransTextView
+                android:visibility="invisible"
+                android:id="@+id/iv_clip_view"
+                android:layout_width="190dp"
+                android:layout_height="23dp"
+                android:background="@color/background_color_ee"
+                android:gravity="center"
+                android:text="1哈哈哈哈你是王八蛋"/>
+
+            <anim.bro.com.animdemo.view.TransTextView
+                android:id="@+id/iv_clip_view_2"
+                android:layout_width="190dp"
+                android:layout_height="23dp"
+                android:background="@color/background_color_ee"
+                android:gravity="center"
+                android:text="哈哈哈哈你是王八蛋"
+                android:visibility="invisible"/>
+        </RelativeLayout>
 
 
         <ImageView
