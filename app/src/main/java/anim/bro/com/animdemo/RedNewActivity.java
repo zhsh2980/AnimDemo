@@ -94,6 +94,10 @@ public class RedNewActivity extends AppCompatActivity {
     Button mBtnAnimAll;
     @BindView(R.id.btn_show_shop)
     Button mBtnShowShop;
+    @BindView(R.id.wrapper)
+    RelativeLayout mWrapper;
+    @BindView(R.id.btn_cancel_pop)
+    Button mBtnCancelPop;
     //从 0 开始
     private int mCountStart = 0;
 
@@ -215,7 +219,7 @@ public class RedNewActivity extends AppCompatActivity {
     private void initData() {
 
         //向上翻的 view
-        mIvClipView.set2ndIvView(mIvClipView2);
+        mIvClipView.setView(mIvClipView2 , mWrapper);
 
         //初始化进度条个数
         mIvProgressClipView.setText(5, 20);
@@ -261,7 +265,8 @@ public class RedNewActivity extends AppCompatActivity {
             case R.id.btn_clip:
 //                ClipDrawable drawable = (ClipDrawable) mIvClipView.getDrawable();
 //                drawable.setLevel(5000);
-                mIvClipView.setClipAnim();
+//                mIvClipView.setClipAnim();
+                mIvClipView.startGreyAnim();
                 break;
             case R.id.btn_progress:
                 mIvProgressClipView.setClipProgressAnimView(5, 6, 20);
@@ -308,7 +313,7 @@ public class RedNewActivity extends AppCompatActivity {
         mIvRedOrigin.resetAnim();
     }
 
-    @OnClick({R.id.iv_shop_short, R.id.btn_show_shop , R.id.btn_cancel_pop})
+    @OnClick({R.id.iv_shop_short, R.id.btn_show_shop, R.id.btn_cancel_pop})
     public void onShowViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_shop_short:
@@ -323,7 +328,7 @@ public class RedNewActivity extends AppCompatActivity {
                 break;
             case R.id.btn_cancel_pop:
                 //购物按钮显示
-               mIvClipView.stopAnimSetAlpha();
+                mIvClipView.stopAnimSetAlpha();
                 break;
         }
     }

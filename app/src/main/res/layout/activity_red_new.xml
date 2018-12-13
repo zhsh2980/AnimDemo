@@ -22,8 +22,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="55dp"
             android:layout_marginLeft="80dp"
+            android:layout_marginBottom="55dp"
             app:radius="2dp"
             app:ring_color="@color/jumeired"
             app:ring_width="2dp"/>
@@ -34,8 +34,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="35dp"
             android:layout_marginLeft="130dp"
+            android:layout_marginBottom="35dp"
             app:radius="3dp"
             app:ring_color="@color/social_tag_4"
             app:ring_width="3dp"/>
@@ -46,8 +46,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginBottom="15dp"
             app:radius="3dp"
             app:ring_color="@color/jumeired"
             app:ring_width="3dp"/>
@@ -58,8 +58,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginBottom="3dp"
             app:radius="1.5dp"
             app:ring_color="@color/social_tag_2"
             app:ring_width="1.5dp"/>
@@ -70,8 +70,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
             android:layout_marginLeft="65dp"
+            android:layout_marginBottom="3dp"
             app:radius="3dp"
             app:ring_color="@color/social_tag_2"
             app:ring_width="3dp"/>
@@ -82,8 +82,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="17dp"
             android:layout_marginLeft="95dp"
+            android:layout_marginBottom="17dp"
             app:radius="3dp"
             app:ring_color="@color/social_tag_2"
             app:ring_width="3dp"/>
@@ -94,8 +94,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="55dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginBottom="55dp"
             app:radius="2dp"
             app:ring_color="@color/social_tag_2"
             app:ring_width="2dp"/>
@@ -120,16 +120,16 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="25dp"/>
 
         <anim.bro.com.animdemo.view.ClipProgressView
             android:id="@+id/iv_progress_clip_view"
             android:layout_width="60dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="28dp"
             android:layout_marginLeft="50dp"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/shape_progress_bg"
             android:src="@drawable/clip_progress"/>
 
@@ -138,8 +138,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
             android:src="@drawable/red"
             android:visibility="invisible"/>
 
@@ -148,31 +148,33 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
             android:src="@drawable/red"/>
 
         <RelativeLayout
             android:id="@+id/wrapper"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="50dp">
 
             <anim.bro.com.animdemo.view.TransTextView
-                android:visibility="invisible"
                 android:id="@+id/iv_clip_view"
-                android:layout_width="190dp"
+                android:layout_width="wrap_content"
                 android:layout_height="23dp"
+                android:layout_alignParentBottom="true"
                 android:background="@color/background_color_ee"
                 android:gravity="center"
-                android:text="1哈哈哈哈你是王八蛋"/>
+                android:text="1哈哈哈哈你是王八蛋"
+                android:visibility="invisible"/>
 
             <anim.bro.com.animdemo.view.TransTextView
                 android:id="@+id/iv_clip_view_2"
-                android:layout_width="190dp"
+                android:layout_width="wrap_content"
                 android:layout_height="23dp"
+                android:layout_alignParentBottom="true"
                 android:background="@color/background_color_ee"
                 android:gravity="center"
                 android:text="哈哈哈哈你是王八蛋"
@@ -184,10 +186,10 @@
             android:id="@+id/iv_3d"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:src="@drawable/red"/>
 
         <ImageView
