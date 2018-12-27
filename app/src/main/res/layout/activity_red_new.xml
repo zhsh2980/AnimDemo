@@ -125,18 +125,18 @@
 
         <anim.bro.com.animdemo.view.ClipProgressView
             android:id="@+id/iv_progress_clip_view"
-            android:layout_width="60dp"
+            android:layout_width="45dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginBottom="23dp"
             android:background="@drawable/shape_progress_bg"
             android:src="@drawable/clip_progress"/>
 
         <anim.bro.com.animdemo.util.RedNewAnimView
             android:id="@+id/iv_red_move"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="39dp"
+            android:layout_height="42dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="15dp"
@@ -145,12 +145,12 @@
 
         <anim.bro.com.animdemo.view.SwapAnimImageView
             android:id="@+id/iv_red_origin"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="39dp"
+            android:layout_height="42dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/red"/>
+            android:src="@drawable/red_new"/>
 
         <RelativeLayout
             android:id="@+id/wrapper"
@@ -158,26 +158,33 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="5dp"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="105dp">
 
             <anim.bro.com.animdemo.view.TransTextView
                 android:id="@+id/iv_clip_view"
                 android:layout_width="wrap_content"
                 android:layout_height="23dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/background_color_ee"
+                android:background="@drawable/pink"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:text="1哈哈哈哈你是王八蛋"
-                android:visibility="invisible"/>
+                android:maxEms="14"
+                android:maxLines="1"
+                android:text="哈哈呵呵呵呵"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                />
 
             <anim.bro.com.animdemo.view.TransTextView
                 android:id="@+id/iv_clip_view_2"
                 android:layout_width="wrap_content"
                 android:layout_height="23dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/background_color_ee"
+                android:background="@drawable/pink"
                 android:gravity="center"
-                android:text="哈哈哈哈你是王八蛋"
+                android:text="哈哈哈哈你是"
+                android:textColor="@color/white"
+                android:textSize="14dp"
                 android:visibility="invisible"/>
         </RelativeLayout>
 

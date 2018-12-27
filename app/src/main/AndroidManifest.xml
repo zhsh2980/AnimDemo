@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".RedNewActivity">
         </activity>
+        <activity android:name=".RedRainActivity">
+        </activity>
     </application>
 
 </manifest>

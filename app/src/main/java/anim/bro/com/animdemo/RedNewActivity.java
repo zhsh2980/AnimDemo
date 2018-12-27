@@ -19,6 +19,7 @@ import java.util.Date;
 
 import anim.bro.com.animdemo.util.HideShopAnimUtil;
 import anim.bro.com.animdemo.util.RedNewAnimView;
+import anim.bro.com.animdemo.util.UIUtils;
 import anim.bro.com.animdemo.view.ClipProgressView;
 import anim.bro.com.animdemo.view.Rotate3dAnimation;
 import anim.bro.com.animdemo.view.RoundView;
@@ -219,11 +220,14 @@ public class RedNewActivity extends AppCompatActivity {
     private void initData() {
 
         //向上翻的 view
-        mIvClipView.setView(mIvClipView2 , mWrapper);
+        mIvClipView.setView(mIvClipView2, mWrapper);
 
         //初始化进度条个数
         mIvProgressClipView.setText(5, 20);
         mIvProgressClipView.setLevel(5, 20);
+
+// TODO:  *******测试待删除******测试待删除******测试待删除******测试待删除******
+        mIvRedOrigin.updateValue(360);
 
         //隐藏购物车
         mShopAnimUtil = new HideShopAnimUtil(mIvShop, mIvShopShort);
@@ -263,10 +267,9 @@ public class RedNewActivity extends AppCompatActivity {
                 mIv3d.startAnimation(rotate3dAnimationX);
                 break;
             case R.id.btn_clip:
-//                ClipDrawable drawable = (ClipDrawable) mIvClipView.getDrawable();
-//                drawable.setLevel(5000);
-//                mIvClipView.setClipAnim();
-                mIvClipView.startGreyAnim();
+                mIvClipView.setPadding(0, 0, 0, 0);
+                setWrapperMarginBottom(75);
+                mIvClipView.startFirstSingleAnim();
                 break;
             case R.id.btn_progress:
                 mIvProgressClipView.setClipProgressAnimView(5, 6, 20);
@@ -332,4 +335,21 @@ public class RedNewActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    // 设置气泡为正常,或者体力值不足的提醒
+    private void setUIPopNormalOrPhysicalNotEnough(boolean isSetNormal) {
+        if (isSetNormal) {
+            //设置底部距离
+            setWrapperMarginBottom(75);
+        } else {
+            setWrapperMarginBottom(68);
+        }
+    }
+
+    private void setWrapperMarginBottom(int marginBottom) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mWrapper.getLayoutParams();
+        layoutParams.bottomMargin = UIUtils.dip2px(marginBottom);//这个数要写死75+28+12-80，75是弹幕上边距，28是弹幕高度，12是产品要求距离上面弹幕的距离，80是taskRedView本来的上边距
+        mWrapper.setLayoutParams(layoutParams);
+    }
+
 }

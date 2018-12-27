@@ -117,18 +117,23 @@ public class SwapAnimImageView extends AppCompatImageView {
         Canvas canvas = new Canvas(srcBitmap);
         Paint dstPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         dstPaint.setColor(transparentColor);
-        canvas.drawArc(new RectF(0, 0, width, height), -90, swapValue, true, dstPaint);
+//        canvas.drawArc(new RectF(0, 0, width, height), -90, swapValue, true, dstPaint);
+        canvas.drawArc(new RectF((float) (width / 2 - getArcRadius()), (float) (height / 2 - getArcRadius()), (float) (width / 2 + getArcRadius()),  (float) (height / 2 + getArcRadius())), -90, swapValue, true, dstPaint);
         return srcBitmap;
     }
 
-    int swapValue = -360;
+    private double getArcRadius() {
+        return Math.sqrt(getWidth() * getWidth() + getHeight() * getHeight()) / 2;
+    }
+
+    float swapValue = -360;
 
     /**
      * 更新扫描角度，从-360到0
      *
      * @param value
      */
-    public void updateValue(int value) {
+    public void updateValue(float value) {
         swapValue = -value;
         invalidate();
     }
@@ -140,12 +145,12 @@ public class SwapAnimImageView extends AppCompatImageView {
     public void startAnim(long duration) {
         resetAnim();
         isAnimRunning = true;
-        mAnimator = ValueAnimator.ofInt(360, 0);
+        mAnimator = ValueAnimator.ofFloat(360, 0);
         mAnimator.setDuration(duration);
         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int animatedValue = (int) animation.getAnimatedValue();
+                float animatedValue = (float) animation.getAnimatedValue();
                 updateValue(animatedValue);
             }
         });
@@ -168,6 +173,13 @@ public class SwapAnimImageView extends AppCompatImageView {
                         setImageGrey(true);
                     }
                 }, 3000);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setImageGrey(false);
+                    }
+                }, 8000);
 
             }
         });

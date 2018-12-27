@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.btn_null)
-    public void onViewClicked() {
-        nullClick();
+    @OnClick({R.id.btn_red_rain})
+    public void onViewClicked2(View view) {
+        switch (view.getId()) {
+            case R.id.btn_red_rain:
+                ActivityUtils.startActivity(RedRainActivity.class);
+                break;
+        }
     }
 
-    private void nullClick() {
-
-    }
-    
 }

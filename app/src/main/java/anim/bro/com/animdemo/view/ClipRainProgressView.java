@@ -6,20 +6,17 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.ClipDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.animation.LinearInterpolator;
 
-import anim.bro.com.animdemo.R;
-import anim.bro.com.animdemo.util.UIUtils;
-
 /**
  * Created by zhangshan on 2018/12/7 16:06.
  */
-public class ClipProgressView extends AppCompatImageView {
+public class ClipRainProgressView extends AppCompatImageView {
 
     private final String TAG = "clipProgressView";
 
@@ -29,15 +26,15 @@ public class ClipProgressView extends AppCompatImageView {
     private AnimatorSet mAnimatorSet;
     private Paint mPaint;
 
-    public ClipProgressView(Context context) {
+    public ClipRainProgressView(Context context) {
         this(context, null);
     }
 
-    public ClipProgressView(Context context, AttributeSet attrs) {
+    public ClipRainProgressView(Context context, AttributeSet attrs) {
         this(context, attrs, -1);
     }
 
-    public ClipProgressView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ClipRainProgressView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -47,9 +44,8 @@ public class ClipProgressView extends AppCompatImageView {
 
         mPaint = new Paint();
         mPaint.setStrokeWidth(3);
-        mPaint.setTextSize(UIUtils.dip2px(11));
-        mPaint.setColor(getResources().getColor(R.color.sv_rednew_progress_text));
-//        mPaint.setColor(Color.WHITE);
+        mPaint.setTextSize(38);
+        mPaint.setColor(Color.WHITE);
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setAntiAlias(true);
 
@@ -78,17 +74,14 @@ public class ClipProgressView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        textMiddle = "剩150个";
-        Rect bounds = new Rect();
-        mPaint.getTextBounds(textMiddle, 0, textMiddle.length(), bounds);
-
-        //计算baseline
-        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
-        float distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
-//        float baseline = rectF.centerY() + distance;
-
-//        canvas.drawText(textMiddle, getMeasuredWidth() / 2 - bounds.width() / 2, getMeasuredHeight() / 2 + bounds.height() / 2, mPaint);
-        canvas.drawText(textMiddle, getMeasuredWidth() / 2 + UIUtils.dip2px(2), getMeasuredHeight() / 2 + distance, mPaint);
+//        Rect bounds = new Rect();
+//        mPaint.getTextBounds(textMiddle, 0, textMiddle.length(), bounds);
+//
+//        //计算baseline
+//        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+//        float distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+//
+//        canvas.drawText(textMiddle, getMeasuredWidth() / 2, getMeasuredHeight() / 2 + distance, mPaint);
     }
 
     public void setClipProgressAnimView(int fromSize, final int gotoSize, final int totalSize) {
