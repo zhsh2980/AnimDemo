@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anim_back_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:id="@+id/iv_box"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginLeft="78dp"
+        android:layout_marginTop="194dp"
+        android:layout_marginRight="91dp"
+        android:background="@drawable/treasure_anim_open_dialog" />
+
+    <LinearLayout
+        android:id="@+id/ll_treasure_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="285dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今日累积获得"
+            android:textColor="#fff"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="29dp"
+            android:textStyle="bold"
+            tools:text="2966元宝" />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frame_iv_gif_root"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/iv_box_open"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/treasure_anim" />
+
+    </FrameLayout>
+
+
+</RelativeLayout>

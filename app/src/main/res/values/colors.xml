@@ -176,6 +176,7 @@
     <color name="color_msg_burn_tip">#EDDEE2</color>
     <!-- 私信长按消息弹出dialog的item的按下态-->
     <color name="white_color">#ffffff</color>
+    <color name="blur_bg">#0E0A1C</color>
     <color name="im_chat_msg_long_press_dialog_item_pressed_color">#fafafa</color>
 
     <color name="expand_listview_divider_color">#f5f5f5</color>

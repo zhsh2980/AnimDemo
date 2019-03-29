@@ -34,6 +34,13 @@
             android:layout_weight="1"
             android:text="跳转到 red new activity"/>
 
+        <Button
+            android:id="@+id/btn_box_dialog"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="宝箱 dialog"/>
+
 
     </LinearLayout>
 
@@ -51,6 +58,23 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:text="红包雨"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_blur"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="毛玻璃"/>
 
     </LinearLayout>
 

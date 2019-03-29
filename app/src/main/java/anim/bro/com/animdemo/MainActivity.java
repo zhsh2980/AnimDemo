@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_red_fly, R.id.btn_praise, R.id.btn_red_new})
+    @OnClick({R.id.btn_red_fly, R.id.btn_praise
+            , R.id.btn_red_new, R.id.btn_box_dialog
+            , R.id.btn_blur})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_red_fly:
@@ -39,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_red_new:
                 ActivityUtils.startActivity(RedNewActivity.class);
+                break;
+            case R.id.btn_box_dialog:
+                TreasureOpenDialog dialog = new TreasureOpenDialog(this);
+                dialog.show();
+                dialog.setData();
+                break;
+            case R.id.btn_blur:
+                ActivityUtils.startActivity(BlurActivity.class);
                 break;
         }
     }

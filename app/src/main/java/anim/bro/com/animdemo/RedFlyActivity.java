@@ -252,7 +252,7 @@ public class RedFlyActivity extends AppCompatActivity {
     private View getRedBackground(Activity activity) {
         UpSeeMoreView upSeeMoreView = new UpSeeMoreView(this);
         upSeeMoreView.setId(R.id.rela_root);
-//        View view = LayoutInflater.from(activity).inflate(R.layout.sv_video_tip_to_login, null);
+//        View view = LayoutInflater.from(activity).inflate(R.treasure_anim.sv_video_tip_to_login, null);
         FrameLayout contentView = (FrameLayout) activity.findViewById(android.R.id.content);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         contentView.addView(upSeeMoreView, layoutParams);
