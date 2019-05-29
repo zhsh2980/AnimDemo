@@ -9,7 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,22 +17,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.zip.Inflater;
 
-import anim.bro.com.animdemo.util.GifLoadUtil;
 import anim.bro.com.animdemo.util.UIUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by zhangshan on 2019/3/8 16:48.
@@ -41,6 +37,8 @@ public class TreasureOpenDialog extends Dialog {
 
     @BindView(R.id.iv_box)
     ImageView ivBox;
+    @BindView(R.id.iv_box_png)
+    ImageView ivBoxPng;
     @BindView(R.id.iv_box_open)
     ImageView iv_box_open;
     @BindView(R.id.title)
@@ -49,6 +47,8 @@ public class TreasureOpenDialog extends Dialog {
     TextView tvAmount;
     @BindView(R.id.ll_treasure_amount)
     LinearLayout ll_treasure_amount;
+    @BindView(R.id.scale_x)
+    Button scale_x;
     private AnimatorSet treasureAnim;
 
     private Context mContext;
@@ -96,38 +96,50 @@ public class TreasureOpenDialog extends Dialog {
 //        getDialog().setCanceledOnTouchOutside(false);
 //    }
 
-//    @Override
+    //    @Override
 //    protected void handleArguments(Bundle bundle) {
 //
 //
 //    }
+    long scaleTime = 300l;
 
     public void setData() {
-//        if (videoBonusResultEntity == null) {
-//            return;
-//        }
+
+        startBoxSmallAnim();
+
         ll_treasure_amount.setAlpha(0f);
-        //今日元宝
-        int sycee_amount = 234;
-        tvAmount.setText(sycee_amount + "元宝");
+        tvAmount.setText(108 + "元宝");
 
-//        Glide.with(mContext).load(R.drawable.treasure_open).into(new GlideDrawableImageViewTarget(iv_box_open, 100));
-//        Glide.with(mContext).load(R.drawable.treasure_open).asGif().into(iv_box_open);
-//        Glide.with(mContext).load(R.drawable.treasure_dialog_progress).asGif().into(ivProgress);
-        startBoxBigAnim();
-        startMoneyTextAnim();
+        //显示放大动画
+        ivBox.setVisibility(View.INVISIBLE);
+        ivBoxPng.setVisibility(View.VISIBLE);
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 0.2f, 1.0f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 0.2f, 1.0f);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(ivBoxPng, scaleX, scaleY);
+        animator.setDuration(scaleTime);
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.start();
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                ivBoxPng.setVisibility(View.INVISIBLE);
+                ivBox.setVisibility(View.VISIBLE);
+                startBoxAnim();
+                startMoneyTextAnim();
 
-        startBoxAnim();
+//                if (t == null) {
+//                    t = new Timer();
+//                }
+//                t.schedule(new TimerTask() {
+//                    public void run() {
+//                        dismiss();
+//                        t.cancel();
+//                    }
+//                }, 1200 + 800 + 2500 + scaleTime);
+            }
+        });
 
-//        if (t == null){
-//            t = new Timer();
-//        }
-//        t.schedule(new TimerTask() {
-//            public void run() {
-//                dismiss();
-//                t.cancel();
-//            }
-//        }, 1500 + 500 + 1500);
 
     }
 
@@ -139,34 +151,75 @@ public class TreasureOpenDialog extends Dialog {
     private AnimationDrawable animationDrawable;
 
     private void startBoxAnim() {
-        animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) ivBox.getBackground();
         animationDrawable.stop();
         animationDrawable.start();
     }
 
-    public void startMoneyTextAnim() {
-
-        ObjectAnimator translationY = ObjectAnimator.ofFloat(ll_treasure_amount, "translationY", 0, UIUtils.dip2px(-200));
-        translationY.setInterpolator(new LinearInterpolator());
-
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(ll_treasure_amount, "alpha", 0f, 1.0f, 1.0f);
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(ll_treasure_amount, "scaleX", 1.0f, 2.0f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(ll_treasure_amount, "scaleY", 1.0f, 2.0f);
-
-        PropertyValuesHolder scaleX_After =PropertyValuesHolder.ofFloat("scaleX", 2.0f, 1.8f, 2.0f, 1.8f, 2.0f, 1.8f, 2.0f);
-        PropertyValuesHolder scaleY_After = PropertyValuesHolder.ofFloat("scaleY", 2.0f, 1.8f, 2.0f, 1.8f, 2.0f, 1.8f, 2.0f);
-        PropertyValuesHolder alpha_After =PropertyValuesHolder.ofFloat("alpha", 1.0f, 1.0f, 1.0f, 1.0f, 0f);
-        ObjectAnimator animator_After = ObjectAnimator.ofPropertyValuesHolder(ll_treasure_amount, scaleX_After, scaleY_After, alpha_After);
-
-
-        //------------------------------先走文字缩小--------------------------------
-        treasureAnim = new AnimatorSet();
-        treasureAnim.setDuration(800);  //动画时间
-        treasureAnim.setInterpolator(new AccelerateDecelerateInterpolator());  //设置插值器
-        treasureAnim.play(scaleX).with(alpha).with(scaleY).with(translationY).before(animator_After);  //同时执行
-        treasureAnim.setStartDelay(2500);
-        treasureAnim.start();
+    private void startBoxSmallAnim() {
+        AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
+        animationDrawable.stop();
+        animationDrawable.start();
+        int duration = 0;
+        for (int i = 0; i < animationDrawable.getNumberOfFrames(); i++) {
+            duration += animationDrawable.getDuration(i);
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                //此处进行下一步
+                iv_box_open.setBackgroundResource(R.drawable.treasure_anim_half);
+                AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
+                animationDrawable.stop();
+                animationDrawable.start();
+            }
+        }, duration);
 
     }
 
+    public void startMoneyTextAnim() {
+
+        PropertyValuesHolder translationY = PropertyValuesHolder.ofFloat("translationY", 0, UIUtils.dip2px(-200));
+        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", 0f, 1.0f, 1.0f);
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 1.0f, 2.0f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 1.0f, 2.0f);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(ll_treasure_amount, translationY, alpha, scaleX, scaleY);
+
+        PropertyValuesHolder scaleX_After = PropertyValuesHolder.ofFloat("scaleX", 2.0f, 1.8f, 2.0f, 1.8f, 2.0f, 1.8f, 2.0f);
+        PropertyValuesHolder scaleY_After = PropertyValuesHolder.ofFloat("scaleY", 2.0f, 1.8f, 2.0f, 1.8f, 2.0f, 1.8f, 2.0f);
+//        PropertyValuesHolder alpha_After = PropertyValuesHolder.ofFloat("alpha", 1.0f, 1.0f, 1.0f, 1.0f, 0f);
+        ObjectAnimator animator_After = ObjectAnimator.ofPropertyValuesHolder(ll_treasure_amount, scaleX_After, scaleY_After);
+        //------------------------------先走文字缩小--------------------------------
+        if (treasureAnim != null) {
+            treasureAnim.cancel();
+        }
+        if (treasureAnim == null) {
+            treasureAnim = new AnimatorSet();
+        }
+        treasureAnim.setDuration(800);  //动画时间
+        treasureAnim.setStartDelay(2500);
+        treasureAnim.play(animator).before(animator_After);  //同时执行
+        treasureAnim.start();
+    }
+
+
+    boolean isX = false;
+
+    @OnClick(R.id.scale_x)
+    public void onViewClicked() {
+        if (!isX) {
+            iv_box_open.setScaleX(-1);
+        } else {
+            iv_box_open.setScaleX(1);
+        }
+        isX = !isX;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startBoxAnim();
+            }
+        }, 500);
+
+    }
 }

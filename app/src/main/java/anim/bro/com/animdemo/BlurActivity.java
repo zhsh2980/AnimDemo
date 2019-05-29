@@ -3,18 +3,20 @@ package anim.bro.com.animdemo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import anim.bro.com.animdemo.util.UIUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.blurry.Blurry;
 
 public class BlurActivity extends AppCompatActivity {
@@ -23,17 +25,29 @@ public class BlurActivity extends AppCompatActivity {
     ImageView ivBlur;
     @BindView(R.id.frame_root)
     FrameLayout frameRoot;
+    @BindView(R.id.btn_blur)
+    Button btnBlur;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blur);
         ButterKnife.bind(this);
+        // 间接调用
+
+//        doBlur();
+    }
+
+
+    @OnClick(R.id.btn_blur)
+    public void onViewClicked() {
+        Log.d("BlurActivity", "点我了");
         doBlur();
     }
 
     private void doBlur() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.blur); // 间接调用
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.blur);
 //        ivBlur.setImageBitmap(bg2WhiteBitmap(bitmap));
         //for ViewGroup
 //        Blurry.with(this)
@@ -53,7 +67,7 @@ public class BlurActivity extends AppCompatActivity {
 //                .into(view);//显示View
 //        //for bitmap
         Blurry.with(this)
-                .radius(6)//模糊半径
+                .radius(8)//模糊半径
                 .sampling(8)//缩放大小，先缩小再放大
 //                .color(Color.argb(66, 255, 255, 0))//颜色
                 .async()//是否异步
@@ -82,11 +96,12 @@ public class BlurActivity extends AppCompatActivity {
 
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
         // 生成白色的
         paint.setColor(getResources().getColor(R.color.blur_bg));
-        canvas.drawBitmap(bitmap, numWidth / 2, numHeight / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
+
+        canvas.drawARGB(0, 0, 0, 0);
+        canvas.drawBitmap(bitmap, numWidth / 2, numHeight / 2, paint);
         // 画正方形的
         canvas.drawRect(0, 0, sizeWidthBig, sizeHeightBig, paint);
         return newBitmap;

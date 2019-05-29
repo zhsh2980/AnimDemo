@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnRedFly;
     @BindView(R.id.btn_praise)
     Button btnPraise;
+    @BindView(R.id.text_num_new_gold)
+    TextView textNumNewGold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
