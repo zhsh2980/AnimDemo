@@ -39,8 +39,10 @@ public class TreasureOpenDialog extends Dialog {
     ImageView ivBox;
     @BindView(R.id.iv_box_png)
     ImageView ivBoxPng;
-    @BindView(R.id.iv_box_open)
-    ImageView iv_box_open;
+    @BindView(R.id.iv_box_open_new)
+    ImageView iv_box_open_new;
+    @BindView(R.id.iv_box_open_new_text)
+    ImageView iv_box_open_new_text;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.tv_amount)
@@ -157,25 +159,54 @@ public class TreasureOpenDialog extends Dialog {
     }
 
     private void startBoxSmallAnim() {
-        AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open_new.getBackground();
         animationDrawable.stop();
         animationDrawable.start();
         int duration = 0;
         for (int i = 0; i < animationDrawable.getNumberOfFrames(); i++) {
             duration += animationDrawable.getDuration(i);
         }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             public void run() {
                 //此处进行下一步
-                iv_box_open.setBackgroundResource(R.drawable.treasure_anim_half);
-                AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
-                animationDrawable.stop();
-                animationDrawable.start();
+                iv_box_open_new.setBackgroundResource(R.drawable.treasure_anim_new_half);
+                AnimationDrawable animationDrawable1 = (AnimationDrawable) iv_box_open_new.getBackground();
+                animationDrawable1.stop();
+                animationDrawable1.start();
             }
         }, duration);
 
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                //此处进行下一步
+                AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open_new_text.getBackground();
+                animationDrawable.stop();
+                animationDrawable.start();
+            }
+        }, duration / 2);
+
     }
+
+//    private void startBoxSmallAnim() {
+//        AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
+//        animationDrawable.stop();
+//        animationDrawable.start();
+//        int duration = 0;
+//        for (int i = 0; i < animationDrawable.getNumberOfFrames(); i++) {
+//            duration += animationDrawable.getDuration(i);
+//        }
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                //此处进行下一步
+//                iv_box_open.setBackgroundResource(R.drawable.treasure_anim_half);
+//                AnimationDrawable animationDrawable = (AnimationDrawable) iv_box_open.getBackground();
+//                animationDrawable.stop();
+//                animationDrawable.start();
+//            }
+//        }, duration);
+//
+//    }
 
     public void startMoneyTextAnim() {
 
@@ -208,9 +239,9 @@ public class TreasureOpenDialog extends Dialog {
     @OnClick(R.id.scale_x)
     public void onViewClicked() {
         if (!isX) {
-            iv_box_open.setScaleX(-1);
+            iv_box_open_new.setScaleX(-1);
         } else {
-            iv_box_open.setScaleX(1);
+            iv_box_open_new.setScaleX(1);
         }
         isX = !isX;
 

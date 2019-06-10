@@ -67,10 +67,18 @@
         android:layout_alignParentBottom="true">
 
         <ImageView
-            android:id="@+id/iv_box_open"
+            android:id="@+id/iv_box_open_new"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/treasure_anim" />
+            android:background="@drawable/treasure_anim_new" />
+
+
+        <ImageView
+            android:id="@+id/iv_box_open_new_text"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/treasure_anim_new_text" />
 
     </FrameLayout>
 

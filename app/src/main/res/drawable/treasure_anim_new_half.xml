@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:drawable="@drawable/anim_box_new_23" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_24" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_25" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_26" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_27" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_28" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_29" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_30" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_31" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_32" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_33" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_34" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_35" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_36" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_37" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_38" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_39" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_40" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_41" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_42" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_43" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_44" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_45" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_46" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_47" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_48" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_49" android:duration="30" />
+    <item android:drawable="@drawable/anim_box_new_50" android:duration="30" />
+</animation-list>
