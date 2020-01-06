@@ -1,4 +1,4 @@
-package anim.bro.com.animdemo;
+package anim.bro.com.animdemo.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import anim.bro.com.animdemo.R;
 import anim.bro.com.animdemo.util.UIUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;

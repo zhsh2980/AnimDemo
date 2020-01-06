@@ -1,4 +1,4 @@
-package anim.bro.com.animdemo;
+package anim.bro.com.animdemo.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import anim.bro.com.animdemo.R;
 import anim.bro.com.animdemo.util.HideShopAnimUtil;
 import anim.bro.com.animdemo.util.RedNewAnimView;
 import anim.bro.com.animdemo.util.UIUtils;

@@ -9,21 +9,32 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BlurActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.DuoDianActivity"></activity>
+
+        <meta-data
+            android:name="android.min_aspect"
+            android:value="1.0" />
+
+        <activity android:name=".ui.CycleBoxActivity" />
+        <activity android:name=".ui.BlurActivity" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:maxAspectRatio="2.4">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RedFlyActivity" />
-        <activity android:name=".PraiseActivity"></activity>
-        <activity android:name=".RedNewActivity"></activity>
-        <activity android:name=".RedRainActivity"></activity>
+        <activity android:name=".ui.RedFlyActivity" />
+        <activity android:name=".ui.PraiseActivity" />
+        <activity android:name=".ui.RedNewActivity" />
+        <activity android:name=".ui.RedRainActivity" />
     </application>
 
 </manifest>

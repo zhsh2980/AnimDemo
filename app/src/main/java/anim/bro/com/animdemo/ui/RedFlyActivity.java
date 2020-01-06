@@ -1,8 +1,9 @@
-package anim.bro.com.animdemo;
+package anim.bro.com.animdemo.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 
+import anim.bro.com.animdemo.ProgressImageView;
+import anim.bro.com.animdemo.R;
+import anim.bro.com.animdemo.UpSeeMoreView;
 import anim.bro.com.animdemo.util.RedPacketAnimView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -305,5 +309,29 @@ public class RedFlyActivity extends AppCompatActivity {
         }
         ToastUtils.showShort("id 不存在");
         return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("RedFlyActivity", "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("RedFlyActivity", "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("RedFlyActivity", "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("RedFlyActivity", "onDestroy");
     }
 }
