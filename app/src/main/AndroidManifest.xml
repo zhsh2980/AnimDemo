@@ -3,6 +3,8 @@
     package="anim.bro.com.animdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".BaseApplication"
@@ -13,16 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.DuoDianActivity"></activity>
+        <activity android:name=".goods.GoodsBuyActivity"></activity>
+        <activity android:name=".ui.DuoDianActivity" />
 
         <meta-data
             android:name="android.min_aspect"
             android:value="1.0" />
 
         <activity android:name=".ui.CycleBoxActivity" />
+        <activity android:name=".goods.GoodsSaleActivity" />
         <activity android:name=".ui.BlurActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:maxAspectRatio="2.4">
             <intent-filter>

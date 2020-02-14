@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_inside_fixed"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/main_rg"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/goods_label_complex"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/underline_button_bg"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="综合"
+            android:textColor="@color/sort_text_select"
+            android:textSize="16dp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/goods_label_sales"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/underline_button_bg"
+            android:button="@null"
+            android:gravity="center"
+            android:text="销量"
+            android:textColor="@color/sort_text_select"
+            android:textSize="16dp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/goods_label_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/underline_button_bg"
+            android:button="@null"
+            android:drawableRight="@drawable/choose_price_bg_selector"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="价格"
+            android:textColor="@color/sort_text_select"
+            android:textSize="16dp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+
+</LinearLayout>

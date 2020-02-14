@@ -1,4 +1,4 @@
-package anim.bro.com.animdemo;
+package anim.bro.com.animdemo.view;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

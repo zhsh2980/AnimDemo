@@ -18,9 +18,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 
-import anim.bro.com.animdemo.ProgressImageView;
+import anim.bro.com.animdemo.view.ProgressImageView;
 import anim.bro.com.animdemo.R;
-import anim.bro.com.animdemo.UpSeeMoreView;
+import anim.bro.com.animdemo.view.UpSeeMoreView;
 import anim.bro.com.animdemo.util.RedPacketAnimView;
 import butterknife.BindView;
 import butterknife.ButterKnife;

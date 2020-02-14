@@ -36,7 +36,7 @@
             android:visibility="invisible"
             tools:src="@drawable/red_big_middle"/>
 
-        <anim.bro.com.animdemo.ProgressImageView
+        <anim.bro.com.animdemo.view.ProgressImageView
             android:id="@+id/progressImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,7 +44,7 @@
             android:visibility="invisible"/>
     </RelativeLayout>
 
-    <!--<anim.bro.com.animdemo.UpSeeMoreView-->
+    <!--<anim.bro.com.animdemo.view.UpSeeMoreView-->
     <!--android:id="@+id/iv_bg_red"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->

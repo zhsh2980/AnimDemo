@@ -1,4 +1,4 @@
-package anim.bro.com.animdemo;
+package anim.bro.com.animdemo.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import anim.bro.com.animdemo.R;
 import anim.bro.com.animdemo.util.UIUtils;
 
 /**

@@ -7,6 +7,9 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -317,18 +320,24 @@ public class RedNewActivity extends AppCompatActivity {
         mIvRedOrigin.resetAnim();
     }
 
+    public Animation shakeAnimation(int counts) {
+        Animation rotateAnimation = new RotateAnimation(0, 20, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1f);
+        rotateAnimation.setInterpolator(new CycleInterpolator(counts));
+        rotateAnimation.setRepeatCount(-1);
+        rotateAnimation.setDuration(3000);
+        return rotateAnimation;
+    }
+
     @OnClick({R.id.iv_shop_short, R.id.btn_show_shop, R.id.btn_cancel_pop})
     public void onShowViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_shop_short:
-                //购物按钮显示
-                mShopAnimUtil.resetAnim();
-                mShopAnimUtil.showShopView();
-                break;
             case R.id.btn_show_shop:
                 //购物按钮显示
                 mShopAnimUtil.resetAnim();
                 mShopAnimUtil.showShopView();
+//                Animation shake = shakeAnimation(3);
+//                mIvShopShort.startAnimation(shake);
                 break;
             case R.id.btn_cancel_pop:
                 //购物按钮显示

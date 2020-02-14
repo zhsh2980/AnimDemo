@@ -1,4 +1,4 @@
-package anim.bro.com.animdemo.ui;
+package anim.bro.com.animdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +9,15 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 
-import anim.bro.com.animdemo.R;
-import anim.bro.com.animdemo.TreasureOpenDialog;
+import anim.bro.com.animdemo.goods.GoodsBuyActivity;
+import anim.bro.com.animdemo.goods.GoodsSaleActivity;
+import anim.bro.com.animdemo.ui.BlurActivity;
+import anim.bro.com.animdemo.ui.CycleBoxActivity;
+import anim.bro.com.animdemo.ui.DuoDianActivity;
+import anim.bro.com.animdemo.ui.PraiseActivity;
+import anim.bro.com.animdemo.ui.RedFlyActivity;
+import anim.bro.com.animdemo.ui.RedNewActivity;
+import anim.bro.com.animdemo.ui.RedRainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.btn_red_fly, R.id.btn_praise
             , R.id.btn_red_new, R.id.btn_box_dialog
             , R.id.btn_blur,R.id.btn_cycle_box
+            , R.id.btn_goods_sale,R.id.btn_goods_buy
             ,R.id.btn_duodian})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -62,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_duodian:
                 ActivityUtils.startActivity(DuoDianActivity.class);
+                break;
+            case R.id.btn_goods_sale:
+                ActivityUtils.startActivity(GoodsSaleActivity.class);
+                break;
+            case R.id.btn_goods_buy:
+                ActivityUtils.startActivity(GoodsBuyActivity.class);
                 break;
         }
     }

@@ -3,15 +3,22 @@ package anim.bro.com.animdemo.util;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
+
+import anim.bro.com.animdemo.R;
 
 
 public class HideShopAnimUtil {
@@ -32,7 +39,12 @@ public class HideShopAnimUtil {
     private ValueAnimator mTranstationX2;
     private ValueAnimator mTranstationXShort2;
 
-    private final static int WHAT_SEND = 1;
+    private int shutUpTime = 1;//停留时间
+    private int shakeIntervalTime = 5;//抖动时间间隔
+    private int shakeNum = 3;//抖动次数
+
+    private final static int MESSAGE_SHAKE = 1;
+    private final static int MESSAGE_INTERVAL = 2;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -40,8 +52,16 @@ public class HideShopAnimUtil {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case WHAT_SEND:
-                    hideShopView();
+                case MESSAGE_SHAKE:
+                    showShakeAnim();
+//                    hideShopView();
+                    break;
+                case MESSAGE_INTERVAL:
+                    if (shakeNum <= 0) {
+                        handler.removeMessages(MESSAGE_INTERVAL);
+                    } else {
+                        showShakeAnim();
+                    }
                     break;
             }
         }
@@ -75,12 +95,12 @@ public class HideShopAnimUtil {
     }
 
     public void showShopView() {
-
-//        shopView.setVisibility(View.VISIBLE);
-//        shopViewShort.setVisibility(View.INVISIBLE);
-
+        initApiData();
+        if (shopView == null) return;
+        shopView.clearAnimation();
+        handler.removeMessages(MESSAGE_INTERVAL);
         //位移动画
-        mTranstationX1 = ValueAnimator.ofFloat(curTranslationX, curTranslationX - mWidth - ConvertUtils.dp2px(15 + 15));
+        mTranstationX1 = ValueAnimator.ofFloat(curTranslationX, curTranslationX - mWidth - ConvertUtils.dp2px(9));
         mTranstationX1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -115,20 +135,89 @@ public class HideShopAnimUtil {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                //开始倒计时5秒,自动隐藏
-                handler.removeMessages(WHAT_SEND);
-                handler.sendEmptyMessageDelayed(WHAT_SEND, 5000);
+                //开始倒计时1秒,开始抖动
+                handler.removeMessages(MESSAGE_SHAKE);
+                handler.sendEmptyMessageDelayed(MESSAGE_SHAKE, shutUpTime * 1000);
             }
         });
 
     }
 
-    public void hideShopView() {
+    private void initApiData() {
+        shutUpTime = 1;
+        shakeIntervalTime = 5;
+        shakeNum = 3;
 
+    }
+
+    /**
+     * 晃动动画
+     * <p>
+     * 那么CycleInterpolator是干嘛用的？？
+     * Api demo里有它的用法，是个摇头效果！
+     *
+     * @param counts 1秒钟晃动多少下
+     * @return Animation
+     */
+    public Animation shakeAnimation(int counts) {
+        Animation rotateAnimation = new RotateAnimation(0, 15, Animation.RELATIVE_TO_SELF, -0.6f, Animation.RELATIVE_TO_SELF, 1f);
+        rotateAnimation.setInterpolator(new CycleInterpolator(counts));
+        rotateAnimation.setRepeatCount(1);
+        rotateAnimation.setDuration(500);
+        return rotateAnimation;
+    }
+
+    //抖动动画
+    private void showShakeAnim() {
+        if (shakeNum > 0) {
+            shakeNum--;
+            doShakeAnim();
+        }
+    }
+
+
+    private void doShakeAnim() {
+        //颤抖动画交给底部tab组件
+        if (shopView != null) {
+//            shake();
+            shopView.clearAnimation();
+//            Animation shake = AnimationUtils.loadAnimation(shopView.getContext(), R.anim.add_tab_shake_anim);
+            Animation shake = shakeAnimation(1);
+            shake.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+//                    JuMeiLogMng.getInstance().i("AddCartAnimManager --> ", String.format("|||==>>  onAnimationStart([animation]):%s \n", "抖动动画开始"));
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+//                    if(null != animView) {
+//                        animView.clearAnimation();
+//                    }
+                    //开始倒计时1秒,开始抖动
+                    handler.removeMessages(MESSAGE_INTERVAL);
+                    handler.sendEmptyMessageDelayed(MESSAGE_INTERVAL, shakeIntervalTime * 1000);
+//                    JuMeiLogMng.getInstance().i("AddCartAnimManager --> ", String.format("|||==>>  onAnimationStart([animation]):%s \n", "抖动动画结束"));
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            shopView.startAnimation(shake);
+        }
+
+    }
+
+    public void hideShopView() {
+        shopView.clearAnimation();
+        shakeNum = 0;
 //        shopViewShort.setVisibility(View.INVISIBLE);
 //        shopView.setVisibility(View.INVISIBLE);
         //位移动画
-        mTranstationX2 = ValueAnimator.ofFloat(curTranslationX - mWidthShort - ConvertUtils.dp2px(15 + 15), curTranslationX);
+        mTranstationX2 = ValueAnimator.ofFloat(curTranslationX - mWidth - ConvertUtils.dp2px(9), curTranslationX);
         mTranstationX2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -155,7 +244,7 @@ public class HideShopAnimUtil {
         mHideAnimatorSet.start();
     }
 
-    public void resetAnim(){
+    public void resetAnim() {
         if (mShowAnimatorSet != null && mShowAnimatorSet.isRunning()) {
             mShowAnimatorSet.cancel();
         }

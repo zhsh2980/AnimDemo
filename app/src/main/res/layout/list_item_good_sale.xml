@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/blur_bg">
+
+    <RelativeLayout
+        android:layout_width="168dp"
+        android:layout_height="255dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_border_goods_sale"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_logo_good_sale"
+            android:layout_width="130dp"
+            android:layout_height="133dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@color/promo_tips" />
+
+        <TextView
+            android:id="@+id/tv_title_good_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_logo_good_sale"
+            android:layout_marginTop="3.5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="chanel香奈儿邂逅柔情 清新粉色绿黄色淡女淡女淡女淡女"
+            android:textColor="#333"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_price_good_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title_good_sale"
+            android:layout_marginTop="4.5dp"
+            android:text="¥406"
+            android:textColor="#ffff5a5f"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_has_sold_good_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_price_good_sale"
+            android:layout_marginTop="10.5dp"
+            android:text="已售:2356"
+            android:textColor="#ff999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_has_sold_good_sale"
+            android:layout_alignParentRight="true"
+            android:text="来自聚美"
+            android:textColor="#ff999999"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

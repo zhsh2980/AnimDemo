@@ -1,4 +1,4 @@
-package anim.bro.com.animdemo;
+package anim.bro.com.animdemo.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
