@@ -122,5 +122,25 @@
         android:orientation="horizontal"
         android:text="带货买家端" />
 
+    <Button
+        android:id="@+id/btn_goods_glide"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="glide" />
+
+    <Button
+        android:id="@+id/btn_rv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="rv" />
+
 
 </LinearLayout>

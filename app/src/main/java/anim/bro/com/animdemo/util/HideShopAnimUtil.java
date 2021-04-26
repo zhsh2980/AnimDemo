@@ -160,7 +160,7 @@ public class HideShopAnimUtil {
      * @return Animation
      */
     public Animation shakeAnimation(int counts) {
-        Animation rotateAnimation = new RotateAnimation(0, 15, Animation.RELATIVE_TO_SELF, -0.6f, Animation.RELATIVE_TO_SELF, 1f);
+        Animation rotateAnimation = new RotateAnimation(0, 15, Animation.RELATIVE_TO_SELF, -0.5f, Animation.RELATIVE_TO_SELF, 1f);
         rotateAnimation.setInterpolator(new CycleInterpolator(counts));
         rotateAnimation.setRepeatCount(1);
         rotateAnimation.setDuration(500);

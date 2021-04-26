@@ -3,6 +3,8 @@ package anim.bro.com.animdemo.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ import butterknife.OnClick;
 
 public class DuoDianActivity extends BaseActivity {
 
+    @BindView(R.id.btn_order)
+    Button btn_order;
     @BindView(R.id.textView)
     TextView textView;
     AlertDialog.Builder builder;
@@ -33,6 +37,7 @@ public class DuoDianActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        Log.d("DuoDianActivity", "btn_order.getId():" + btn_order.getId());
         textView.setMovementMethod(new ScrollingMovementMethod());
     }
 

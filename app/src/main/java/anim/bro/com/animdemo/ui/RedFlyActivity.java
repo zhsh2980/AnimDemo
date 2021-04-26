@@ -326,7 +326,7 @@ public class RedFlyActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("RedFlyActivity", "onStop");
+        Log.d("RedFlyActivity", "pauseVideo");
     }
 
     @Override

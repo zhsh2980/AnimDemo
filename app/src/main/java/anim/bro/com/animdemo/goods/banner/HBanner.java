@@ -2,10 +2,6 @@ package anim.bro.com.animdemo.goods.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -23,9 +19,9 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.badoo.mobile.util.WeakHandler;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -34,7 +30,7 @@ import java.util.List;
 import anim.bro.com.animdemo.R;
 import anim.bro.com.animdemo.goods.banner.listener.OnBannerListener;
 import anim.bro.com.animdemo.goods.banner.loader.ImageLoader;
-import anim.bro.com.animdemo.goods.banner.loader.VideoLoader;
+import anim.bro.com.animdemo.goods.banner.loader.VideoLoaderGYC;
 import anim.bro.com.animdemo.goods.banner.loader.VideoViewLoaderInterface;
 import anim.bro.com.animdemo.goods.banner.loader.ViewItem;
 import anim.bro.com.animdemo.goods.banner.loader.ViewItemBean;
@@ -377,7 +373,7 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
         if (imageLoader == null)
             imageLoader = new ImageLoader();
         if (videoLoader == null)
-            videoLoader = new VideoLoader();
+            videoLoader = new VideoLoaderGYC();
     }
 
     private void setBannerStyleUI() {
@@ -469,7 +465,7 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
             v = loader.createView(context);
         }
         if (v == null) {
-            v = isVideo ? new VideoView(context) : new ImageView(context);
+            v = isVideo ? new StandardGSYVideoPlayer(context) : new ImageView(context);
         }
         setScaleType(v);
         ViewItem viewItem = new ViewItem(v, viewItemBean);
@@ -536,18 +532,27 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
     public void pauseVideo() {
         ViewItem item = itemViews.get(currentItem);
         View view = item.getView();
-        if (view instanceof VideoView) {
-            videoLoader.onStop((VideoView) view);
+        if (view instanceof StandardGSYVideoPlayer) {
+            videoLoader.pauseVideo((StandardGSYVideoPlayer) view);
         }
     }
 
     public void restartVideo() {
         ViewItem item = itemViews.get(currentItem);
         View view = item.getView();
-        if (view instanceof VideoView) {
-            videoLoader.displayView(null, (VideoView) view);
+        if (view instanceof StandardGSYVideoPlayer) {
+            videoLoader.startVideo(null, (StandardGSYVideoPlayer) view);
         }
     }
+
+    public void destroyVideo() {
+        ViewItem item = itemViews.get(currentItem);
+        View view = item.getView();
+        if (view instanceof StandardGSYVideoPlayer) {
+            videoLoader.onDestroy((StandardGSYVideoPlayer) view);
+        }
+    }
+
 
     private void setViewPagerViews() {
         currentItem = 0;
@@ -569,8 +574,8 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
 
         ViewItem v = itemViews.get(currentItem);
         View view = v.getView();
-        if (view instanceof VideoView) {
-            videoLoader.displayView(context, (VideoView) view);
+        if (view instanceof StandardGSYVideoPlayer) {
+            videoLoader.startVideo(context, (StandardGSYVideoPlayer) view);
         }
 
         if (isAutoPlay)
@@ -607,9 +612,10 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
     float mPosY = 0;
     float mCurPosX = 0;
     float mCurPosY = 0;
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Log.i("bro", event.getAction() + "--" + isAutoPlay);
+//        Log.i("bro", event.getAction() + "--" + isAutoPlay);
 //        return false;
 
 //        switch (event.getAction()) {
@@ -676,22 +682,51 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
             Log.e("lake", "instantiateItem: " + position);
             ViewItem item = itemViews.get(position);
             View view = item.getView();
-            container.addView(view);
+
+            View viewReturn;
+
+            if (view instanceof StandardGSYVideoPlayer) {
+                RelativeLayout.LayoutParams layoutParams =
+                        new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                //      居中
+                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                //      设置属性
+                view.setLayoutParams(layoutParams);
+
+                View viewRoot = View.inflate(context, R.layout.view_hbanner_item, null);
+                RelativeLayout rela_hanner_item = viewRoot.findViewById(R.id.rela_hanner_item);
+                ViewGroup parentViewGroup = (ViewGroup) view.getParent();
+                if (parentViewGroup != null) {
+                    parentViewGroup.removeAllViews();
+                }
+                rela_hanner_item.addView(view);
+
+                container.addView(rela_hanner_item);
+                viewReturn = viewRoot;
+            } else {
+                container.addView(view);
+                viewReturn = view;
+            }
+
             if (listener != null) {
                 view.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.OnBannerClick(toRealPosition(position));
+                        if (v instanceof StandardGSYVideoPlayer) {
+                            listener.OnBannerClick(toRealPosition(position), true);
+                        } else {
+                            listener.OnBannerClick(toRealPosition(position), false);
+                        }
                     }
                 });
             }
-            if (view instanceof VideoView) {
-                videoLoader.onPrepared(context, item.getUrl(), (VideoView) view);
+            if (view instanceof StandardGSYVideoPlayer) {
+                videoLoader.onPrepared(context, item.getUrl(), (StandardGSYVideoPlayer) view);
             }
             if (view instanceof ImageView) {
                 imageLoader.onPrepared(context, item.getUrl(), view);
             }
-            return view;
+            return viewReturn;
         }
 
         @Override
@@ -699,8 +734,8 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
             Log.e("lake", "destroyItem: " + position);
             View item = (View) object;
             container.removeView(item);
-            if (item instanceof VideoView) {
-                videoLoader.onDestroy((VideoView) item);
+            if (item instanceof StandardGSYVideoPlayer) {
+                videoLoader.onDestroy((StandardGSYVideoPlayer) item);
             }
             if (item instanceof ImageView) {
                 imageLoader.onDestroy(item);
@@ -740,8 +775,8 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
         if (0 != position) {
             ViewItem v = itemViews.get(0);
             View view = v.getView();
-            if (view instanceof VideoView) {
-                videoLoader.onStop((VideoView) view);
+            if (view instanceof StandardGSYVideoPlayer) {
+                videoLoader.pauseVideo((StandardGSYVideoPlayer) view);
             }
         }
 //        lastItem = position;
@@ -753,8 +788,8 @@ public class HBanner extends FrameLayout implements ViewPager.OnPageChangeListen
 
         ViewItem v = itemViews.get(position);
         View view = v.getView();
-        if (view instanceof VideoView) {
-            videoLoader.displayView(context, (VideoView) view);
+        if (view instanceof StandardGSYVideoPlayer) {
+            videoLoader.resumeVideo(context, (StandardGSYVideoPlayer) view);
         }
         delayTime = v.getTime();
 

@@ -100,7 +100,7 @@ public class AverageGapItemDecoration extends RecyclerView.ItemDecoration {
             }
         }
         if (BuildConfig.DEBUG) {
-            Log.d("ItemDecoration", "pos=" + position + "," + outRect.toShortString());
+//            Log.d("ItemDecoration", "pos=" + position + "," + outRect.toShortString());
         }
     }
 

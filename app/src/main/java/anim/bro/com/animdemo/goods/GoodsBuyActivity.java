@@ -27,6 +27,7 @@ import anim.bro.com.animdemo.goods.adapter.GoodsBuyAdapter;
 import anim.bro.com.animdemo.goods.banner.BannerConfig;
 import anim.bro.com.animdemo.goods.banner.BannerStyle;
 import anim.bro.com.animdemo.goods.banner.HBanner;
+import anim.bro.com.animdemo.goods.banner.listener.OnBannerListener;
 import anim.bro.com.animdemo.goods.banner.loader.ViewItemBean;
 import anim.bro.com.animdemo.goods.banner.transformer.DefaultTransformer;
 import anim.bro.com.animdemo.util.UIUtils;
@@ -81,21 +82,30 @@ public class GoodsBuyActivity extends AppCompatActivity {
          * 视频图片混播
          */
         List<ViewItemBean> list = new ArrayList<>();
-        Uri path1 = Uri.parse("https://v-cdn.zjol.com.cn/123468.mp4");
-        Uri path2 = Uri.parse("http://zkteam.cc/1581669892013801.mp4");
+//        Uri path1 = Uri.parse("https://v-cdn.zjol.com.cn/123468.mp4");
+//        Uri path2 = Uri.parse("http://zkteam.cc/1581669892013801.mp4");
+        String path2 = "https://v-cdn.zjol.com.cn/276998.mp4";
+//        Uri path2 = Uri.parse("https://raw.githubusercontent.com/zhsh2980/AnimDemo/master/video.mp4");
 //        Uri path2 = Uri.parse("https://v-cdn.zjol.com.cn/276982.mp4");
-        Uri imageUrl = Uri.parse("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579170629919&di=fc03a214795a764b4094aba86775fb8f&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D4061015229%2C3374626956%26fm%3D214%26gp%3D0.jpg");
-        list.add(new ViewItemBean(BannerConfig.VIDEO, path1, 15 * 1000));
+//        String imageUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579170629919&di=fc03a214795a764b4094aba86775fb8f&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D4061015229%2C3374626956%26fm%3D214%26gp%3D0.jpg";
+//        list.add(new ViewItemBean(BannerConfig.VIDEO, path1, 15 * 1000));
         list.add(new ViewItemBean(BannerConfig.VIDEO, path2, 15 * 1000));
-        list.add(new ViewItemBean(BannerConfig.IMAGE, imageUrl, 5 * 1000));
+//        list.add(new ViewItemBean(BannerConfig.IMAGE, imageUrl, 5 * 1000));
 //        list.add(new ViewItemBean(VIDEO, path2, 15 * 1000));
         list.add(new ViewItemBean(BannerConfig.IMAGE, R.mipmap.b1, 5 * 1000));
         list.add(new ViewItemBean(BannerConfig.IMAGE, R.mipmap.b2, 5 * 1000));
 
         banner.setViews(list)
                 .setBannerAnimation(DefaultTransformer.class)
+                .setOnBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position, boolean isVideo) {
+                        ToastUtils.showShort("haha" + isVideo);
+                    }
+                })
                 .setBannerStyle(BannerStyle.CIRCLE_INDICATOR)
                 .setCache(true)//可以不用设置，默认为true
+                .setOffscreenPageLimit(5)
                 .isAutoPlay(false)
                 .setViewPagerIsScroll(true)
                 .start();
@@ -129,18 +139,29 @@ public class GoodsBuyActivity extends AppCompatActivity {
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
                 if (-i >= appBarLayout.getTotalScrollRange() - 220) {
                     tvGoodBuyNowIndex.setVisibility(View.VISIBLE);
-                    banner.pauseVideo();
+                    if (isGoodBuyNowBottomShown) {
+                        banner.pauseVideo();
+                        LogUtils.i("隐藏啦");
+                    }
+                    isGoodBuyNowBottomShown = false;
+
 //                    ToastUtils.showShort("隐藏啦");
                 } else {
-                    tvGoodBuyNowIndex.setVisibility(View.INVISIBLE);
+                    if (!isGoodBuyNowBottomShown) {
+                        tvGoodBuyNowIndex.setVisibility(View.INVISIBLE);
+                        banner.restartVideo();
+                        LogUtils.i("显示啦");
+                    }
 //                    ToastUtils.showShort("显示啦");
-                    banner.restartVideo();
+                    isGoodBuyNowBottomShown = true;
                 }
 //                LogUtils.i("haha" + i);
 //                LogUtils.i("haha" + appBarLayout.getTotalScrollRange());
             }
         });
     }
+
+    boolean isGoodBuyNowBottomShown = false;
 
 
     private boolean checkPermissions(String[] neededPermissions) {
@@ -167,7 +188,26 @@ public class GoodsBuyActivity extends AppCompatActivity {
             Toast.makeText(this, "Maybe can not cache the video or play the local resource!", Toast.LENGTH_LONG).show();
         }
     }
-//
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        banner.pauseVideo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        banner.restartVideo();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        banner.destroyVideo();
+    }
+
+    //
 //    @OnClick({R.id.btn_pause, R.id.btn_start})
 //    public void onViewClicked(View view) {
 //        switch (view.getId()) {

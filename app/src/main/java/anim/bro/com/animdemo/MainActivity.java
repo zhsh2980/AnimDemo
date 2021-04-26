@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 
+import anim.bro.com.animdemo.goods.GlideActivity;
 import anim.bro.com.animdemo.goods.GoodsBuyActivity;
 import anim.bro.com.animdemo.goods.GoodsSaleActivity;
+import anim.bro.com.animdemo.rv.RVActivity;
 import anim.bro.com.animdemo.ui.BlurActivity;
 import anim.bro.com.animdemo.ui.CycleBoxActivity;
 import anim.bro.com.animdemo.ui.DuoDianActivity;
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_red_new, R.id.btn_box_dialog
             , R.id.btn_blur,R.id.btn_cycle_box
             , R.id.btn_goods_sale,R.id.btn_goods_buy
-            ,R.id.btn_duodian})
+            , R.id.btn_goods_glide
+            ,R.id.btn_duodian,R.id.btn_rv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_red_fly:
@@ -77,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_goods_buy:
                 ActivityUtils.startActivity(GoodsBuyActivity.class);
                 break;
+            case R.id.btn_goods_glide:
+                ActivityUtils.startActivity(GlideActivity.class);
+                break;
+                case R.id.btn_rv:
+                ActivityUtils.startActivity(RVActivity.class);
+                break;
         }
     }
 
@@ -104,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("MainActivity", "onStop");
+        Log.d("MainActivity", "pauseVideo");
     }
 
     @Override
