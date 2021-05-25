@@ -1,7 +1,7 @@
 package anim.bro.com.animdemo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 
+import anim.bro.com.animdemo.focus.FocusNewActivity;
 import anim.bro.com.animdemo.goods.GlideActivity;
 import anim.bro.com.animdemo.goods.GoodsBuyActivity;
 import anim.bro.com.animdemo.goods.GoodsSaleActivity;
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_blur,R.id.btn_cycle_box
             , R.id.btn_goods_sale,R.id.btn_goods_buy
             , R.id.btn_goods_glide
-            ,R.id.btn_duodian,R.id.btn_rv})
+            ,R.id.btn_duodian,R.id.btn_rv
+            ,R.id.btn_focus})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_red_fly:
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
                 case R.id.btn_rv:
                 ActivityUtils.startActivity(RVActivity.class);
+                break;
+                case R.id.btn_focus:
+                ActivityUtils.startActivity(FocusNewActivity.class);
                 break;
         }
     }

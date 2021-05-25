@@ -13,8 +13,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 

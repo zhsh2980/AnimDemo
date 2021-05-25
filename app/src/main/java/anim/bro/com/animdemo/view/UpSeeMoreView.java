@@ -2,7 +2,7 @@ package anim.bro.com.animdemo.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;

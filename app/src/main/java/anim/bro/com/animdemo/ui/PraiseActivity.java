@@ -1,7 +1,7 @@
 package anim.bro.com.animdemo.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import anim.bro.com.animdemo.R;

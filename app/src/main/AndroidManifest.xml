@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".rv.RVActivity"></activity>
+        <activity android:name=".focus.FocusNewActivity"></activity>
+        <activity android:name=".rv.RVActivity" />
         <activity android:name=".goods.GoodsBuyActivity" />
         <activity android:name=".goods.GlideActivity" />
         <activity android:name=".ui.DuoDianActivity" />

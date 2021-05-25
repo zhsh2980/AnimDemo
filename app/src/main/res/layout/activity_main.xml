@@ -142,5 +142,15 @@
         android:orientation="horizontal"
         android:text="rv" />
 
+    <Button
+        android:id="@+id/btn_focus"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="焦点抢占" />
+
 
 </LinearLayout>

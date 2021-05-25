@@ -7,8 +7,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +22,7 @@ import static android.graphics.Paint.Style.STROKE;
  * 带转圈的view
  * 半径需要手动设置，后期可根据需求优化
  */
-public class ProgressImageView extends android.support.v7.widget.AppCompatImageView {
+public class ProgressImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     private int outsideColor = ContextCompat.getColor(getContext(), android.R.color.holo_red_light);    //进度的颜色
     private float outsideRadius = 23f;    //外圆半径大小

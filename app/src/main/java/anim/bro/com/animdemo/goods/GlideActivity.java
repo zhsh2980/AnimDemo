@@ -1,54 +1,123 @@
 package anim.bro.com.animdemo.goods;
 
-import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.opensource.svgaplayer.SVGACallback;
+import com.opensource.svgaplayer.SVGAImageView;
+import com.opensource.svgaplayer.SVGAParser;
+import com.opensource.svgaplayer.SVGAVideoEntity;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import org.jetbrains.annotations.NotNull;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import anim.bro.com.animdemo.R;
-import anim.bro.com.animdemo.view.Rotate3dAnimation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class GlideActivity extends AppCompatActivity {
 
-//    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            tv_title.setText("haha");
-        }
-    };
 
-
-    @BindView(R.id.iv_glide)
-    ImageView ivGlide;
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-
-//    String url = "http://p0.jmstatic.com/mobile/2020/08/20/top_background/44941597908197.jpeg?t=1597908197&imageView2/2/w/960/q/90";
-    String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1597925628482&di=f12d7bcdaba6df1b6322f76051e3f7d0&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D1484500186%2C1503043093%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D853";
+//    String url = "https://p0.jmstatic.com/mobile/package/exchange/android/apk/anim_box_normal.gif";
+    String url = "https://p0.jmstatic.com/mobile/package/exchange/android/apk/anim_box_dialog.svga";
+    String url2 = "https://p0.jmstatic.com/mobile/package/exchange/android/apk/anim_box_new_2nd.svga";
+    String url3 = "https://p0.jmstatic.com/mobile/package/exchange/android/apk/anim_box_normal.svga";
+    @BindView(R.id.iv_box_open_new_gold)
+    SVGAImageView mSVGAImage;
+    @BindView(R.id.iv_2)
+    SVGAImageView mSVGAImage2;
+    @BindView(R.id.iv_3)
+    SVGAImageView mSVGAImage3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glide);
         ButterKnife.bind(this);
-        Glide.with(this).load(url).into(ivGlide);
-        //发送延迟消息
-        mHandler.sendEmptyMessageDelayed(0, 20000);
+
+        try {
+            new SVGAParser(this).decodeFromURL(new URL(url), new SVGAParser.ParseCompletion() {
+                @Override
+                public void onComplete(SVGAVideoEntity videoItem) {
+                    mSVGAImage.setVideoItem(videoItem);
+                    mSVGAImage.startAnimation();
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            new SVGAParser(this).decodeFromURL(new URL(url2), new SVGAParser.ParseCompletion() {
+                @Override
+                public void onComplete(SVGAVideoEntity videoItem) {
+                    mSVGAImage2.setVideoItem(videoItem);
+//                    mSVGAImage2.startAnimation();
+                    mSVGAImage2.stepToFrame(0 , true);
+                    mSVGAImage2.setCallback(new SVGACallback() {
+                        @Override
+                        public void onPause() {
+                            //动画暂停
+                        }
+
+                        @Override
+                        public void onFinished() {
+                            //动画结束
+                            LogUtils.i("bro","动画结束");
+                            ToastUtils.showLong("动画结束");
+                        }
+
+                        @Override
+                        public void onRepeat() {
+                            //重复播放
+                        }
+
+                        @Override
+                        public void onStep(int i, double v) {
+                            //动画步骤
+                        }
+                    });
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            new SVGAParser(this).decodeFromURL(new URL(url3), new SVGAParser.ParseCompletion() {
+                @Override
+                public void onComplete(SVGAVideoEntity videoItem) {
+                    mSVGAImage3.setVideoItem(videoItem);
+                    mSVGAImage3.startAnimation();
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
