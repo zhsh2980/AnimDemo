@@ -2,10 +2,13 @@ package anim.bro.com.animdemo.rv;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -17,14 +20,21 @@ import anim.bro.com.animdemo.R;
 /**
  * Created by zhangshan on 4/21/21 7:16 PM.
  */
-class RvAdapter extends RecyclerView.Adapter<RvAdapter.DemoViewHolder> {
+public class RvAdapter extends RecyclerView.Adapter<RvAdapter.DemoViewHolder> {
 
     private List<RvBean> list;
 
-    RvAdapter() {
+    public RvAdapter() {
         list = new ArrayList();
         for (int i = 0; i <= 100; i++) {
             list.add(new RvBean("haha" + i));
+        }
+    }
+
+    public RvAdapter(int size, String title, int color) {
+        list = new ArrayList();
+        for (int i = 0; i <= size; i++) {
+            list.add(new RvBean(title + "---" + i, color));
         }
     }
 
@@ -52,16 +62,20 @@ class RvAdapter extends RecyclerView.Adapter<RvAdapter.DemoViewHolder> {
         public DemoViewHolder(@NonNull final View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_title);
-            name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToastUtils.showLong("点我干啥");
-                }
-            });
+
         }
 
         public void bindTo(RvBean rvBean) {
             name.setText(rvBean.title);
+            if (rvBean.color != -1) {
+                name.setTextColor(itemView.getResources().getColor(rvBean.color, null));
+            }
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(), "点我干啥", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
