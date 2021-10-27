@@ -22,7 +22,8 @@
         <activity android:name=".rv.RVActivity" />
         <activity android:name=".goods.GoodsBuyActivity" />
         <activity android:name=".goods.GlideActivity" />
-        <activity android:name=".ui.DuoDianActivity" />
+        <activity android:name=".ui.DuoDianActivity" >
+        </activity>
 
         <meta-data
             android:name="android.min_aspect"
@@ -45,6 +46,8 @@
         <activity android:name=".ui.PraiseActivity" />
         <activity android:name=".ui.RedNewActivity" />
         <activity android:name=".ui.RedRainActivity" />
+        <activity android:name=".banner.BannerActivity"
+            />
         <activity android:name=".rvcategory.RvCategoryActivity" />
 
         <service android:name=".service.SyncTimeService" />

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rela_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!--⽔平⽅向填充⽗容器-->
+    <FrameLayout
+        android:id="@+id/frame_1"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/color_BBBBBB"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--为⽔平⽅向的控件设置权重，⼤⼩为 2:1:1-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_1">
+
+        <FrameLayout
+            android:id="@+id/frame_2_1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:background="@color/cor_appraise_red"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/frame_2_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frame_2_2"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:background="@color/holo_green_light"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/frame_2_1"
+            app:layout_constraintRight_toLeftOf="@id/frame_2_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frame_2_3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:background="@color/cor_appraise_red"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/frame_2_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--⽂字基准线对⻬-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cons_2">
+
+        <TextView
+            android:id="@+id/tv_3_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我是小字体"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_3_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="⽂字基准线线对⻬"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintLeft_toRightOf="@+id/tv_3_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frame_center"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:background="@color/com_tenpay_list_item_pressed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/jumeired_fe4070"
+        android:text="我是按钮"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/frame_center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_center" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

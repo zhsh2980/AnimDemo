@@ -203,5 +203,8 @@
 
     <color name="sv_rednew_progress_text">#FBE1AE</color>
 
+    <color name="red_checked_color">#FF4C39</color>
+    <color name="red_normal_color">#935656</color>
+
 
 </resources>

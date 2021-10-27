@@ -8,13 +8,27 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.constant.TimeConstants;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import anim.bro.com.animdemo.focus.FocusNewActivity;
 import anim.bro.com.animdemo.fragment.RvFragmentActivity;
@@ -23,6 +37,7 @@ import anim.bro.com.animdemo.goods.GoodsBuyActivity;
 import anim.bro.com.animdemo.goods.GoodsSaleActivity;
 import anim.bro.com.animdemo.rv.RVActivity;
 import anim.bro.com.animdemo.rvcategory.RvCategoryActivity;
+import anim.bro.com.animdemo.banner.BannerActivity;
 import anim.bro.com.animdemo.ui.BlurActivity;
 import anim.bro.com.animdemo.ui.CycleBoxActivity;
 import anim.bro.com.animdemo.ui.DuoDianActivity;
@@ -30,6 +45,7 @@ import anim.bro.com.animdemo.ui.PraiseActivity;
 import anim.bro.com.animdemo.ui.RedFlyActivity;
 import anim.bro.com.animdemo.ui.RedNewActivity;
 import anim.bro.com.animdemo.ui.RedRainActivity;
+import anim.bro.com.animdemo.util.GetJsonDataUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -54,7 +70,55 @@ public class MainActivity extends AppCompatActivity {
 
         initScreenListener();
 
+        //测试日期
+        testData();
+
+//        JSONObject object = testJsonMap();
+        String shuabaoJson = new GetJsonDataUtil().getJson(this, "shuabao.json");//获取assets目录下的json文件数据
+        try {
+            JSONObject jsonObject = new JSONObject(shuabaoJson);
+            resolveJsonMap(jsonObject.optJSONObject("alarmMsg"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        Log.i("bro", "value: " + shuabaoJson);
+//        resolveJsonMap(object.optJSONObject("alarmMsg"));
+
     }
+
+    private void resolveJsonMap(JSONObject data) {
+        if (isNullJSONObject(data)) {
+            return;
+        }
+//        HashMap<String, String> map = new HashMap<>();
+        Iterator iterator = data.keys();
+        while (iterator.hasNext()) {
+            String key = iterator.next().toString();
+            if (TextUtils.equals(key, "240")) {
+                String value = data.optString(key);
+                ToastUtils.showLong(value);
+//                Log.i("bro", "value: " + value);
+            }
+        }
+    }
+
+    private JSONObject testJsonMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("240", "我是一句话");
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("alarmMsg", map);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i("bro", "jsonMap: " + object.toString());
+
+        return object;
+
+    }
+
 
     private void initScreenListener() {
 
@@ -97,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_duodian, R.id.btn_rv
             , R.id.btn_focus, R.id.btn_category
             , R.id.btn_rv_add_frag
+            , R.id.btn_transparent_activity
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -144,6 +209,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_rv_add_frag:
                 ActivityUtils.startActivity(RvFragmentActivity.class);
                 break;
+            case R.id.btn_transparent_activity:
+                ActivityUtils.startActivity(BannerActivity.class);
+                break;
             default:
         }
     }
@@ -180,4 +248,55 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d("MainActivity", "onDestroy");
     }
+
+    public String caseData(String dt) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(dt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String now = new SimpleDateFormat("MM月dd日 HH:mm:ss").format(date);
+//        return now.split(" ")[0];//年月日
+        return now;//年月日
+    }
+
+    private void testData() {
+        String dueStartDate = "2021-08-25 15:00:00";//尾款开始时间(yyyy-MM-dd HH:mm:ss)
+        String dueEndDate = "2021-08-26 14:16:18";//尾款结束时间(yyyy-MM-dd HH:mm:ss)
+        long serverTime = 1629872177000L;//返回时间戳,毫秒转换后变为 2021-08-25 14:16:17
+        long longTimeStart = TimeUtils.string2Millis(dueStartDate);//1629874800000
+        long longTimeEnd = TimeUtils.string2Millis(dueEndDate);//1630324800000
+
+        String dataFormat = caseData(dueStartDate);
+
+        long timeSpanMSEC = TimeUtils.getTimeSpan(longTimeEnd, serverTime, TimeConstants.MSEC);
+
+        long MSEC_24 = 24 * 60 * 60 * 1000;
+
+        if (serverTime < longTimeStart) {
+            //未开始
+        } else if (serverTime < longTimeEnd) {
+            if (timeSpanMSEC > MSEC_24) {
+
+            } else {
+
+            }
+        }
+
+        Log.d("bro", "longTimeStart---" + longTimeStart + "---longTimeEnd---" + longTimeEnd
+                + "---timeSpanMSEC---" + timeSpanMSEC + "---MSEC_24---" + MSEC_24
+                + "---dataFormat---" + dataFormat);
+
+        Date date = TimeUtils.millis2Date(10872 * 1000);
+        String now = new SimpleDateFormat("HH:mm:ss").format(date);
+        Log.d("bro", "now--" + now);
+
+
+    }
+
+    protected boolean isNullJSONObject(JSONObject jsonObject) {
+        return jsonObject == null || JSONObject.NULL.equals(jsonObject);
+    }
+
 }

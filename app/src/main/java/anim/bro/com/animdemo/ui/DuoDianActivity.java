@@ -1,29 +1,35 @@
 package anim.bro.com.animdemo.ui;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.widget.Button;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ImageSpan;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
-import java.text.SimpleDateFormat;
-
 import anim.bro.com.animdemo.R;
-import butterknife.BindView;
-import butterknife.OnClick;
+import anim.bro.com.animdemo.util.TextUtil;
+import anim.bro.com.animdemo.util.TextUtilNew;
+import anim.bro.com.animdemo.view.AdvertThreeTextView;
+import anim.bro.com.animdemo.view.AppendViewAfterTextView;
 
 public class DuoDianActivity extends BaseActivity {
 
-    @BindView(R.id.btn_order)
-    Button btn_order;
-    @BindView(R.id.textView)
-    TextView textView;
-    AlertDialog.Builder builder;
+    private TextView tv_test;
+    private TextView tv_normal;
+    private AppendViewAfterTextView appendViewAfterTextView;
+    private AdvertThreeTextView threeTextView;
 
     @Override
     public int getResourceID() {
@@ -37,46 +43,29 @@ public class DuoDianActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        Log.d("DuoDianActivity", "btn_order.getId():" + btn_order.getId());
-        textView.setMovementMethod(new ScrollingMovementMethod());
+        tv_test = findViewById(R.id.tv_test);
+        tv_normal = findViewById(R.id.tv_normal);
+
+
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_cart_black_arrow);
+
+        TextUtilNew.addTagToTextView(this , tv_normal,
+                "当当自营当当自营",
+                "当当好店"  ,
+                drawable,
+                TextUtilNew.mColorStr);
+
+
+//        appendViewAfterTextView = findViewById(R.id.append_text);
+//        appendViewAfterTextView.setText("我是正常的文字我是正常的文字我是正常的文字我是正常的文字");
+//        appendViewAfterTextView.setSpecialViewText("我是按钮");
+
+//        threeTextView = findViewById(R.id.textAd);
+//        threeTextView.setTextContent("我是正常的文字我是正常的文字我是正常的文字我是正常的文字我是正常的文字" , "广告");
     }
 
     @Override
     public void initData() {
     }
-
-    @OnClick(R.id.btn_order)
-    public void onViewClicked() {
-//        ToastUtils.showShort(getCurrentTime());
-        openDialog();
-        textView.append("开始抢购: " + getCurrentTime() + "\n");
-    }
-
-    private String getCurrentTime() {
-        return TimeUtils.getNowString(new SimpleDateFormat("HH:mm:ss SSS"));
-    }
-
-    private void openDialog() {
-        if (builder == null) {
-            builder = new AlertDialog.Builder(this);
-//            builder.setTitle("请回答");
-            builder.setMessage("网络繁忙");
-            builder.setCancelable(false);
-            builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(this, "嘻嘻嘻",Toast.LENGTH_SHORT).show();
-                }
-            });
-//            builder.setNegativeButton("我觉得不好看", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-////                    Toast.makeText(AlertDialogActivity.this, "嘤嘤嘤", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-        }
-        builder.show();
-    }
-
 
 }

@@ -1,0 +1,22 @@
+{
+    "topic": {
+        "bgStyle": 2,
+        "bgImgUrl": "",
+        "bgColor": "#FFFFFF",
+        "interval": 3
+    },
+    "pitContent": [
+        {
+        "imgUrl": "https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/00/02/ChMkJl3o5FqIY6f_AAGq9Ei0WJgAAvl8QFnVNAAAasM391.jpg",
+        "linkUrl": ""
+        },
+        {
+            "imgUrl": "https://desk-fd.zol-img.com.cn/t_s1440x900c5/g6/M00/02/08/ChMkKmD_YbiIcvwfAASj8VSnLUMAASK7gDaIRcABKQJ325.jpg",
+            "linkUrl": ""
+        },
+        {
+            "imgUrl": "https://desk-fd.zol-img.com.cn/t_s1600x900c5/g6/M00/00/0A/ChMkKmD6I2iIPb5AAIfgIkjcHwYAASDZgGr_akAh-A6322.jpg",
+            "linkUrl": ""
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rela_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <anim.bro.com.animdemo.banner.bannerview.BannerViewPager
+        android:id="@+id/banner_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#433377"
+
+        app:bvp_page_style="multi_page"
+        app:layout_constraintDimensionRatio="375:300"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_banner_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/icon_banner_vertical"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="5dp"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/banner_view"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="12/13" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
