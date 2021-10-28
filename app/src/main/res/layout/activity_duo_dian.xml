@@ -12,15 +12,16 @@
         android:background="@color/holo_green_light"
         android:ellipsize="end"
         android:gravity="center_vertical"
+        android:includeFontPadding="true"
         android:maxWidth="200dp"
         android:maxLines="2"
+        android:text="对以下数据指标进行监测，若在商品相关性不减弱的前提下，搜索整体的收订金额，UV价值，点击率均有所提升，且对自营商品无影响，则可进行搜索加权。反之则不进行搜索加权，只外露“明星好店”标识"
         android:textColor="@color/black"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="当当自营" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_test"

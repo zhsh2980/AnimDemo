@@ -1,26 +1,10 @@
 package anim.bro.com.animdemo.ui;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.TextUtils;
-import android.text.style.ImageSpan;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 
 import anim.bro.com.animdemo.R;
 import anim.bro.com.animdemo.util.TextUtil;
-import anim.bro.com.animdemo.util.TextUtilNew;
 import anim.bro.com.animdemo.view.AdvertThreeTextView;
 import anim.bro.com.animdemo.view.AppendViewAfterTextView;
 
@@ -46,16 +30,18 @@ public class DuoDianActivity extends BaseActivity {
         tv_test = findViewById(R.id.tv_test);
         tv_normal = findViewById(R.id.tv_normal);
 
-
         Drawable drawable = getResources().getDrawable(R.drawable.ic_cart_black_arrow);
-
-        TextUtilNew.addTagToTextView(this , tv_normal,
-                "当当自营当当自营",
-                "当当好店"  ,
-                drawable,
-                TextUtilNew.mColorStr);
-
-
+        TextUtil.newBuilder()
+                .setContext(this)
+                .setTargetTv(tv_normal)
+                .setTargetTvText((String) tv_normal.getText())
+                .setTagText("当当好店")
+                .setTagColor("#654321")
+                .setTagBackground("#123456")
+//                .setMaxLines(2)
+                .setTagTextDrawableLocal(drawable)
+                .build()
+                .addTagToTextView();
 //        appendViewAfterTextView = findViewById(R.id.append_text);
 //        appendViewAfterTextView.setText("我是正常的文字我是正常的文字我是正常的文字我是正常的文字");
 //        appendViewAfterTextView.setSpecialViewText("我是按钮");

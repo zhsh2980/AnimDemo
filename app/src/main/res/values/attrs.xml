@@ -120,4 +120,24 @@
         <attr name="append_spectial_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="GradientTextView">
+        <attr name="compatSolidColor" format="color"/>
+        <attr name="compatRadius" format="dimension"/>
+        <attr name="compatTopLeftRadius"  format="dimension"/>
+        <attr name="compatTopRightRadius"  format="dimension"/>
+        <attr name="compatBottomRightRadius"  format="dimension"/>
+        <attr name="compatBottomLeftRadius"  format="dimension"/>
+        <attr name="compatStrokeColor" format="color"/>
+        <attr name="compatStrokeWidth"  format="dimension"/>
+        <attr name="compatDashGap" format="dimension"/>
+        <attr name="compatDashWidth" format="dimension" />
+        <attr name="compatAngle" format="boolean"/>
+        <attr name="compatStartColor" format="boolean"/>
+        <attr name="compatCenterColor" format="boolean"/>
+        <attr name="compatEndColor" format="boolean"/>
+        <attr name="compatCenterX"  format="float"/>
+        <attr name="compatCenterY"  format="float"/>
+        <attr name="compatShape" format="dimension"/>
+    </declare-styleable>
+
 </resources>

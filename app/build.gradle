@@ -90,6 +90,8 @@ dependencies {
 
     implementation 'com.github.zhpanvip:viewpagerindicator:1.2.1'
 
+    implementation 'com.github.ChinaLike:TagTextView:0.1.0'
+
 }
 repositories {
     mavenCentral()

@@ -23,6 +23,11 @@
         <activity android:name=".goods.GoodsBuyActivity" />
         <activity android:name=".goods.GlideActivity" />
         <activity android:name=".ui.DuoDianActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data
@@ -36,11 +41,6 @@
             android:name=".MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:maxAspectRatio="2.4">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.RedFlyActivity" />
         <activity android:name=".ui.PraiseActivity" />
