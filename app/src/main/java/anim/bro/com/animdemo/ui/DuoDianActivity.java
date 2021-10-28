@@ -3,6 +3,8 @@ package anim.bro.com.animdemo.ui;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
+
 import anim.bro.com.animdemo.R;
 import anim.bro.com.animdemo.util.TextUtil;
 import anim.bro.com.animdemo.view.AdvertThreeTextView;
@@ -35,9 +37,12 @@ public class DuoDianActivity extends BaseActivity {
                 .setContext(this)
                 .setTargetTv(tv_normal)
                 .setTargetTvText((String) tv_normal.getText())
+                .setLabelLeftMarginPx(SizeUtils.dp2px(6))
+                .setLabelRightMarginPx(SizeUtils.dp2px(6))
                 .setTagText("当当好店")
                 .setTagColor("#654321")
                 .setTagBackground("#123456")
+                .setTagLeft(true)
 //                .setMaxLines(2)
                 .setTagTextDrawableLocal(drawable)
                 .build()

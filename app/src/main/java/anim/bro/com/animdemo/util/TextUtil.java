@@ -56,9 +56,12 @@ public class TextUtil {
     private String tagColor = "#000000";
     private Drawable tagTextDrawableLocal;
     private int tagTextSize;
+    private boolean isTagLeft;//标签是否居左
+    //    private int tagTvMarginLeft = 0;//标签左边距
     private boolean arrowLeftOrRight;//暂时未实现
     private int maxLines = 2;//最大行数
-    private int labelLeftMarginPx = SizeUtils.dp2px(6);//标签的左 margin
+    private int labelLeftMarginPx;//标签的左 margin
+    private int labelRightMarginPx;//标签的右 margin
     private int labelWidthPx;//标签的左 margin
     private int arrorWidthPx = SizeUtils.dp2px(5);//箭头的宽度
     private int arrorLeftMarginPx = SizeUtils.dp2px(2);//箭头的宽度
@@ -76,6 +79,9 @@ public class TextUtil {
         tagTextSize = builder.tagTextSize;
         arrowLeftOrRight = builder.arrowLeftOrRight;
         maxLines = builder.maxLines;
+        labelLeftMarginPx = builder.labelLeftMarginPx;
+        labelRightMarginPx = builder.labelRightMarginPx;
+        isTagLeft = builder.isTagLeft;
     }
 
     public static Builder newBuilder() {
@@ -231,14 +237,26 @@ public class TextUtil {
                     if (isCliped) {
                         targetTvText = targetTvText + "...";
                     }
-                    targetTv.setText(targetTvText);
-                    if (arrowDrawable != null) {
-                        targetTv.append(" ");
-                        targetTv.append(arrowDrawable);
+                    if (isTagLeft) {
+                        if (labelDrawable != null) {
+                            targetTv.setText(labelDrawable);
+                        }
+                        targetTv.append(targetTvText);
+                        if (arrowDrawable != null) {
+                            targetTv.append(" ");
+                            targetTv.append(arrowDrawable);
+                        }
+                    } else {
+                        targetTv.setText(targetTvText);
+                        if (arrowDrawable != null) {
+                            targetTv.append(" ");
+                            targetTv.append(arrowDrawable);
+                        }
+                        if (labelDrawable != null) {
+                            targetTv.append(labelDrawable);
+                        }
                     }
-                    if (labelDrawable != null) {
-                        targetTv.append(labelDrawable);
-                    }
+
                 } else {
                     clipText(subLastChar(targetTvText), true);
                 }
@@ -265,7 +283,7 @@ public class TextUtil {
         if (tagTextDrawableLocal != null) {
             labelAllWidthPx = labelAllWidthPx + arrorWidthPx + arrorLeftMarginPx;
         }
-        labelAllWidthPx = labelAllWidthPx + labelWidthPx + labelLeftMarginPx;
+        labelAllWidthPx = labelAllWidthPx + labelWidthPx + labelLeftMarginPx + labelRightMarginPx;
 
         targetTv.post(new Runnable() {
             @Override
@@ -368,7 +386,8 @@ public class TextUtil {
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         // 设置左间距
-        layoutParams.leftMargin = SizeUtils.dp2px(6);
+        layoutParams.leftMargin = labelLeftMarginPx;
+        layoutParams.rightMargin = labelRightMarginPx;
         // 设置下间距，简单解决ImageSpan和文本竖直方向对齐的问题
 //        layoutParams.bottomMargin = SizeUtils.dp2px(3);
         layout.addView(textViewLabel, layoutParams);
@@ -380,7 +399,7 @@ public class TextUtil {
         layout.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         // 给左边设置的margin留出空间
-        layout.layout(0, 0, textViewLabel.getMeasuredWidth() + labelLeftMarginPx, textViewLabel.getMeasuredHeight());
+        layout.layout(0, 0, textViewLabel.getMeasuredWidth() + labelLeftMarginPx + labelRightMarginPx, textViewLabel.getMeasuredHeight());
 //        layout.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight());
         // 获取bitmap对象
         Bitmap bitmap = Bitmap.createBitmap(layout.getDrawingCache());
@@ -408,7 +427,7 @@ public class TextUtil {
              * 第三步，通过bitmap生成我们需要的ImageSpan对象
              */
             Drawable drawable1 = new BitmapDrawable(bitmap);
-            drawable1.setBounds(0, 0, textViewLabel.getMeasuredWidth() + labelLeftMarginPx, textViewLabel.getMeasuredHeight()); //自定义图片尺寸
+            drawable1.setBounds(0, 0, textViewLabel.getMeasuredWidth() + labelLeftMarginPx + labelRightMarginPx, textViewLabel.getMeasuredHeight()); //自定义图片尺寸
             CustomImageSpan customImageSpan = new CustomImageSpan(drawable1);
 //            Drawable drawable1 = context.getResources().getDrawable(R.drawable.icon_minus);
 //            drawable1.setBounds(0, 0, width, height); //自定义图片尺寸
@@ -431,9 +450,12 @@ public class TextUtil {
         private Context context;
         private TextView targetTv;
         private String targetTvText;
+        private int labelLeftMarginPx;
+        private int labelRightMarginPx;
         private String tagText;
         private String tagBackground;
         private String tagColor;
+        private boolean isTagLeft;
         private Drawable tagTextDrawableLocal;
         private int tagTextSize;
         private boolean arrowLeftOrRight;
@@ -454,6 +476,16 @@ public class TextUtil {
 
         public Builder setTargetTvText(String targetTvText) {
             this.targetTvText = targetTvText;
+            return this;
+        }
+
+        public Builder setLabelLeftMarginPx(int labelLeftMarginPx) {
+            this.labelLeftMarginPx = labelLeftMarginPx;
+            return this;
+        }
+
+        public Builder setLabelRightMarginPx(int labelRightMarginPx) {
+            this.labelRightMarginPx = labelRightMarginPx;
             return this;
         }
 
@@ -489,6 +521,11 @@ public class TextUtil {
 
         public Builder setMaxLines(int maxLines) {
             this.maxLines = maxLines;
+            return this;
+        }
+
+        public Builder setTagLeft(boolean isTagLeft) {
+            this.isTagLeft = isTagLeft;
             return this;
         }
 
