@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.target.SizeReadyCallback;
@@ -36,6 +37,9 @@ import java.util.regex.Pattern;
  * @author zhuqiao
  */
 public class TextUtil {
+
+    private String TAG = getClass().getSimpleName();
+
     /**
      * 带箭头
      *
@@ -50,21 +54,27 @@ public class TextUtil {
      */
     private Context context;
     private TextView targetTv;
-    private String targetTvText = "";
-    private String tagText;
-    private String tagBackground = "#FFFFFF";
-    private String tagColor = "#000000";
-    private Drawable tagTextDrawableLocal;
-    private int tagTextSize;
-    private boolean isTagLeft;//标签是否居左
+    private String targetTvText;
+    private int targetTvMaxWidthPx;//父控件最大宽度,如果目标 TextView
+    private int labelAllWidthPx = -1;
+    private int fitErrorWidth;
+    private String labelText;
+    private String labelBackground;//默认值白色
+    private String labelTextColor;//默认值黑色
+    private int labelCorner;
+    private Drawable labelTextDrawableLocal;
+    private int labelTextSize;//默认 12
+    private boolean isLabelLeft;//标签是否居左
+    private TextView labelOnlyTextView;//单独设置标签时才设置
+    private int[] labelPading;//便签的内间距
     //    private int tagTvMarginLeft = 0;//标签左边距
     private boolean arrowLeftOrRight;//暂时未实现
     private int maxLines = 2;//最大行数
     private int labelLeftMarginPx;//标签的左 margin
     private int labelRightMarginPx;//标签的右 margin
     private int labelWidthPx;//标签的左 margin
-    private int arrorWidthPx = SizeUtils.dp2px(5);//箭头的宽度
-    private int arrorLeftMarginPx = SizeUtils.dp2px(2);//箭头的宽度
+    private int arrorWidthPx = dp2px(5);//箭头的宽度
+    private int arrorLeftMarginPx = dp2px(2);//箭头的宽度
     private SpannableStringBuilder arrowDrawable;
     private SpannableStringBuilder labelDrawable;
 
@@ -72,16 +82,20 @@ public class TextUtil {
         context = builder.context;
         targetTv = builder.targetTv;
         targetTvText = builder.targetTvText;
-        tagText = builder.tagText;
-        tagBackground = builder.tagBackground;
-        tagColor = builder.tagColor;
-        tagTextDrawableLocal = builder.tagTextDrawableLocal;
-        tagTextSize = builder.tagTextSize;
+        targetTvMaxWidthPx = builder.targetTvMaxWidthPx;
+        labelText = builder.labelText;
+        labelBackground = builder.labelBackground;
+        labelTextColor = builder.labelTextColor;
+        labelCorner = builder.labelCorner;
+        labelTextDrawableLocal = builder.labelTextDrawableLocal;
+        labelTextSize = builder.labelTextSize;
         arrowLeftOrRight = builder.arrowLeftOrRight;
         maxLines = builder.maxLines;
         labelLeftMarginPx = builder.labelLeftMarginPx;
         labelRightMarginPx = builder.labelRightMarginPx;
-        isTagLeft = builder.isTagLeft;
+        isLabelLeft = builder.isLabelLeft;
+        labelOnlyTextView = builder.labelOnlyTv;
+        labelPading = builder.labelPading;
     }
 
     public static Builder newBuilder() {
@@ -89,15 +103,14 @@ public class TextUtil {
     }
 
     //给图片设置的宽高,背景色用不着
-    private static int width = SizeUtils.dp2px(70);
-    private static int height = SizeUtils.dp2px(15);
+    private int width = dp2px(70);
+    private int height = dp2px(15);
 
     //测试 url
     public static String picUrl = "https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/00/02/ChMkJl3o5FqIY6f_AAGq9Ei0WJgAAvl8QFnVNAAAasM391.jpg";
 
 
     public static String mTagColorDefault = "#000000";
-    public static String mTagBackgroundDefault = "#FFFFFF";
 
 //    public void addTagToTextView(@Nullable Context context, @Nullable TextView targetTv, @Nullable String title,
 //                                        @Nullable String tagStr, @Nullable String background, @Nullable String textColor) {
@@ -105,82 +118,97 @@ public class TextUtil {
 //    }
 
     public void addTagToTextView() {
+        targetTv.setVisibility(View.INVISIBLE);
+        targetTv.setText("测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度");
+        targetTv.post(new Runnable() {
+            @Override
+            public void run() {
+                targetTvMaxWidthPx = targetTv.getWidth();
+                targetTv.setText("");
+                targetTv.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(labelBackground) && labelBackground.startsWith("#")) {
+                    //背景色
+                    addTagToTextView(null);
+                } else {
+                    //背景图
+                    loadPic();
+                }
+            }
+        });
+    }
 
-        if (!TextUtils.isEmpty(tagBackground) && tagBackground.startsWith("#")) {
-            //背景色
-            addTagToTextView(null);
-        } else {
-            //背景图
-//        String picUrl = "https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/00/02/ChMkJl3o5FqIY6f_AAGq9Ei0WJgAAvl8QFnVNAAAasM391.jpg";
+
+    private void loadPic() {
+        String picUrl = "https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/00/02/ChMkJl3o5FqIY6f_AAGq9Ei0WJgAAvl8QFnVNAAAasM391.jpg";
 //        String picUrl = "https://desk-fd.zol-img.com.cn/t_s1440x900c5/g6/M00/02/08/ChMkKmD_YbiIcvwfAASj8VSnLUMAASK7gDaIRcABKQJ325.jpg";
 //        String picUrl = "https://desk-fd.zol-img.com.cn/t_s1600x900c5/g6/M00/00/0A/ChMkKmD6I2iIPb5AAIfgIkjcHwYAASDZgGr_akAh-A6322.jpg";
-            Glide.with(context) // could be an issue!R
+        Glide.with(context) // could be an issue!R
 //                .asBitmap()//强制Glide返回一个Bitmap
 //                .load(R.drawable.icon_minus)
-                    .load(tagBackground)
-                    .override(width, height)
-                    .centerCrop()
-//                .transform(new RoundedCorners(SizeUtils.dp2px(13)))
-                    .into(new Target<Drawable>() {
-                        @Override
-                        public void onLoadStarted(@Nullable Drawable placeholder) {
+                .load(labelBackground)
+                .override(width, height)
+                .centerCrop()
+//                .transform(new RoundedCorners(dp2px(13)))
+                .into(new Target<Drawable>() {
+                    @Override
+                    public void onLoadStarted(@Nullable Drawable placeholder) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            Log.e("bro", "onLoadFailed");
-                            targetTv.setText(targetTvText);
-                        }
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        Log.e("bro", "onLoadFailed");
+                        targetTv.setText(targetTvText);
+                    }
 
-                        @Override
-                        public void onResourceReady(@NonNull Drawable drawablePicNet, @Nullable Transition<? super Drawable> transition) {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable drawablePicNet, @Nullable Transition<? super Drawable> transition) {
 //                        Drawable drawable = new BitmapDrawable(resource);
-                            addTagToTextView(drawablePicNet);
-                        }
+                        addTagToTextView(drawablePicNet);
+                    }
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                        }
+                    }
 
-                        @Override
-                        public void getSize(@NonNull SizeReadyCallback cb) {
+                    @Override
+                    public void getSize(@NonNull SizeReadyCallback cb) {
 
-                        }
+                    }
 
-                        @Override
-                        public void removeCallback(@NonNull SizeReadyCallback cb) {
+                    @Override
+                    public void removeCallback(@NonNull SizeReadyCallback cb) {
 
-                        }
+                    }
 
-                        @Override
-                        public void setRequest(@Nullable Request request) {
+                    @Override
+                    public void setRequest(@Nullable Request request) {
 
-                        }
+                    }
 
-                        @Nullable
-                        @Override
-                        public Request getRequest() {
-                            return null;
-                        }
+                    @Nullable
+                    @Override
+                    public Request getRequest() {
+                        return null;
+                    }
 
-                        @Override
-                        public void onStart() {
+                    @Override
+                    public void onStart() {
 
-                        }
+                    }
 
-                        @Override
-                        public void onStop() {
+                    @Override
+                    public void onStop() {
 
-                        }
+                    }
 
-                        @Override
-                        public void onDestroy() {
+                    @Override
+                    public void onDestroy() {
 
-                        }
-                    });
-        }
+                    }
+                });
+
 
     }
 
@@ -189,9 +217,6 @@ public class TextUtil {
         return str.substring(0, str.length() - 1);
     }
 
-    int textViewMaxWidthPx = -1;//父控件最大宽度
-    int labelAllWidthPx = -1;
-    int fitErrorWidth;
 
     private void clipText(String targetTvText, boolean isCliped) {
 //        targetTv.append(targetTvText);
@@ -199,12 +224,12 @@ public class TextUtil {
         int textTotalWidthPx = (int) (targetTv.getPaint().measureText(targetTvText) + targetTv.getMaxLines() * (targetTv.getPaddingLeft() + targetTv.getPaddingRight()));
         log("targetTvText: " + targetTvText + "  textTotalWidthPx: " + textTotalWidthPx);
 //        int textTotalWidthPx = textTotalWidthPx;//除去标签文本的宽度(包括 padingleft padingright)
-        Log.i("bro", "textTotalWidthPx  : " + textTotalWidthPx + "  textViewMaxWidthPx  : " + textViewMaxWidthPx);
-        if (textViewMaxWidthPx > 0) {
+        Log.i("bro", "textTotalWidthPx  : " + textTotalWidthPx + "  textViewMaxWidthPx  : " + targetTvMaxWidthPx);
+        if (targetTvMaxWidthPx > 0) {
 //            if (textTotalWidthPx > textViewMaxWidthPx) {
             //多行
-            int i = textTotalWidthPx / textViewMaxWidthPx;
-            int j = textTotalWidthPx % textViewMaxWidthPx;
+            int i = textTotalWidthPx / targetTvMaxWidthPx;
+            int j = textTotalWidthPx % targetTvMaxWidthPx;
             if (i + 1 < targetTv.getMaxLines()) {
                 j = 0;
             }
@@ -225,19 +250,19 @@ public class TextUtil {
                 if (arrowDrawable != null) {
                     arrowLeftMarginPx = (int) (targetTv.getPaint().measureText(" "));
                 }
-                log("textViewMaxWidthPx: " + textViewMaxWidthPx
+                log("textViewMaxWidthPx: " + targetTvMaxWidthPx
                         + "  textTotalWidthPx: " + textTotalWidthPx
                         + "  textThreePointWidthPx: " + textThreePointWidthPx
                         + "  labelAllWidthPx: " + labelAllWidthPx);
 
-                fitErrorWidth = (i + 1) * (int) (targetTv.getPaint().measureText("哈"));
+                fitErrorWidth = (i + 1) * (int) (targetTv.getPaint().measureText("哈") * 0.5);
                 log("容错距离: " + fitErrorWidth);
 
-                if (textViewMaxWidthPx - textTotalWidthPx - textThreePointWidthPx - arrowLeftMarginPx - fitErrorWidth > labelAllWidthPx) {
+                if (targetTvMaxWidthPx - textTotalWidthPx - textThreePointWidthPx - arrowLeftMarginPx - fitErrorWidth > labelAllWidthPx) {
                     if (isCliped) {
                         targetTvText = targetTvText + "...";
                     }
-                    if (isTagLeft) {
+                    if (isLabelLeft) {
                         if (labelDrawable != null) {
                             targetTv.setText(labelDrawable);
                         }
@@ -272,34 +297,75 @@ public class TextUtil {
         }
     }
 
+    /**
+     * 单独设置标签样式
+     */
+    public void setLabelStyle() {
+        if (context == null) {
+            return;
+        }
+        if (labelOnlyTextView != null) {
+            setLabelStyle(labelOnlyTextView);
+        }
+    }
+
+    /**
+     * 设置文字+标签
+     */
     private void addTagToTextView(@Nullable Drawable drawablePicNet) {
 
         if (context == null) {
-            throw new IllegalArgumentException("context cannot be null");
+            targetTv.setText(targetTvText);
+            return;
+//            throw new IllegalArgumentException("context cannot be null");
         }
 
         arrowDrawable = getArrowStringBuilder();
         labelDrawable = getLabelStringBuilder(drawablePicNet);
-        if (tagTextDrawableLocal != null) {
+        if (labelTextDrawableLocal != null) {
             labelAllWidthPx = labelAllWidthPx + arrorWidthPx + arrorLeftMarginPx;
         }
         labelAllWidthPx = labelAllWidthPx + labelWidthPx + labelLeftMarginPx + labelRightMarginPx;
 
-        targetTv.post(new Runnable() {
-            @Override
-            public void run() {
-                //1. 测量出文本控件的最大宽度
-                ViewGroup.LayoutParams layoutParams = targetTv.getLayoutParams();
-                if (layoutParams.width == ViewGroup.LayoutParams.MATCH_PARENT) {
-                    textViewMaxWidthPx = targetTv.getWidth();
-                } else if (targetTv.getMaxWidth() != -1 && targetTv.getMaxWidth() != Integer.MAX_VALUE) {
-                    textViewMaxWidthPx = targetTv.getMaxWidth();
-                }
-
-                Log.i("bro", "textViewMaxWidth: " + SizeUtils.px2dp(textViewMaxWidthPx));
-                clipText(targetTvText, false);
+//        targetTv.post(new Runnable() {
+//            @Override
+//            public void run() {
+        //1. 测量出文本控件的最大宽度
+//        ViewGroup.LayoutParams layoutParams = targetTv.getLayoutParams();
+//        if (layoutParams.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+//            targetTvMaxWidthPx = targetTv.getWidth();
+//        } else if (targetTv.getMaxWidth() != -1 && targetTv.getMaxWidth() != Integer.MAX_VALUE) {
+//            targetTvMaxWidthPx = targetTv.getMaxWidth();
+//        } else {
+//        if (AppConfigUtils.getIsDebug(DDApplication.getContext())) {
+//            ToastUtils.showLong("对于 width = wrap_content 且 maxWidth 未设置的控件不做处理,直接显示");
+//        }
+        //对于 width = wrap_content 且 maxWidth 未设置的控件不做处理,直接显示
+        if (isLabelLeft) {
+            if (labelDrawable != null) {
+                targetTv.setText(labelDrawable);
             }
-        });
+            targetTv.append(targetTvText);
+            if (arrowDrawable != null) {
+                targetTv.append(" ");
+                targetTv.append(arrowDrawable);
+            }
+        } else {
+            targetTv.setText(targetTvText);
+            if (arrowDrawable != null) {
+                targetTv.append(" ");
+                targetTv.append(arrowDrawable);
+            }
+            if (labelDrawable != null) {
+                targetTv.append(labelDrawable);
+            }
+        }
+//        }
+
+        Log.i("bro", "textViewMaxWidth: " + SizeUtils.px2dp(targetTvMaxWidthPx));
+        clipText(targetTvText, false);
+//            }
+//        });
 
         //整体加箭头
 //        Drawable right = context.getResources().getDrawable(R.drawable.ic_cart_black_arrow);
@@ -307,8 +373,35 @@ public class TextUtil {
 
     }
 
+    /**
+     * 设置 label 样式
+     *
+     * @param textView
+     */
+    private void setLabelStyle(TextView textView) {
+        if (!TextUtils.isEmpty(labelText)) {
+            textView.setText(labelText);
+        }
+        setTextColor(textView, labelTextColor);
+        //参考 https://www.tabnine.com/code/java/methods/android.graphics.drawable.ShapeDrawable/setShape
+        ShapeDrawable background = new ShapeDrawable();
+        float[] radii = new float[8];// maybe 每个脚两个的意思  4 * 2 = 8
+        for (int i = 0; i <= 7; i++) {
+            radii[i] = labelCorner;
+        }
+        background.setShape(new RoundRectShape(radii, null, null)); // or RoundRectShape()
+        background.getPaint().setColor((Color.parseColor(labelBackground)));
+        textView.setBackground(background);
+
+        textView.setTextSize(labelTextSize);
+        textView.setIncludeFontPadding(false);
+        textView.setPadding(labelPading[0], labelPading[1], labelPading[2], labelPading[3]);
+
+        textView.setGravity(Gravity.CENTER);
+    }
+
     private SpannableStringBuilder getArrowStringBuilder() {
-        if (tagTextDrawableLocal != null) {
+        if (labelTextDrawableLocal != null) {
             //最后一行末尾加箭头
             SpannableStringBuilder arrowSp = new SpannableStringBuilder();
             targetTv.append(" ");
@@ -320,8 +413,8 @@ public class TextUtil {
             if (matcherLogo2.find()) {
 //            Drawable drawable1 = new BitmapDrawable(bitmap);
 //                Drawable drawable1 = context.getResources().getDrawable(drawLocal);
-                Drawable drawable1 = tagTextDrawableLocal;
-                drawable1.setBounds(0, 0, arrorWidthPx, SizeUtils.dp2px(10)); //自定义图片尺寸
+                Drawable drawable1 = labelTextDrawableLocal;
+                drawable1.setBounds(0, 0, arrorWidthPx, dp2px(10)); //自定义图片尺寸
                 arrowSp.setSpan(new CustomImageSpan(drawable1), matcherLogo2.start(), matcherLogo2.end(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE); //SPAN_EXCLUSIVE_EXCLUSIVE代表只对所选范围内文字生效
                 return arrowSp;
 //                targetTv.append(arrowSp);
@@ -332,7 +425,6 @@ public class TextUtil {
 
     private SpannableStringBuilder getLabelStringBuilder(Drawable drawablePicNet) {
 
-
         /**
          * 创建TextView对象，设置drawable背景，设置字体样式，设置间距，设置文本等
          * 这里我们为了给TextView设置margin，给其添加了一个父容器LinearLayout。不过他俩都只是new出来的，不会添加进任何布局
@@ -341,55 +433,29 @@ public class TextUtil {
         TextView textViewLabel = new TextView(context);
 //        LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(width, height);
 //        textView.setLayoutParams(Params1);
-        if (!TextUtils.isEmpty(tagText)) {
-            textViewLabel.setText(tagText);
-        }
+
         if (drawablePicNet != null) {
-//            textView.setBackground(context.getResources().getDrawable(drawable));
             textViewLabel.setBackground(drawablePicNet);
         }
-        if (!TextUtils.isEmpty(tagBackground)) {
-            try {
-                textViewLabel.setBackgroundColor(Color.parseColor(tagBackground));
-            } catch (Exception e) {
-                textViewLabel.setTextColor(Color.parseColor(mTagBackgroundDefault));
-            }
-        }
-        if (!TextUtils.isEmpty(tagColor)) {
-            try {
-                textViewLabel.setTextColor(Color.parseColor(tagColor));
-            } catch (Exception e) {
-                textViewLabel.setTextColor(Color.parseColor(mTagColorDefault));
-            }
-        }
-
-        //参考 https://www.tabnine.com/code/java/methods/android.graphics.drawable.ShapeDrawable/setShape
-        ShapeDrawable background = new ShapeDrawable();
-        float[] radii = new float[8];// maybe 每个脚两个的意思  4 * 2 = 8
-        for (int i = 0; i <= 7; i++) {
-            radii[i] = SizeUtils.dp2px(8);
-        }
-        background.setShape(new RoundRectShape(radii, null, null)); // or RoundRectShape()
-        background.getPaint().setColor((Color.parseColor(tagBackground)));
-        textViewLabel.setBackground(background);
-
-
-        if (tagTextSize > 0) {
-            textViewLabel.setTextSize(tagTextSize);
-        } else {
-            textViewLabel.setTextSize(12);
-        }
-        textViewLabel.setIncludeFontPadding(false);
-        textViewLabel.setPadding(SizeUtils.dp2px(6), 0,
-                SizeUtils.dp2px(6), 0);
-        textViewLabel.setGravity(Gravity.CENTER);
+        //设置标签的 UI 样式
+        setLabelStyle(textViewLabel);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //标签居左,自动默认右边距为 4dp,标签居右,自动默认左边距为 4dp
+        if (isLabelLeft) {
+            labelRightMarginPx = dp2px(4);
+        } else {
+            labelLeftMarginPx = dp2px(4);
+        }
         // 设置左间距
-        layoutParams.leftMargin = labelLeftMarginPx;
-        layoutParams.rightMargin = labelRightMarginPx;
+        if (labelLeftMarginPx > 0) {
+            layoutParams.leftMargin = labelLeftMarginPx;
+        }
+        if (labelRightMarginPx > 0) {
+            layoutParams.rightMargin = labelRightMarginPx;
+        }
         // 设置下间距，简单解决ImageSpan和文本竖直方向对齐的问题
-//        layoutParams.bottomMargin = SizeUtils.dp2px(3);
+//        layoutParams.bottomMargin = dp2px(3);
         layout.addView(textViewLabel, layoutParams);
 
         /**
@@ -405,16 +471,6 @@ public class TextUtil {
         Bitmap bitmap = Bitmap.createBitmap(layout.getDrawingCache());
         //千万别忘最后一步
         layout.destroyDrawingCache();
-
-
-//        ImageSpan imageSpan = new ImageSpan(context, bitmap);
-//        ImageSpan imageSpan = new ImageSpan(bitmap, ImageSpan.ALIGN_BASELINE);
-
-
-//        SpannableStringBuilder ssb = new SpannableStringBuilder(tagStr);
-//        //将尾部tag字符用ImageSpan替换
-//        ssb.setSpan(imageSpan, 0, tagStr.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-//        target.append(ssb);
 
         SpannableStringBuilder titleSp = new SpannableStringBuilder();
 //        titleSp.append(title);
@@ -446,18 +502,36 @@ public class TextUtil {
         Log.i("bro", str);
     }
 
+    private void setTextColor(TextView textView, String color) {
+        try {
+            textView.setTextColor(Color.parseColor(color));
+        } catch (Exception e) {
+            Log.i(TAG, "setTextColor   -- Exception --");
+        }
+    }
+
+    private int dp2px(int dp) {
+        return SizeUtils.dp2px(dp);
+
+    }
+
     public static final class Builder {
         private Context context;
         private TextView targetTv;
         private String targetTvText;
+        private int targetTvMaxWidthPx = -1;//父控件最大宽度,如果目标 TextView
         private int labelLeftMarginPx;
         private int labelRightMarginPx;
-        private String tagText;
-        private String tagBackground;
-        private String tagColor;
-        private boolean isTagLeft;
-        private Drawable tagTextDrawableLocal;
-        private int tagTextSize;
+        private String labelText;
+        private String labelBackground = "#FFFFFF";
+        private String labelTextColor = "#FF463C";
+        private int labelCorner = SizeUtils.dp2px(2);
+        private boolean isLabelLeft = false;
+        private TextView labelOnlyTv;
+        private Drawable labelTextDrawableLocal;
+        private int[] labelPading = {SizeUtils.dp2px(2), SizeUtils.dp2px(0),
+                SizeUtils.dp2px(2), SizeUtils.dp2px(0)};
+        private int labelTextSize = 10;
         private boolean arrowLeftOrRight;
         private int maxLines;
 
@@ -479,6 +553,11 @@ public class TextUtil {
             return this;
         }
 
+        public Builder setTargetTvMaxWidth(int targetTvMaxWidthPx) {
+            this.targetTvMaxWidthPx = targetTvMaxWidthPx;
+            return this;
+        }
+
         public Builder setLabelLeftMarginPx(int labelLeftMarginPx) {
             this.labelLeftMarginPx = labelLeftMarginPx;
             return this;
@@ -489,28 +568,41 @@ public class TextUtil {
             return this;
         }
 
-        public Builder setTagText(String tagText) {
-            this.tagText = tagText;
+        public Builder setLabelText(String labelText) {
+//            this.labelText = labelText;
+            this.labelText = "当当好店";
             return this;
         }
 
-        public Builder setTagBackground(String tagBackground) {
-            this.tagBackground = tagBackground;
+        public Builder setLabelBackground(String labelBackground) {
+//            this.labelBackground = labelBackground;
+            this.labelBackground = "#FF463C";
             return this;
         }
 
-        public Builder setTagColor(String tagColor) {
-            this.tagColor = tagColor;
+        public Builder setLabelTextColor(String labelTextColor) {
+//            this.labelTextColor = labelTextColor;
+            this.labelTextColor = "#FFFFFF";
             return this;
         }
 
-        public Builder setTagTextDrawableLocal(Drawable tagTextDrawableLocal) {
-            this.tagTextDrawableLocal = tagTextDrawableLocal;
+        public Builder setLabelCorner(int labelCorner) {
+            this.labelCorner = labelCorner;
             return this;
         }
 
-        public Builder setTagTextSize(int tagTextSize) {
-            this.tagTextSize = tagTextSize;
+        public Builder setLabelPadding(int[] labelPading) {
+            this.labelPading = labelPading;
+            return this;
+        }
+
+        public Builder setLabelTextDrawableLocal(Drawable labelTextDrawableLocal) {
+            this.labelTextDrawableLocal = labelTextDrawableLocal;
+            return this;
+        }
+
+        public Builder setLabelTextSize(int labelTextSize) {
+            this.labelTextSize = labelTextSize;
             return this;
         }
 
@@ -524,8 +616,13 @@ public class TextUtil {
             return this;
         }
 
-        public Builder setTagLeft(boolean isTagLeft) {
-            this.isTagLeft = isTagLeft;
+        public Builder setLabelLeft(boolean isLabelLeft) {
+            this.isLabelLeft = isLabelLeft;
+            return this;
+        }
+
+        public Builder setLabelOnlyTv(TextView labelOnlyTv) {
+            this.labelOnlyTv = labelOnlyTv;
             return this;
         }
 
@@ -533,5 +630,4 @@ public class TextUtil {
             return new TextUtil(this);
         }
     }
-
 }
