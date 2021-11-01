@@ -45,6 +45,7 @@ public class TextLabelUtil {
     private TextView targetTv;
     private String targetTvText;
     private int targetTvMaxWidthPx;//父控件最大宽度,如果目标 TextView
+    private boolean isTargetTvCutMiddle;//文字中间截断还是结尾截断
     private int labelAllWidthPx = -1;
     private int fitErrorWidth;
     private String labelText;
@@ -56,13 +57,14 @@ public class TextLabelUtil {
     private boolean isLabelLeft;//标签是否居左
     private TextView labelOnlyTextView;//单独设置标签时才设置
     private int[] labelPading;//便签的内间距
+    private boolean isHideLabel = false;
     private boolean arrowLeftOrRight;//暂时未实现
     private int maxLines = 2;//最大行数
     private int labelLeftMarginPx;//标签的左 margin
     private int labelRightMarginPx;//标签的右 margin
     private int labelWidthPx;//标签的左 margin
     private int arrorWidthPx = dp2px(5);//箭头的宽度
-    private int arrorLeftMarginPx = dp2px(2);//箭头的宽度
+    private int arrorLeftMarginPx = dp2px(2);//箭头的左间距
     private SpannableStringBuilder arrowDrawable;
     private SpannableStringBuilder labelDrawable;
     private Drawable mDrawablePicNet;
@@ -72,6 +74,7 @@ public class TextLabelUtil {
         targetTv = builder.targetTv;
         targetTvText = builder.targetTvText;
         targetTvMaxWidthPx = builder.targetTvMaxWidthPx;
+        isTargetTvCutMiddle = builder.isTargetTvCutMiddle;
         labelText = builder.labelText;
         labelBackground = builder.labelBackground;
         labelTextColor = builder.labelTextColor;
@@ -85,6 +88,7 @@ public class TextLabelUtil {
         isLabelLeft = builder.isLabelLeft;
         labelOnlyTextView = builder.labelOnlyTv;
         labelPading = builder.labelPading;
+        isHideLabel = builder.isHideLabel;
     }
 
     public static Builder newBuilder() {
@@ -231,7 +235,7 @@ public class TextLabelUtil {
                 //箭头左边的 marginLeft
                 int arrowLeftMarginPx = 0;
                 if (arrowDrawable != null) {
-                    arrowLeftMarginPx = (int) (targetTv.getPaint().measureText(" "));
+//                    arrowLeftMarginPx = (int) (targetTv.getPaint().measureText(" "));
                 }
                 log("textViewMaxWidthPx: " + targetTvMaxWidthPx
                         + "  textTotalWidthPx: " + textTotalWidthPx
@@ -243,11 +247,13 @@ public class TextLabelUtil {
 
                 if (targetTvMaxWidthPx - textTotalWidthPx - textThreePointWidthPx - arrowLeftMarginPx - fitErrorWidth > labelAllWidthPx) {
                     if (isCliped) {
-                        targetTvText = targetTvText + "...";
+                        targetTvText = getMiddleText(targetTvText);
                     }
                     if (isLabelLeft) {
                         if (labelDrawable != null) {
                             targetTv.setText(labelDrawable);
+                        } else {
+                            targetTv.setText("");
                         }
                         targetTv.append(targetTvText);
                         if (arrowDrawable != null) {
@@ -275,8 +281,23 @@ public class TextLabelUtil {
             }
 //            } else {
 //                //一行
-//
 //            }
+        }
+    }
+
+    private String getMiddleText(String middleOriginTxt) {
+        if (isTargetTvCutMiddle) {
+            try {
+                //3个点放中间
+                CharSequence str1 = middleOriginTxt.subSequence(0, middleOriginTxt.length() / 2);
+                CharSequence str2 = middleOriginTxt.subSequence(middleOriginTxt.length() / 2, middleOriginTxt.length());
+                return str1 + "..." + str2;
+            } catch (Exception e) {
+                Log.i(TAG, "getMiddleText   -- Exception --");
+                return middleOriginTxt + "...";
+            }
+        } else {
+            return middleOriginTxt + "...";
         }
     }
 
@@ -300,55 +321,28 @@ public class TextLabelUtil {
         if (context == null) {
             targetTv.setText(targetTvText);
             return;
-//            throw new IllegalArgumentException("context cannot be null");
         }
 
         arrowDrawable = getArrowStringBuilder();
         labelDrawable = getLabelStringBuilder(drawablePicNet);
+
+        //隐藏标签
+        if (isHideLabel) {
+            labelDrawable = null;
+            labelWidthPx = 0;
+            labelLeftMarginPx = 0;
+            labelRightMarginPx = 0;
+        }
+
+//        arrorLeftMarginPx = 0;
+
         if (labelTextDrawableLocal != null) {
             labelAllWidthPx = labelAllWidthPx + arrorWidthPx + arrorLeftMarginPx;
         }
         labelAllWidthPx = labelAllWidthPx + labelWidthPx + labelLeftMarginPx + labelRightMarginPx;
 
-//        targetTv.post(new Runnable() {
-//            @Override
-//            public void run() {
-        //1. 测量出文本控件的最大宽度
-//        ViewGroup.LayoutParams layoutParams = targetTv.getLayoutParams();
-//        if (layoutParams.width == ViewGroup.LayoutParams.MATCH_PARENT) {
-//            targetTvMaxWidthPx = targetTv.getWidth();
-//        } else if (targetTv.getMaxWidth() != -1 && targetTv.getMaxWidth() != Integer.MAX_VALUE) {
-//            targetTvMaxWidthPx = targetTv.getMaxWidth();
-//        } else {
-//        if (AppConfigUtils.getIsDebug(DDApplication.getContext())) {
-//            ToastUtils.showLong("对于 width = wrap_content 且 maxWidth 未设置的控件不做处理,直接显示");
-//        }
-        //对于 width = wrap_content 且 maxWidth 未设置的控件不做处理,直接显示
-        if (isLabelLeft) {
-            if (labelDrawable != null) {
-                targetTv.setText(labelDrawable);
-            }
-            targetTv.append(targetTvText);
-            if (arrowDrawable != null) {
-                targetTv.append(" ");
-                targetTv.append(arrowDrawable);
-            }
-        } else {
-            targetTv.setText(targetTvText);
-            if (arrowDrawable != null) {
-                targetTv.append(" ");
-                targetTv.append(arrowDrawable);
-            }
-            if (labelDrawable != null) {
-                targetTv.append(labelDrawable);
-            }
-        }
-//        }
-
         Log.i("bro", "textViewMaxWidth: " + SizeUtils.px2dp(targetTvMaxWidthPx));
         clipText(targetTvText, false);
-//            }
-//        });
 
         //整体加箭头
 //        Drawable right = context.getResources().getDrawable(R.drawable.ic_cart_black_arrow);
@@ -394,7 +388,7 @@ public class TextLabelUtil {
         if (labelTextDrawableLocal != null) {
             //最后一行末尾加箭头
             SpannableStringBuilder arrowSp = new SpannableStringBuilder();
-            targetTv.append(" ");
+//            targetTv.append(" ");
             String logoTag2 = "#";
             arrowSp.append(logoTag2);
             Pattern patternLogo2 = Pattern.compile(logoTag2);
@@ -482,7 +476,6 @@ public class TextLabelUtil {
              */
             titleSp.setSpan(customImageSpan, matcherLogo.start(), matcherLogo.end(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE); //SPAN_EXCLUSIVE_EXCLUSIVE代表只对所选范围内文字生效
             return titleSp;
-//            targetTv.append(titleSp);
         }
         return null;
     }
@@ -509,6 +502,7 @@ public class TextLabelUtil {
         private TextView targetTv;
         private String targetTvText;
         private int targetTvMaxWidthPx = -1;//父控件最大宽度,如果目标 TextView
+        private boolean isTargetTvCutMiddle;
         private int labelLeftMarginPx;
         private int labelRightMarginPx;
         private String labelText;
@@ -521,6 +515,7 @@ public class TextLabelUtil {
         private int[] labelPading = {SizeUtils.dp2px(2), SizeUtils.dp2px(0),
                 SizeUtils.dp2px(2), SizeUtils.dp2px(0)};
         private int labelTextSize = 10;
+        private boolean isHideLabel = false;
         private boolean arrowLeftOrRight;
         private int maxLines;
 
@@ -547,6 +542,11 @@ public class TextLabelUtil {
             return this;
         }
 
+        public Builder setTargetTvCutMiddle(boolean isTargetTvCutMiddle) {
+            this.isTargetTvCutMiddle = isTargetTvCutMiddle;
+            return this;
+        }
+
         public Builder setLabelLeftMarginPx(int labelLeftMarginPx) {
             this.labelLeftMarginPx = labelLeftMarginPx;
             return this;
@@ -558,20 +558,18 @@ public class TextLabelUtil {
         }
 
         public Builder setLabelText(String labelText) {
-//            this.labelText = labelText;
-            this.labelText = "当当好店";
+            this.labelText = labelText;
             return this;
         }
 
         public Builder setLabelBackground(String labelBackground) {
             this.labelBackground = labelBackground;
-//            this.labelBackground = "#FF463C";
             return this;
         }
 
         public Builder setLabelTextColor(String labelTextColor) {
-//            this.labelTextColor = labelTextColor;
-            this.labelTextColor = "#FFFFFF";
+            this.labelTextColor = labelTextColor;
+//            this.labelTextColor = "#FFFFFF";
             return this;
         }
 
@@ -593,6 +591,11 @@ public class TextLabelUtil {
 
         public Builder setLabelTextSize(int labelTextSize) {
             this.labelTextSize = labelTextSize;
+            return this;
+        }
+
+        public Builder hideLabel(boolean isHideLabel) {
+            this.isHideLabel = isHideLabel;
             return this;
         }
 
