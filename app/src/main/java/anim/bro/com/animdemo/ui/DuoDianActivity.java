@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SizeUtils;
 
 import anim.bro.com.animdemo.R;
-import anim.bro.com.animdemo.util.TextUtil;
+import anim.bro.com.animdemo.util.TextLabelUtil;
 import anim.bro.com.animdemo.view.AdvertThreeTextView;
 import anim.bro.com.animdemo.view.AppendViewAfterTextView;
 
@@ -33,7 +33,7 @@ public class DuoDianActivity extends BaseActivity {
         tv_normal = findViewById(R.id.tv_normal);
 
         Drawable drawable = getResources().getDrawable(R.drawable.ic_cart_black_arrow);
-        TextUtil.newBuilder()
+        TextLabelUtil.newBuilder()
                 .setContext(this)
                 .setTargetTv(tv_normal)
                 .setTargetTvText((String) tv_normal.getText())
@@ -47,7 +47,7 @@ public class DuoDianActivity extends BaseActivity {
 //                .setMaxLines(2)
                 .setLabelTextDrawableLocal(drawable)
                 .build()
-                .addTagToTextView();
+                .addLabelToTextView();
 //        appendViewAfterTextView = findViewById(R.id.append_text);
 //        appendViewAfterTextView.setText("我是正常的文字我是正常的文字我是正常的文字我是正常的文字");
 //        appendViewAfterTextView.setSpecialViewText("我是按钮");

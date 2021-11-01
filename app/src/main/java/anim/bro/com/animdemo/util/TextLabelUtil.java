@@ -21,8 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
@@ -36,22 +37,10 @@ import java.util.regex.Pattern;
  *
  * @author zhuqiao
  */
-public class TextUtil {
+public class TextLabelUtil {
 
     private String TAG = getClass().getSimpleName();
 
-    /**
-     * 带箭头
-     *
-     * @param context    上下文
-     * @param targetTv   目标 TextView
-     * @param title      文字
-     * @param tagText     标签名
-     * @param background 背景图url 或 背景色
-     * @param textColor  文字颜色
-     * @param drawableLocal  本地资源图(比如箭头)
-     * @param arrowLeftOrRight  本地资源在左还是在右(暂时未实现)
-     */
     private Context context;
     private TextView targetTv;
     private String targetTvText;
@@ -67,7 +56,6 @@ public class TextUtil {
     private boolean isLabelLeft;//标签是否居左
     private TextView labelOnlyTextView;//单独设置标签时才设置
     private int[] labelPading;//便签的内间距
-    //    private int tagTvMarginLeft = 0;//标签左边距
     private boolean arrowLeftOrRight;//暂时未实现
     private int maxLines = 2;//最大行数
     private int labelLeftMarginPx;//标签的左 margin
@@ -77,8 +65,9 @@ public class TextUtil {
     private int arrorLeftMarginPx = dp2px(2);//箭头的宽度
     private SpannableStringBuilder arrowDrawable;
     private SpannableStringBuilder labelDrawable;
+    private Drawable mDrawablePicNet;
 
-    private TextUtil(Builder builder) {
+    private TextLabelUtil(Builder builder) {
         context = builder.context;
         targetTv = builder.targetTv;
         targetTvText = builder.targetTvText;
@@ -103,21 +92,13 @@ public class TextUtil {
     }
 
     //给图片设置的宽高,背景色用不着
-    private int width = dp2px(70);
+    private int width = dp2px(50);
     private int height = dp2px(15);
 
     //测试 url
     public static String picUrl = "https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/00/02/ChMkJl3o5FqIY6f_AAGq9Ei0WJgAAvl8QFnVNAAAasM391.jpg";
 
-
-    public static String mTagColorDefault = "#000000";
-
-//    public void addTagToTextView(@Nullable Context context, @Nullable TextView targetTv, @Nullable String title,
-//                                        @Nullable String tagStr, @Nullable String background, @Nullable String textColor) {
-//        addTagToTextView(context, targetTv, title, tagStr, null, background, textColor);
-//    }
-
-    public void addTagToTextView() {
+    public void addLabelToTextView() {
         targetTv.setVisibility(View.INVISIBLE);
         targetTv.setText("测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度测试控件的宽度");
         targetTv.post(new Runnable() {
@@ -128,13 +109,15 @@ public class TextUtil {
                 targetTv.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(labelBackground) && labelBackground.startsWith("#")) {
                     //背景色
-                    addTagToTextView(null);
+                    addLabelToTextView(null);
                 } else {
                     //背景图
                     loadPic();
                 }
             }
         });
+
+
     }
 
 
@@ -147,8 +130,8 @@ public class TextUtil {
 //                .load(R.drawable.icon_minus)
                 .load(labelBackground)
                 .override(width, height)
-                .centerCrop()
-//                .transform(new RoundedCorners(dp2px(13)))
+//                .centerCrop()
+                .transform(new RoundedCorners(labelCorner), new CenterCrop())
                 .into(new Target<Drawable>() {
                     @Override
                     public void onLoadStarted(@Nullable Drawable placeholder) {
@@ -164,7 +147,7 @@ public class TextUtil {
                     @Override
                     public void onResourceReady(@NonNull Drawable drawablePicNet, @Nullable Transition<? super Drawable> transition) {
 //                        Drawable drawable = new BitmapDrawable(resource);
-                        addTagToTextView(drawablePicNet);
+                        addLabelToTextView(drawablePicNet);
                     }
 
                     @Override
@@ -300,19 +283,19 @@ public class TextUtil {
     /**
      * 单独设置标签样式
      */
-    public void setLabelStyle() {
+    public void setSingleLabelStyle() {
         if (context == null) {
             return;
         }
         if (labelOnlyTextView != null) {
-            setLabelStyle(labelOnlyTextView);
+            setSingleLabelStyle(labelOnlyTextView);
         }
     }
 
     /**
      * 设置文字+标签
      */
-    private void addTagToTextView(@Nullable Drawable drawablePicNet) {
+    private void addLabelToTextView(@Nullable Drawable drawablePicNet) {
 
         if (context == null) {
             targetTv.setText(targetTvText);
@@ -378,20 +361,27 @@ public class TextUtil {
      *
      * @param textView
      */
-    private void setLabelStyle(TextView textView) {
+    private void setSingleLabelStyle(TextView textView) {
         if (!TextUtils.isEmpty(labelText)) {
             textView.setText(labelText);
         }
         setTextColor(textView, labelTextColor);
-        //参考 https://www.tabnine.com/code/java/methods/android.graphics.drawable.ShapeDrawable/setShape
-        ShapeDrawable background = new ShapeDrawable();
-        float[] radii = new float[8];// maybe 每个脚两个的意思  4 * 2 = 8
-        for (int i = 0; i <= 7; i++) {
-            radii[i] = labelCorner;
+
+        try {
+            if (mDrawablePicNet == null) {
+                //参考 https://www.tabnine.com/code/java/methods/android.graphics.drawable.ShapeDrawable/setShape
+                ShapeDrawable background = new ShapeDrawable();
+                float[] radii = new float[8];// maybe 每个脚两个的意思  4 * 2 = 8
+                for (int i = 0; i <= 7; i++) {
+                    radii[i] = labelCorner;
+                }
+                background.setShape(new RoundRectShape(radii, null, null)); // or RoundRectShape()
+                background.getPaint().setColor((Color.parseColor(labelBackground)));
+                textView.setBackground(background);
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "setSingleLabelStyle   -- Exception --");
         }
-        background.setShape(new RoundRectShape(radii, null, null)); // or RoundRectShape()
-        background.getPaint().setColor((Color.parseColor(labelBackground)));
-        textView.setBackground(background);
 
         textView.setTextSize(labelTextSize);
         textView.setIncludeFontPadding(false);
@@ -405,7 +395,6 @@ public class TextUtil {
             //最后一行末尾加箭头
             SpannableStringBuilder arrowSp = new SpannableStringBuilder();
             targetTv.append(" ");
-//        arrowSp.append(target.getText());
             String logoTag2 = "#";
             arrowSp.append(logoTag2);
             Pattern patternLogo2 = Pattern.compile(logoTag2);
@@ -417,7 +406,6 @@ public class TextUtil {
                 drawable1.setBounds(0, 0, arrorWidthPx, dp2px(10)); //自定义图片尺寸
                 arrowSp.setSpan(new CustomImageSpan(drawable1), matcherLogo2.start(), matcherLogo2.end(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE); //SPAN_EXCLUSIVE_EXCLUSIVE代表只对所选范围内文字生效
                 return arrowSp;
-//                targetTv.append(arrowSp);
             }
         }
         return null;
@@ -425,20 +413,22 @@ public class TextUtil {
 
     private SpannableStringBuilder getLabelStringBuilder(Drawable drawablePicNet) {
 
+        mDrawablePicNet = drawablePicNet;
+
         /**
          * 创建TextView对象，设置drawable背景，设置字体样式，设置间距，设置文本等
          * 这里我们为了给TextView设置margin，给其添加了一个父容器LinearLayout。不过他俩都只是new出来的，不会添加进任何布局
          */
         LinearLayout layout = new LinearLayout(context);
         TextView textViewLabel = new TextView(context);
-//        LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(width, height);
-//        textView.setLayoutParams(Params1);
 
         if (drawablePicNet != null) {
+//            LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(width, height);
+//            textViewLabel.setLayoutParams(Params1);
             textViewLabel.setBackground(drawablePicNet);
         }
         //设置标签的 UI 样式
-        setLabelStyle(textViewLabel);
+        setSingleLabelStyle(textViewLabel);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //标签居左,自动默认右边距为 4dp,标签居右,自动默认左边距为 4dp
@@ -473,7 +463,6 @@ public class TextUtil {
         layout.destroyDrawingCache();
 
         SpannableStringBuilder titleSp = new SpannableStringBuilder();
-//        titleSp.append(title);
         String logoTag = "★";
         titleSp.append(logoTag);
         Pattern patternLogo = Pattern.compile(logoTag);
@@ -526,7 +515,7 @@ public class TextUtil {
         private String labelBackground = "#FFFFFF";
         private String labelTextColor = "#FF463C";
         private int labelCorner = SizeUtils.dp2px(2);
-        private boolean isLabelLeft = false;
+        private boolean isLabelLeft = false;//便签居左,默认是居右的
         private TextView labelOnlyTv;
         private Drawable labelTextDrawableLocal;
         private int[] labelPading = {SizeUtils.dp2px(2), SizeUtils.dp2px(0),
@@ -575,8 +564,8 @@ public class TextUtil {
         }
 
         public Builder setLabelBackground(String labelBackground) {
-//            this.labelBackground = labelBackground;
-            this.labelBackground = "#FF463C";
+            this.labelBackground = labelBackground;
+//            this.labelBackground = "#FF463C";
             return this;
         }
 
@@ -587,6 +576,7 @@ public class TextUtil {
         }
 
         public Builder setLabelCorner(int labelCorner) {
+            if (labelCorner < 0) labelCorner = 0;
             this.labelCorner = labelCorner;
             return this;
         }
@@ -626,8 +616,8 @@ public class TextUtil {
             return this;
         }
 
-        public TextUtil build() {
-            return new TextUtil(this);
+        public TextLabelUtil build() {
+            return new TextLabelUtil(this);
         }
     }
 }
