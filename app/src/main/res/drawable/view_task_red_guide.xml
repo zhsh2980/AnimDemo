@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#C7000000"
+             android:paddingLeft="12dp"
+             android:paddingTop="72dp"
+             tools:ignore="ResourceName">
+
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="303dp"
+        android:layout_height="239dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/task_red_guide_1"/>
+
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="303dp"
+        android:layout_height="239dp"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:src="@drawable/task_red_guide_2"/>
+
+</FrameLayout>

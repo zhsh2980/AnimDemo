@@ -206,5 +206,7 @@
     <color name="red_checked_color">#FF4C39</color>
     <color name="red_normal_color">#935656</color>
 
+    <color name="colorLabelYellow">#FFAE20</color>
+
 
 </resources>

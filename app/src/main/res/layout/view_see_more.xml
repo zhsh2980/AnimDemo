@@ -11,7 +11,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_red"/>
 
-    <anim.bro.com.animdemo.view.GestureLineView
+    <anim.bro.com.practice.view.GestureLineView
         android:id="@+id/view_white_line"
         android:layout_width="8dp"
         android:layout_height="130dp"

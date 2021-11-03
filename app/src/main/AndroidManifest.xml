@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="anim.bro.com.animdemo">
+    package="anim.bro.com.practice">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".BaseApplication"
+        android:name="anim.bro.com.practice.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,41 +16,79 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".fragment.RvFragmentActivity"
-            android:exported="true" />
-        <activity android:name=".focus.FocusNewActivity" />
-        <activity android:name=".rv.RVActivity" />
-        <activity android:name=".goods.GoodsBuyActivity" />
-        <activity android:name=".goods.GlideActivity" />
-        <activity android:name=".ui.DuoDianActivity" >
+            android:name="anim.bro.com.practice.MainActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:maxAspectRatio="2.4">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="anim.bro.com.practice.fragment.RvFragmentActivity"
+            android:exported="true" />
+        <activity android:name="anim.bro.com.practice.focus.FocusNewActivity" />
+        <activity android:name="anim.bro.com.practice.rv.RVActivity" />
+        <activity android:name="anim.bro.com.practice.goods.GoodsBuyActivity" />
+        <activity android:name="anim.bro.com.practice.goods.GlideActivity" />
+        <activity android:name="anim.bro.com.practice.ui.DuoDianActivity" >
+        </activity>
 
         <meta-data
             android:name="android.min_aspect"
             android:value="1.0" />
 
-        <activity android:name=".ui.CycleBoxActivity" />
-        <activity android:name=".goods.GoodsSaleActivity" />
-        <activity android:name=".ui.BlurActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout"
-            android:maxAspectRatio="2.4">
-        </activity>
-        <activity android:name=".ui.RedFlyActivity" />
-        <activity android:name=".ui.PraiseActivity" />
-        <activity android:name=".ui.RedNewActivity" />
-        <activity android:name=".ui.RedRainActivity" />
-        <activity android:name=".banner.BannerActivity"
+        <activity android:name="anim.bro.com.practice.ui.CycleBoxActivity" />
+        <activity android:name="anim.bro.com.practice.goods.GoodsSaleActivity" />
+        <activity android:name="anim.bro.com.practice.ui.BlurActivity" />
+        <activity android:name="anim.bro.com.practice.ui.RedFlyActivity" />
+        <activity android:name="anim.bro.com.practice.ui.PraiseActivity" />
+        <activity android:name="anim.bro.com.practice.ui.RedNewActivity" />
+        <activity android:name="anim.bro.com.practice.ui.RedRainActivity" />
+        <activity android:name="anim.bro.com.practice.banner.BannerActivity"
             />
-        <activity android:name=".rvcategory.RvCategoryActivity" />
+        <activity android:name="anim.bro.com.practice.rvcategory.RvCategoryActivity" />
 
-        <service android:name=".service.SyncTimeService" />
+        <service android:name="anim.bro.com.practice.service.SyncTimeService" />
+
+
+        <activity android:name="anim.bro.com.practice.tuibida.ui.RvMoveTopActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.LottieActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.ConstrainLayoutActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.TabFragmentActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.SwitchActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.GridActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.MainTuiBiDaActivity">
+        </activity>
+
+        <meta-data
+            android:name="UPA_MPA_CHANNELID"
+            android:value="359682YNF3a"></meta-data>
+        <meta-data
+            android:name="UPA_MPA_APPKEY"
+            android:value="aiA7Zj"></meta-data>
+
+        <activity android:name="anim.bro.com.practice.tuibida.ui.HideViewActivity"></activity>
+        <activity
+            android:name="anim.bro.com.practice.tuibida.ui.CoordinatorActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.RedTaskActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.ViewModelActivity"></activity>
+        <activity
+            android:name="anim.bro.com.practice.tuibida.ui.DialogActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/share_activity_styles"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.DramViewHeightActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.ui.ToastActivity"></activity>
+        <activity android:name="anim.bro.com.practice.tuibida.multidrag.MultiDragActivity"></activity>
+        <activity
+            android:name="anim.bro.com.practice.tuibida.ui.CountDownActivity"
+            android:launchMode="singleInstance"></activity>
+
     </application>
 
 </manifest>

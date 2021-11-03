@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="162dp"
+    android:layout_height="64dp"
+    android:background="@drawable/treasure_box_pop"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_pop_trea_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="@string/treasure_box_pop_text"
+        android:textSize="14dp" />
+
+</LinearLayout>

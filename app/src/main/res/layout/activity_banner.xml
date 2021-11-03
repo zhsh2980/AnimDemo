@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <anim.bro.com.animdemo.banner.bannerview.BannerViewPager
+    <anim.bro.com.practice.banner.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <declare-styleable name="RoundView">
         <!--圆环半径-->
         <attr name="radius" format="dimension"/>
@@ -138,6 +138,45 @@
         <attr name="compatCenterX"  format="float"/>
         <attr name="compatCenterY"  format="float"/>
         <attr name="compatShape" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ZzHorizontalProgressBar" tools:ignore="ResourceName">
+        <attr name="zpb_padding" format="dimension" />
+        <attr name="zpb_bg_color" format="color|reference" />
+        <attr name="zpb_pb_color" format="color|reference" />
+        <attr name="zpb_second_pb_color" format="color|reference" />
+        <attr name="zpb_max" format="integer" />
+        <attr name="zpb_progress" format="integer" />
+        <attr name="zpb_show_second_progress" format="boolean" />
+        <attr name="zpb_second_progress" format="integer" />
+        <attr name="zpb_show_second_point_shape" format="enum">
+            <enum name="point" value="0"/>
+            <enum name="line" value="1"/>
+        </attr>
+        <attr name="zpb_open_gradient" format="boolean" />
+        <attr name="zpb_gradient_from" format="color|reference" />
+        <attr name="zpb_gradient_to" format="color|reference" />
+        <attr name="zpb_open_second_gradient" format="boolean" />
+        <attr name="zpb_second_gradient_from" format="color|reference" />
+        <attr name="zpb_second_gradient_to" format="color|reference" />
+        <attr name="zpb_show_mode" format="enum" >
+            <enum name="round" value="0"/>
+            <enum name="rect" value="1"/>
+            <enum name="round_rect" value="2"/>
+        </attr>
+        <attr name="zpb_round_rect_radius" format="dimension|reference"/>
+        <attr name="zpb_draw_border" format="boolean"/>
+        <attr name="zpb_border_width" format="dimension|reference"/>
+        <attr name="zpb_border_color" format="color|reference"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="RoundAngleFrameLayout">
+        <attr name="round_radius" format="dimension" />
+        <attr name="round_topLeftRadius" format="dimension" />
+        <attr name="round_topRightRadius" format="dimension" />
+        <attr name="round_bottomLeftRadius" format="dimension" />
+        <attr name="round_bottomRightRadius" format="dimension" />
     </declare-styleable>
 
 </resources>

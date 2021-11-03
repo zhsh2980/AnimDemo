@@ -7,7 +7,7 @@
 
     android:orientation="vertical">
 
-    <anim.bro.com.animdemo.goods.banner.HBanner
+    <anim.bro.com.practice.goods.banner.HBanner
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="220dp"

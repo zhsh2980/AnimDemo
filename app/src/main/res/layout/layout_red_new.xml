@@ -9,7 +9,7 @@
     android:background="@drawable/shape_border">
 
     <!-- ↓↓↓↓↓↓ 小点位移  ↓↓↓↓↓↓ -->
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_1"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -21,7 +21,7 @@
         app:ring_color="@color/jumeired"
         app:ring_width="2dp"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_2"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -33,7 +33,7 @@
         app:ring_color="@color/social_tag_4"
         app:ring_width="3dp"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_3"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -45,7 +45,7 @@
         app:ring_color="@color/jumeired"
         app:ring_width="3dp"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_4"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -57,7 +57,7 @@
         app:ring_color="@color/social_tag_2"
         app:ring_width="1.5dp"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_5"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -69,7 +69,7 @@
         app:ring_color="@color/social_tag_2"
         app:ring_width="3dp"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_6"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -81,7 +81,7 @@
         app:ring_color="@color/social_tag_2"
         app:ring_width="3dp"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/iv_round_point_7"
         style="@style/round_view_small_pop"
         android:layout_width="12dp"
@@ -95,14 +95,14 @@
 
     <!-- ↑↑↑↑↑↑ 小点位移  ↑↑↑↑↑↑ -->
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/round_view"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_alignParentBottom="true"
         android:visibility="invisible"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/round_view_2"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -110,7 +110,7 @@
         android:layout_marginLeft="70dp"
         android:visibility="invisible"/>
 
-    <anim.bro.com.animdemo.view.RoundView
+    <anim.bro.com.practice.view.RoundView
         android:id="@+id/round_view_3"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -119,7 +119,7 @@
         android:layout_marginBottom="25dp"
         android:visibility="invisible"/>
 
-    <anim.bro.com.animdemo.view.ClipProgressView
+    <anim.bro.com.practice.view.ClipProgressView
         android:id="@+id/iv_progress_clip_view"
         android:layout_width="60dp"
         android:layout_height="20dp"
@@ -129,7 +129,7 @@
         android:background="@drawable/shape_progress_bg"
         android:src="@drawable/clip_progress"/>
 
-    <anim.bro.com.animdemo.view.RedNewAnimView
+    <anim.bro.com.practice.view.RedNewAnimView
         android:id="@+id/iv_red_move"
         android:layout_width="45dp"
         android:layout_height="42dp"
@@ -139,7 +139,7 @@
         android:src="@drawable/red"
         android:visibility="invisible"/>
 
-    <anim.bro.com.animdemo.view.SwapAnimImageView
+    <anim.bro.com.practice.view.SwapAnimImageView
         android:id="@+id/iv_red_origin"
         android:layout_width="45dp"
         android:layout_height="42dp"
@@ -149,7 +149,7 @@
         android:src="@drawable/red"/>
 
 
-    <anim.bro.com.animdemo.view.ClipImageView
+    <anim.bro.com.practice.view.ClipImageView
         android:id="@+id/iv_clip_view"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -158,7 +158,7 @@
         android:layout_marginBottom="30dp"
         android:src="@drawable/clip"/>
 
-    <anim.bro.com.animdemo.view.ClipImageView
+    <anim.bro.com.practice.view.ClipImageView
         android:id="@+id/iv_clip_view_2"
         android:layout_width="wrap_content"
         android:layout_height="50dp"

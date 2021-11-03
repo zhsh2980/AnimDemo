@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_task_red_root"
+    android:layout_width="225dp"
+    android:layout_height="70dp"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_task_red"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/frame_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_left"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/zhiwu"
+            app:riv_corner_radius="8dp" />
+
+        <TextView
+            android:id="@+id/tv_good_name"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxEms="8"
+            android:text="香水郁金香香水郁金香"
+            android:textColor="#fff"
+            android:textSize="12dp"
+            android:visibility="gone" />
+
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_middle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_has_finished_part"
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxEms="8"
+                android:text="已完成15.5%"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+
+
+            <anim.bro.com.practice.tuibida.view.ZzHorizontalProgressBar
+                android:id="@+id/iv_progress"
+                android:layout_width="85dp"
+                android:layout_height="7dp"
+                app:zpb_bg_color="#DADADA"
+                app:zpb_max="100"
+                app:zpb_padding="0dp"
+                app:zpb_pb_color="#FE4070"
+                app:zpb_progress="15"/>
+
+            <Button
+                android:id="@+id/btn_middle"
+                android:visibility="gone"
+                android:layout_width="90dp"
+                android:layout_height="23dp"
+                android:background="@drawable/shape_task_button_red"
+                android:gravity="center"
+                android:text="补差价购买"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="3dp">
+
+        <FrameLayout
+            android:id="@+id/frame_arrow_right"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_arrow_right"
+                android:layout_width="12dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center"
+                android:background="@drawable/arrow_down" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_close_right"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_close_right"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/close" />
+        </FrameLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>

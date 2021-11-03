@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <anim.bro.com.animdemo.view.RoundImageView
+        <anim.bro.com.practice.view.RoundImageView
             android:id="@+id/iv_blur"
             android:layout_width="288dp"
             android:layout_height="512dp"
@@ -22,7 +22,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/blur" />
 
-        <anim.bro.com.animdemo.view.RoundImageView
+        <anim.bro.com.practice.view.RoundImageView
             android:layout_width="243dp"
             android:layout_height="432dp"
             android:layout_gravity="center"

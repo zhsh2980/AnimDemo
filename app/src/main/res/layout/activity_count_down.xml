@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/jumei_gray_6"
+>
+
+    <FrameLayout
+            android:id="@+id/frame_tv_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+    >
+
+        <TextView
+                android:id="@+id/tv_time_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10天10小时20分30秒"
+                android:textSize="20dp"
+        />
+    </FrameLayout>
+
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="50dp"
+                  android:layout_marginLeft="50dp"
+                  android:orientation="vertical">
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="21dp"
+                  android:background="@drawable/bg_tips_left_bottom"
+                  android:gravity="center"
+                  android:paddingTop="0dp"
+                  android:paddingLeft="4dp"
+                  android:paddingRight="4dp"
+                  android:paddingBottom="2dp"
+                  android:includeFontPadding="false"
+                  android:text="点击登录领取元宝"
+                  android:textSize="11dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="21dp"
+                  android:background="@drawable/bg_tips_left_top"
+                  android:gravity="center"
+                  android:layout_marginTop="20dp"
+                  android:paddingTop="2dp"
+                  android:paddingLeft="4dp"
+                  android:paddingRight="4dp"
+                  android:includeFontPadding="false"
+                  android:paddingBottom="0dp"
+                  android:text="点击登录领取元宝"
+                  android:textSize="11dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="21dp"
+                  android:background="@drawable/bg_tips_right_bottom"
+                  android:gravity="center"
+                  android:layout_marginTop="20dp"
+                  android:paddingTop="0dp"
+                  android:paddingLeft="4dp"
+                  android:paddingRight="4dp"
+                  android:includeFontPadding="false"
+                  android:paddingBottom="2dp"
+                  android:text="点击登录领取元宝"
+                  android:textSize="11dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="21dp"
+                  android:background="@drawable/bg_tips_right_top"
+                  android:gravity="center"
+                  android:paddingTop="2dp"
+                  android:paddingLeft="4dp"
+                  android:layout_marginTop="20dp"
+                  android:paddingRight="4dp"
+                  android:includeFontPadding="false"
+                  android:paddingBottom="0dp"
+                  android:text="点击登录领取元宝"
+                  android:textSize="11dp"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <Button
+                android:layout_alignParentRight="true"
+                android:id="@+id/btn_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="开始"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/btn_stop"/>
+
+        <Button
+                android:layout_alignParentRight="true"
+                android:id="@+id/btn_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="停止" tools:layout_editor_absoluteY="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn_start"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</RelativeLayout>

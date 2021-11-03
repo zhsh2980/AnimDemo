@@ -49,6 +49,16 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_tuibida"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="推必达拷贝过来" />
+
+        <Button
             android:id="@+id/btn_red_rain"
             android:layout_width="match_parent"
             android:layout_height="50dp"

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="102dp"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingTop="12dp"
+    android:paddingRight="14.5dp"
+    android:paddingBottom="10dp"
+    tools:background="@color/white">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_live_goods_pic"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/ad_dialog_1" />
+
+        <TextView
+            android:id="@+id/tv_num_left_top"
+            android:layout_width="28dp"
+            android:layout_height="13dp"
+            android:gravity="center"
+            android:background="@drawable/icon_live_goods_left_top"
+            android:includeFontPadding="false"
+            android:textSize="12dp"
+            tools:text="2" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_live_goods_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.4"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="商品列表支持最多两行展示多余的字用最低到商品列表支持最多两行展示多余的字用最低到商品列表支持最多两行展示多余的字用最低到"
+            android:textColor="#000000"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_live_goods_price_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="7.5dp"
+            android:textColor="#F14070"
+            android:textSize="13dp"
+            tools:text="价格:¥119" />
+
+        <TextView
+            android:id="@+id/tv_live_goods_price_origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginBottom="7.5dp"
+            android:layout_toRightOf="@+id/tv_live_goods_price_now"
+            android:text="原价:¥299"
+            android:textColor="#6C7B8A"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tv_live_goods_recommend"
+            android:layout_width="45.5dp"
+            android:layout_height="22.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="4.5dp"
+            android:background="@drawable/shape_live_goods_recommend_enable"
+            android:gravity="center"
+            android:text="推荐"
+            android:textColor="@color/white"
+            android:textSize="16.8dp" />
+
+        <TextView
+            android:id="@+id/tv_live_goods_move_top"
+            android:layout_width="45.5dp"
+            android:layout_height="22.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10.5dp"
+            android:layout_marginBottom="4.5dp"
+            android:layout_toLeftOf="@+id/tv_live_goods_recommend"
+            android:background="@drawable/shape_live_goods_move_top_enable"
+            android:gravity="center"
+            android:text="置顶"
+            android:textColor="#6C7B8A"
+            android:textSize="16.8dp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

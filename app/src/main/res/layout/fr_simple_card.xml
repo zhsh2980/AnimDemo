@@ -1,0 +1,32 @@
+<HorizontalScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/card_title_tv"
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorAccent"
+                android:text="哈哈啊哈"
+                android:textColor="@color/white_color"
+                android:gravity="center"
+                android:textSize="18sp"/>
+        <TextView
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_card"
+                android:text="哈哈啊哈"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textSize="18sp"/>
+
+    </LinearLayout>
+</HorizontalScrollView>
