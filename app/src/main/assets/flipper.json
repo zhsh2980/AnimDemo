@@ -1,0 +1,56 @@
+{
+    "more_link": "",
+    "anim_interval": "5",
+    "items": [{
+        "items_inside": [{
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "图书会场"
+        }, {
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "图书会场2"
+        }]
+
+    }, {
+        "items_inside": [{
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "服百会场"
+        }, {
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "服百会场2"
+        }]
+    }, {
+        "items_inside": [{
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "今日抢购"
+        }, {
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "今日抢购2"
+        }]
+    }, {
+        "items_inside": [{
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "电子书会场"
+        }, {
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "电子书会场2"
+        }]
+    }, {
+        "items_inside": [{
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "玩具会场"
+        }, {
+            "pic": "https://img63.ddimg.cn/upload_img/00714/mobile/daifukuan-1533785892.png",
+            "pic_link": "coupon:\/\/",
+            "title": "玩具会场2"
+        }]
+    }]
+}

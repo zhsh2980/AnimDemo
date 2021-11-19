@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import anim.bro.com.practice.BuildConfig;
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.util.UIUtils;
 import butterknife.BindView;

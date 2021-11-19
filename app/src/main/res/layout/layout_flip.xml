@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ViewFlipper
+        android:id="@+id/fliper_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoStart="false"
+        android:flipInterval="3000"
+        android:inAnimation="@anim/home_broadcast_anim_in"
+        android:minWidth="36dp"
+        android:minHeight="36dp"
+        android:outAnimation="@anim/home_broadcast_anim_out"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/fliper_2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent" />
+
+    <ViewFlipper
+        android:id="@+id/fliper_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:flipInterval="3000"
+        android:inAnimation="@anim/home_broadcast_anim_in"
+        android:minWidth="36dp"
+        android:minHeight="36dp"
+        android:outAnimation="@anim/home_broadcast_anim_out"
+        app:layout_constraintLeft_toRightOf="@+id/fliper_1"
+        app:layout_constraintRight_toLeftOf="@+id/fliper_3"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent" />
+
+
+    <ViewFlipper
+        android:id="@+id/fliper_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:flipInterval="3000"
+        android:inAnimation="@anim/home_broadcast_anim_in"
+        android:minWidth="36dp"
+        android:minHeight="36dp"
+        android:outAnimation="@anim/home_broadcast_anim_out"
+        app:layout_constraintLeft_toRightOf="@+id/fliper_2"
+        app:layout_constraintRight_toLeftOf="@+id/fliper_4"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent" />
+
+    <ViewFlipper
+        android:id="@+id/fliper_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:flipInterval="3000"
+        android:inAnimation="@anim/home_broadcast_anim_in"
+        android:minWidth="36dp"
+        android:minHeight="36dp"
+        android:outAnimation="@anim/home_broadcast_anim_out"
+        app:layout_constraintLeft_toRightOf="@+id/fliper_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
