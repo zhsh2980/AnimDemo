@@ -47,6 +47,7 @@ import anim.bro.com.practice.ui.PraiseActivity;
 import anim.bro.com.practice.ui.RedFlyActivity;
 import anim.bro.com.practice.ui.RedNewActivity;
 import anim.bro.com.practice.ui.RedRainActivity;
+import anim.bro.com.practice.util.EnterDebugUtils;
 import anim.bro.com.practice.util.GetJsonDataUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         //测试日期
         testData();
 
+        //正式环境打开 debug 界面
+        testQrCodeEndterDebug();
+
 //        JSONObject object = testJsonMap();
         String shuabaoJson = new GetJsonDataUtil().getJson(this, "shuabao.json");//获取assets目录下的json文件数据
         try {
@@ -85,7 +89,12 @@ public class MainActivity extends AppCompatActivity {
         }
 //        Log.i("bro", "value: " + shuabaoJson);
 //        resolveJsonMap(object.optJSONObject("alarmMsg"));
+        //9b17 ab78 408f 8f97 f460 a337 f0e5 3af5
+    }
 
+    private void testQrCodeEndterDebug() {
+        String qrCodeEnterDebug = EnterDebugUtils.getInstance().getQrCodeEnterDebug();
+        Log.i("bro", "qrCodeEnterDebug: " + qrCodeEnterDebug);
     }
 
     private void resolveJsonMap(JSONObject data) {
@@ -163,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_duodian, R.id.btn_rv
             , R.id.btn_focus, R.id.btn_category
             , R.id.btn_rv_add_frag
-            , R.id.btn_transparent_activity
+            , R.id.btn_banner
             , R.id.btn_tuibida
     })
     public void onViewClicked(View view) {
@@ -212,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_rv_add_frag:
                 ActivityUtils.startActivity(RvFragmentActivity.class);
                 break;
-            case R.id.btn_transparent_activity:
+            case R.id.btn_banner:
                 ActivityUtils.startActivity(BannerActivity.class);
                 break;
             case R.id.btn_tuibida:

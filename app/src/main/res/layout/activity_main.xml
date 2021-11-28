@@ -186,6 +186,17 @@
             android:text="rv添加fragment" />
 
 
+        <Button
+            android:id="@+id/btn_banner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="banner" />
+
+
     </LinearLayout>
 
 
