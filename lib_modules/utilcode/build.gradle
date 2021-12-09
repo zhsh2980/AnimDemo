@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+//apply {
+//    plugin "readme-core"
+//}
+//
+//readme {
+//    readmeFile file('./README.md')
+//    readmeCnFile file('./README-CN.md')
+//}
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Config.minSdkVersion
+        versionCode Config.versionCode
+        versionName Config.versionName
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation Config.libs.gson.path
+
+    implementation Config.libs.androidx_appcompat.path
+    compileOnly Config.libs.androidx_material.path
+
+    testImplementation Config.libs.test_junit.path
+    testImplementation Config.libs.test_robolectric.path
+    testImplementation Config.libs.androidx_appcompat.path
+    testImplementation Config.libs.androidx_material.path
+    testImplementation Config.libs.eventbus_lib.path
+}
+
+ext {
+    groupId = Config.modules.lib_utilcode.groupId
+    artifactId = Config.modules.lib_utilcode.artifactId
+    version = Config.modules.lib_utilcode.version
+    website = "https://github.com/Blankj/AndroidUtilCode"
+}
+//apply from: "${rootDir.path}/config/publish.gradle"

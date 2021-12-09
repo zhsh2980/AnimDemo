@@ -1,6 +1,7 @@
 package anim.bro.com.practice.ui;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
@@ -22,7 +23,9 @@ import java.util.Date;
 
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.bean.AgileBodyPromotionInfoModel;
+import anim.bro.com.practice.util.EnterDebugUtils;
 import anim.bro.com.practice.util.GetJsonDataUtil;
+import anim.bro.com.practice.util.PriceUtils;
 import anim.bro.com.practice.util.TextLabelUtil;
 import anim.bro.com.practice.view.AdvertThreeTextView;
 import anim.bro.com.practice.view.AppendViewAfterTextView;
@@ -32,6 +35,7 @@ public class DuoDianActivity extends BaseActivity {
 
     private TextView tv_test;
     private TextView tv_normal;
+    private TextView tv_price;
     private ImageView iv_test;
     private ViewFlipper fliper1;
     private ViewFlipper fliper2;
@@ -73,6 +77,7 @@ public class DuoDianActivity extends BaseActivity {
     public void initView() {
         tv_test = findViewById(R.id.tv_test);
         tv_normal = findViewById(R.id.tv_normal);
+        tv_price = findViewById(R.id.tv_price);
         View flipItemView = findViewById(R.id.view_flipper);
         fliper1 = flipItemView.findViewById(R.id.fliper_1);
         fliper2 = flipItemView.findViewById(R.id.fliper_2);
@@ -82,18 +87,31 @@ public class DuoDianActivity extends BaseActivity {
 
         setFlipper();
 
+        PriceUtils.setPriceSpannableText(this, tv_price,
+                "¥129.00", "¥149.89",
+                16, 12);
+
+        String qrCodeEnterDebug = EnterDebugUtils.getInstance().getQrCodeEnterDebug();
+        Log.i("bro", "qrCodeEnterDebug: " + qrCodeEnterDebug);
+
     }
 
     private void setFlipper() {
         String beanJson = new GetJsonDataUtil().getJson(this, "flipper.json");//获取assets目录下的json文件数据
         Gson gson = new Gson();
         AgileBodyPromotionInfoModel bannerBean = gson.fromJson(beanJson, AgileBodyPromotionInfoModel.class);
-
         setFlipperData(fliper1, bannerBean.items.get(0));
         setFlipperData(fliper2, bannerBean.items.get(1));
         setFlipperData(fliper3, bannerBean.items.get(2));
         setFlipperData(fliper4, bannerBean.items.get(3));
         startFlipper();
+
+        int childCount = fliper1.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View flipItemView = fliper1.getChildAt(i);
+            TextView textView = flipItemView.findViewById(R.id.tv_flipper_item);
+            textView.setTextColor(Color.BLUE);
+        }
     }
 
     private void startFlipper() {
@@ -130,7 +148,6 @@ public class DuoDianActivity extends BaseActivity {
             });
             fliper.addView(flipItemView);
         }
-
     }
 
 
@@ -145,7 +162,7 @@ public class DuoDianActivity extends BaseActivity {
                 .setLabelCorner(SizeUtils.dp2px(2))
                 .setLabelPadding(new int[]{SizeUtils.dp2px(3), SizeUtils.dp2px(0), SizeUtils.dp2px(3), SizeUtils.dp2px(0)})
                 .setLabelText("明星店铺")
-                .hideLabel(true)
+                .hideLabel(false)
                 .setTargetTvCutMiddle(false)
                 .setLabelTextColor("#654321")
                 .setLabelBackground("#123456")

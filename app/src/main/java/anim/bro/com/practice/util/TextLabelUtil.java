@@ -365,7 +365,8 @@ public class TextLabelUtil {
             if (mDrawablePicNet == null) {
                 //参考 https://www.tabnine.com/code/java/methods/android.graphics.drawable.ShapeDrawable/setShape
                 ShapeDrawable background = new ShapeDrawable();
-                float[] radii = new float[8];// maybe 每个脚两个的意思  4 * 2 = 8
+                //每个脚两个的意思  4 * 2 = 8  0,1代表左上   2,3 代表右上  以此类推
+                float[] radii = new float[8];
                 for (int i = 0; i <= 7; i++) {
                     radii[i] = labelCorner;
                 }

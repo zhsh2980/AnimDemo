@@ -1,0 +1,12 @@
+dependencies {
+    compileOnly Config.libs.androidx_appcompat.path
+    compileOnly Config.libs.androidx_material.path
+
+    implementation Config.modules.lib_utilcode.dep
+    implementation Config.libs.swipe_panel.path
+    implementation Config.libs.photo_view.path
+
+    testImplementation Config.libs.test_junit.path
+    testImplementation Config.libs.test_robolectric.path
+    testImplementation Config.libs.androidx_appcompat.path
+}

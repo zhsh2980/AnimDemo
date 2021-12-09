@@ -4,5 +4,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="treasure_box_pop_text">转发后获得宝箱宝箱\n开启宝箱拿元宝大奖\n开启宝箱拿元宝大奖</string>
+    <string name="pd_money_symbol">¥</string>
 
 </resources>

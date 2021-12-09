@@ -1,1 +1,2 @@
 include ':app',':easyrecyclerview'
+include ':lib_modules:utilcode'
