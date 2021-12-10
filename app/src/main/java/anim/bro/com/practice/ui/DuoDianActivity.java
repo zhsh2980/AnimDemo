@@ -1,6 +1,8 @@
 package anim.bro.com.practice.ui;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -17,26 +19,21 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.bean.AgileBodyPromotionInfoModel;
 import anim.bro.com.practice.util.EnterDebugUtils;
 import anim.bro.com.practice.util.GetJsonDataUtil;
 import anim.bro.com.practice.util.PriceUtils;
+import anim.bro.com.practice.util.QrCodeUtil;
 import anim.bro.com.practice.util.TextLabelUtil;
 import anim.bro.com.practice.view.AdvertThreeTextView;
 import anim.bro.com.practice.view.AppendViewAfterTextView;
-import anim.bro.com.practice.view.Rotate3dAnimation;
 
 public class DuoDianActivity extends BaseActivity {
 
     private TextView tv_test;
     private TextView tv_normal;
-    private TextView tv_price;
-    private ImageView iv_test;
+    private ImageView iv_qrcode;
     private ViewFlipper fliper1;
     private ViewFlipper fliper2;
     private ViewFlipper fliper3;
@@ -77,7 +74,7 @@ public class DuoDianActivity extends BaseActivity {
     public void initView() {
         tv_test = findViewById(R.id.tv_test);
         tv_normal = findViewById(R.id.tv_normal);
-        tv_price = findViewById(R.id.tv_price);
+        iv_qrcode = findViewById(R.id.iv_qrcode);
         View flipItemView = findViewById(R.id.view_flipper);
         fliper1 = flipItemView.findViewById(R.id.fliper_1);
         fliper2 = flipItemView.findViewById(R.id.fliper_2);
@@ -86,14 +83,21 @@ public class DuoDianActivity extends BaseActivity {
         setLabelText();
 
         setFlipper();
+        
+        setQrCode();
 
-        PriceUtils.setPriceSpannableText(this, tv_price,
-                "¥129.00", "¥149.89",
-                16, 12);
+    }
 
-        String qrCodeEnterDebug = EnterDebugUtils.getInstance().getQrCodeEnterDebug();
-        Log.i("bro", "qrCodeEnterDebug: " + qrCodeEnterDebug);
-
+    private void setQrCode() {
+        iv_qrcode.post(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                Bitmap qrCodeBitmap = QrCodeUtil.createQRCodeBitmap(EnterDebugUtils.getInstance(getApplicationContext()).getQrCodeEnterDebug(),
+                        iv_qrcode.getWidth(), iv_qrcode.getHeight(), logoBitmap);
+                iv_qrcode.setImageBitmap(qrCodeBitmap);
+            }
+        });
     }
 
     private void setFlipper() {

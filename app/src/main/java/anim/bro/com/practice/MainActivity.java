@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testQrCodeEndterDebug() {
-        String qrCodeEnterDebug = EnterDebugUtils.getInstance().getQrCodeEnterDebug();
+        String qrCodeEnterDebug = EnterDebugUtils.getInstance(this).getQrCodeEnterDebug();
         Log.i("bro", "qrCodeEnterDebug: " + qrCodeEnterDebug);
     }
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             String key = iterator.next().toString();
             if (TextUtils.equals(key, "240")) {
                 String value = data.optString(key);
-                ToastUtils.showLong(value);
+//                ToastUtils.showLong(value);
 //                Log.i("bro", "value: " + value);
             }
         }
