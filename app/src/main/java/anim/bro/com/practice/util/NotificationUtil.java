@@ -45,14 +45,14 @@ public class NotificationUtil {
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             notificationManager.createNotificationChannel(mChannel);
             notification = new NotificationCompat.Builder(mContext, id)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
                     .setCustomBigContentView(getCustomPicBigView())
                     .setCustomContentView(getCustomPicSmallView())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setTicker("正在播放")
-                    .setOngoing(true)
+//                    .setTicker("正在播放")
+//                    .setOngoing(true)
                     .setChannelId(mChannel.getId())
                     .build();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -63,8 +63,8 @@ public class NotificationUtil {
                     .setCustomBigContentView(getCustomPicBigView())
                     .setCustomContentView(getCustomPicSmallView())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setTicker("正在播放")
-                    .setOngoing(true)
+//                    .setTicker("正在播放")
+//                    .setOngoing(true)
                     .build();
         } else {
             notification = new NotificationCompat.Builder(mContext, id)
@@ -73,8 +73,8 @@ public class NotificationUtil {
                     .setContentIntent(getDefaultIntent(Notification.FLAG_ONGOING_EVENT))
                     .setContent(getCustomPicSmallView())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setTicker("正在播放")
-                    .setOngoing(true)
+//                    .setTicker("正在播放")
+//                    .setOngoing(true)
                     .build();
         }
 
