@@ -47,6 +47,7 @@ import anim.bro.com.practice.ui.PraiseActivity;
 import anim.bro.com.practice.ui.RedFlyActivity;
 import anim.bro.com.practice.ui.RedNewActivity;
 import anim.bro.com.practice.ui.RedRainActivity;
+import anim.bro.com.practice.ui.TestInputActivity;
 import anim.bro.com.practice.util.EnterDebugUtils;
 import anim.bro.com.practice.util.GetJsonDataUtil;
 import butterknife.BindView;
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_rv_add_frag
             , R.id.btn_banner
             , R.id.btn_tuibida
+            , R.id.btn_keyboard
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -226,6 +228,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_tuibida:
                 ActivityUtils.startActivity(MainTuiBiDaActivity.class);
+                break;
+            case R.id.btn_keyboard:
+                ActivityUtils.startActivity(TestInputActivity.class);
                 break;
             default:
         }

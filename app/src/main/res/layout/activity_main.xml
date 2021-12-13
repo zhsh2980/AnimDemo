@@ -196,6 +196,16 @@
             android:orientation="horizontal"
             android:text="banner" />
 
+        <Button
+            android:id="@+id/btn_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="键盘" />
+
 
     </LinearLayout>
 
