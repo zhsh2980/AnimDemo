@@ -1,13 +1,6 @@
 package anim.bro.com.practice.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,29 +8,32 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
 
-import com.blankj.utilcode.util.NotificationUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.bean.AgileBodyPromotionInfoModel;
+import anim.bro.com.practice.util.ETCheckNumLengthWatcher;
 import anim.bro.com.practice.util.EnterDebugUtils;
 import anim.bro.com.practice.util.GetJsonDataUtil;
 import anim.bro.com.practice.util.NotificationUtil;
-import anim.bro.com.practice.util.PriceUtils;
 import anim.bro.com.practice.util.QrCodeUtil;
 import anim.bro.com.practice.util.TextLabelUtil;
 import anim.bro.com.practice.view.AdvertThreeTextView;
@@ -48,6 +44,7 @@ public class DuoDianActivity extends BaseActivity {
     private TextView tv_test;
     private TextView tv_normal;
     private ImageView iv_qrcode;
+    private EditText etLength;
     private ViewFlipper fliper1;
     private ViewFlipper fliper2;
     private ViewFlipper fliper3;
@@ -90,6 +87,9 @@ public class DuoDianActivity extends BaseActivity {
         tv_test = findViewById(R.id.tv_test);
         tv_normal = findViewById(R.id.tv_normal);
         iv_qrcode = findViewById(R.id.iv_qrcode);
+        etLength = findViewById(R.id.et_length);
+        etLength.addTextChangedListener(new ETCheckNumLengthWatcher(etLength , this));
+
         View flipItemView = findViewById(R.id.view_flipper);
         fliper1 = flipItemView.findViewById(R.id.fliper_1);
         fliper2 = flipItemView.findViewById(R.id.fliper_2);
@@ -106,8 +106,25 @@ public class DuoDianActivity extends BaseActivity {
     }
 
     private void setNotification() {
-        NotificationUtil notificationUtil = new NotificationUtil(this);
-        notificationUtil.showNotification();
+        String notifationBg = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/dangdang/my_dang_dang/banner_notifation.png";
+        Glide.with(this).asBitmap().load(notifationBg).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                RemoteViews mRemoteViewsBig = new RemoteViews(getPackageName(), R.layout.view_notify_custom_bg_big);
+                RemoteViews mRemoteViewsSmall = new RemoteViews(getPackageName(), R.layout.view_notify_custom_bg_small);
+                mRemoteViewsBig.setImageViewBitmap(R.id.iv_notification_bg, bitmap);
+                mRemoteViewsSmall.setImageViewBitmap(R.id.iv_notification_bg, bitmap);
+                NotificationUtil notificationUtil = new NotificationUtil(DuoDianActivity.this);
+                notificationUtil.showNotification(mRemoteViewsBig, mRemoteViewsSmall);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
+//        NotificationUtil notificationUtil = new NotificationUtil(this);
+//        notificationUtil.showNotification();
 
     }
 

@@ -136,6 +136,7 @@ dependencies {
     api project(':easyrecyclerview')
 //    api project(':lib_modules:utilcode')
     implementation Deps.kotlinStdlib//依赖
+    debugImplementation Deps.leakcanary
 
 }
 repositories {
