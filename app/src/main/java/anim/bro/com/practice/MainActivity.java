@@ -43,6 +43,8 @@ import anim.bro.com.practice.tuibida.MainTuiBiDaActivity;
 import anim.bro.com.practice.ui.BlurActivity;
 import anim.bro.com.practice.ui.CycleBoxActivity;
 import anim.bro.com.practice.ui.DuoDianActivity;
+import anim.bro.com.practice.ui.FlexBoxActivity;
+import anim.bro.com.practice.ui.GsonParseActivity;
 import anim.bro.com.practice.ui.PraiseActivity;
 import anim.bro.com.practice.ui.RedFlyActivity;
 import anim.bro.com.practice.ui.RedNewActivity;
@@ -176,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_banner
             , R.id.btn_tuibida
             , R.id.btn_keyboard
+            , R.id.btn_gson_parse
+            , R.id.btn_flexbox
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -231,6 +235,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_keyboard:
                 ActivityUtils.startActivity(TestInputActivity.class);
+                break;
+            case R.id.btn_gson_parse:
+                ActivityUtils.startActivity(GsonParseActivity.class);
+                break;
+            case R.id.btn_flexbox:
+                ActivityUtils.startActivity(FlexBoxActivity.class);
                 break;
             default:
         }

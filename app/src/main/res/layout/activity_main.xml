@@ -206,6 +206,26 @@
             android:orientation="horizontal"
             android:text="键盘" />
 
+        <Button
+            android:id="@+id/btn_gson_parse"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="gson 解析测试" />
+
+        <Button
+            android:id="@+id/btn_flexbox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="flexbox 布局测试" />
+
 
     </LinearLayout>
 

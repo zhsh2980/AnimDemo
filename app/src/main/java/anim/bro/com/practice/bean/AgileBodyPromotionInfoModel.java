@@ -4,10 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import anim.bro.com.practice.network.GsonBaseModel;
+
 /**
  * 我的大促-新 body 数据结构
  */
-public class AgileBodyPromotionInfoModel {
+public class AgileBodyPromotionInfoModel extends GsonBaseModel {
 
     /**
      * more_link :
@@ -39,6 +41,31 @@ public class AgileBodyPromotionInfoModel {
             public String picLink;
             @SerializedName("title")
             public String title;
+
+            @Override
+            public String toString() {
+                return "ItemsInside{" +
+                        "pic='" + pic + '\'' +
+                        ", picLink='" + picLink + '\'' +
+                        ", title='" + title + '\'' +
+                        '}';
+            }
         }
+
+        @Override
+        public String toString() {
+            return "Items{" +
+                    "itemsInside=" + itemsInside +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "AgileBodyPromotionInfoModel{" +
+                "moreLink='" + moreLink + '\'' +
+                ", animInterval='" + animInterval + '\'' +
+                ", items=" + items +
+                '}';
     }
 }

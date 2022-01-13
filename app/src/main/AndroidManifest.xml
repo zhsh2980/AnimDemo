@@ -19,6 +19,9 @@
             android:name=".ui.TestInputActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.GsonParseActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:maxAspectRatio="2.4">
@@ -48,6 +51,7 @@
         <activity android:name=".ui.PraiseActivity" />
         <activity android:name=".ui.RedNewActivity" />
         <activity android:name=".ui.RedRainActivity" />
+        <activity android:name=".ui.FlexBoxActivity" />
         <activity android:name=".banner.BannerActivity" />
         <activity android:name=".rvcategory.RvCategoryActivity" />
 
