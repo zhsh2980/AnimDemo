@@ -37,6 +37,10 @@
         <activity android:name=".focus.FocusNewActivity" />
         <activity android:name=".rv.RVActivity" />
         <activity android:name=".goods.GoodsBuyActivity" />
+        <activity
+            android:name=".map.MapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".goods.GlideActivity" />
         <activity android:name=".ui.DuoDianActivity"></activity>
 
@@ -64,7 +68,10 @@
         <activity android:name=".tuibida.ui.SwitchActivity" />
         <activity android:name=".tuibida.ui.GridActivity" />
         <activity android:name=".tuibida.MainTuiBiDaActivity"></activity>
-
+        <!-- 腾讯地图和定位相关start -->
+        <meta-data
+            android:name="TencentMapSDK"
+            android:value="6CLBZ-EGACJ-T6KF7-KJ7DP-WR3P7-PHFRU" />
         <meta-data
             android:name="UPA_MPA_CHANNELID"
             android:value="359682YNF3a" />
@@ -73,9 +80,7 @@
             android:value="aiA7Zj" />
 
         <activity android:name=".tuibida.ui.HideViewActivity" />
-        <activity
-            android:name=".tuibida.ui.CoordinatorActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".tuibida.ui.CoordinatorActivity" />
         <activity android:name=".tuibida.ui.RedTaskActivity" />
         <activity android:name=".tuibida.ui.ViewModelActivity" />
         <activity

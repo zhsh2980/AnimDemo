@@ -36,6 +36,7 @@ import anim.bro.com.practice.fragment.RvFragmentActivity;
 import anim.bro.com.practice.goods.GlideActivity;
 import anim.bro.com.practice.goods.GoodsBuyActivity;
 import anim.bro.com.practice.goods.GoodsSaleActivity;
+import anim.bro.com.practice.map.MapActivity;
 import anim.bro.com.practice.rv.RVActivity;
 import anim.bro.com.practice.rvcategory.RvCategoryActivity;
 import anim.bro.com.practice.banner.BannerActivity;
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_keyboard
             , R.id.btn_gson_parse
             , R.id.btn_flexbox
+            , R.id.btn_map_tencent
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -241,6 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_flexbox:
                 ActivityUtils.startActivity(FlexBoxActivity.class);
+                break;
+            case R.id.btn_map_tencent:
+                ActivityUtils.startActivity(MapActivity.class);
                 break;
             default:
         }

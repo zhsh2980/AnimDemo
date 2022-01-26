@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +28,9 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.bean.AgileBodyPromotionInfoModel;
 import anim.bro.com.practice.util.ETCheckNumLengthWatcher;
@@ -40,7 +44,7 @@ import anim.bro.com.practice.view.AppendViewAfterTextView;
 
 public class FlexBoxActivity extends BaseActivity {
 
-//    参考文档: https://www.jianshu.com/p/b3a9c4a99053
+    //    参考文档: https://www.jianshu.com/p/b3a9c4a99053
     @Override
     public int getResourceID() {
         return R.layout.activity_flexbox;
@@ -59,6 +63,20 @@ public class FlexBoxActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
+        String action = "%城市";
+
+        String tempAction = null;
+        try {
+            action = action.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+            action = action.replaceAll("\\+", "%2B");
+            tempAction = URLDecoder.decode(action, "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("bro", "error Exception");
+        }
+        Log.i("bro", "tempAction: " + tempAction);
+
     }
 
 }

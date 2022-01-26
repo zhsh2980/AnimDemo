@@ -3,6 +3,7 @@ package anim.bro.com.practice.goods;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.core.app.ActivityCompat;
@@ -83,12 +84,19 @@ public class GoodsBuyActivity extends AppCompatActivity {
         List<ViewItemBean> list = new ArrayList<>();
 //        Uri path1 = Uri.parse("https://v-cdn.zjol.com.cn/123468.mp4");
 //        Uri path2 = Uri.parse("http://zkteam.cc/1581669892013801.mp4");
-        String path2 = "https://v-cdn.zjol.com.cn/276998.mp4";
+//        String path2 = "https://v-cdn.zjol.com.cn/276998.mp4";
+        //ERROR
+        String pathError = "http://10.255.242.226:8088/download/video/1/chatvideo/202201/712/1/712_20220120105033572_1.mp4?userType=1&tenantId=1&sessionId=m_a5ec8e0f6a90d26148737d1c1f7ffd614aaf11318d0a7ecc5fcad3630a07c8a6";
+//        String pathError = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/dangdang/video/error.mp4";
+        //OK
+//        String path2 = "http://img42.ddimg.cn/asset/8b51c54cbd47fe543197c1fd603fdc9f/play_video/ad2a9cbdff3a21f4b2ed135cfdf762c7.mp4?userType=1&tenantId=1&sessionId=m_a5ec8e0f6a90d26148737d1c1f7ffd614aaf11318d0a7ecc5fcad3630a07c8a6";
+        String pathOk = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/dangdang/video/ok.mp4";
 //        Uri path2 = Uri.parse("https://raw.githubusercontent.com/zhsh2980/AnimDemo/master/video.mp4");
 //        Uri path2 = Uri.parse("https://v-cdn.zjol.com.cn/276982.mp4");
 //        String imageUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579170629919&di=fc03a214795a764b4094aba86775fb8f&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D4061015229%2C3374626956%26fm%3D214%26gp%3D0.jpg";
 //        list.add(new ViewItemBean(BannerConfig.VIDEO, path1, 15 * 1000));
-        list.add(new ViewItemBean(BannerConfig.VIDEO, path2, 15 * 1000));
+        list.add(new ViewItemBean(BannerConfig.VIDEO, pathError, 15 * 1000));
+//        list.add(new ViewItemBean(BannerConfig.VIDEO, pathOk, 15 * 1000));
 //        list.add(new ViewItemBean(BannerConfig.IMAGE, imageUrl, 5 * 1000));
 //        list.add(new ViewItemBean(VIDEO, path2, 15 * 1000));
         list.add(new ViewItemBean(BannerConfig.IMAGE, R.mipmap.b1, 5 * 1000));

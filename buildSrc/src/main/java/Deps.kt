@@ -20,8 +20,8 @@ import LibsVersion.Companion.retrofit_version
  * mqcoder90@gmail.com
  */
 object App {
-    const val targetSdkVersion = 30
     const val compileSdkVersion = 30
+    const val targetSdkVersion = 30
     const val buildToolsVersion = "30.0.3"
     const val minSdkVersion = 19
     const val appId = "anim.bro.com.practice"
@@ -33,9 +33,17 @@ object Deps {
     //Kotlin
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
     //引入协程
     const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    const val coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    const val coroutines_android =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    //LeakCanary
+    const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.7"
+
+    // Gson 解析容错：https://github.com/getActivity/GsonFactory
+    const val GsonFactory = "com.github.getActivity:GsonFactory:5.2"
 
     //ktx扩展列表：https://developer.android.com/kotlin/ktx/extensions-list
     //Jetpack相关
@@ -46,9 +54,12 @@ object Deps {
 
     //将 Kotlin 协程与生命周期感知型组件一起使用: https://developer.android.com/topic/libraries/architecture/coroutines
     //LifecycleScope协程
-    const val jetpack_lifecycle_runtime =  "androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_version"
+    const val jetpack_lifecycle_runtime =
+        "androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_version"
+
     //ProcessLifecycleOwner给整个 app进程 提供一个lifecycle
     const val jetpack_lifecycle_process = "androidx.lifecycle:lifecycle-process:$jetpack_version"
+
     //帮助实现Service的LifecycleOwner
     const val jetpack_lifecycle_service = "androidx.lifecycle:lifecycle-service:$jetpack_version"
     const val jetpack_datastore = "androidx.datastore:datastore:$datastore_version"
@@ -58,16 +69,19 @@ object Deps {
     const val androidx_material = "com.google.android.material:material:$material_version"
     const val androidx_appcompat = "androidx.appcompat:appcompat:$appcompat_version"
     const val androidx_recyclerView = "androidx.recyclerview:recyclerview:$recyclerview_version"
-    const val androidx_constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    const val androidx_constraintLayout =
+        "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     const val androidx_legacy = "androidx.legacy:legacy-support-v4:$legacy_version"
     const val androidx_multidex = "androidx.multidex:multidex:$multidex_version"
 
     //ARouter
     const val arouter_api = "com.alibaba:arouter-api:$arouter_api_version"
     const val arouter_compiler = "com.alibaba:arouter-compiler:$arouter_compiler_version"
+
     //okhttp
     const val okhttp = "com.squareup.okhttp3:okhttp:$okhttp_version"
     const val okhttp_log_interceptor = "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
     //retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
     const val retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:$retrofit_version"

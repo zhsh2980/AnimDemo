@@ -48,7 +48,6 @@ public class CoordinatorActivity extends AppCompatActivity {
     }
 
     private void initData(int page) {
-
         for (int i = 0; i < 50; i++) {
             dataList.add("第" + page + "页第" + (i + 1) + "条数据");
         }
