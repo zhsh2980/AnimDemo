@@ -2,6 +2,7 @@ package anim.bro.com.practice.map;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.orhanobut.logger.Logger;
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory;
 import com.tencent.tencentmap.mapsdk.maps.MapView;
 import com.tencent.tencentmap.mapsdk.maps.TencentMap;
@@ -85,13 +85,10 @@ public class MapActivity extends AppCompatActivity {
                             mBehavior.setPeekHeight(MIDDLE_PICK_HEIGHT);
                             adjustMapRatio(MIDDLE_PICK_HEIGHT);
                         });
-
-
-
                     }
                 });
             }
-        }, 2000);
+        }, 1000);
 
     }
 
@@ -117,12 +114,13 @@ public class MapActivity extends AppCompatActivity {
 
             @Override
             public void onStateChanged(@NonNull View view, int state) {
+
+                Log.i(TAG, "onStateChanged state == BottomSheetBehavior: " + getState(state));
+
                 if (state == BottomSheetBehavior.STATE_DRAGGING) {
-                    Logger.i(TAG, "onStateChanged state == BottomSheetBehavior.STATE_DRAGGING");
                     isOnce = true;
                 }
                 if (isOnce && state == BottomSheetBehavior.STATE_SETTLING) {
-                    Logger.i(TAG, "onStateChanged state == BottomSheetBehavior.STATE_SETTLING");
                     isOnce = false;
                     if (POSITION == MIDDLE) {
                         if (ratio >= 0.2) {
@@ -143,7 +141,7 @@ public class MapActivity extends AppCompatActivity {
                             POSITION = TOP;
                         }
                     }
-                    Logger.i(TAG, "onStateChanged POSITION: " + POSITION);
+                    Log.i(TAG, "onStateChanged POSITION: " + getPosition(POSITION));
                     setState();
                 }
 
@@ -167,8 +165,41 @@ public class MapActivity extends AppCompatActivity {
         });
     }
 
+    private String getState(int state) {
+        switch (state) {
+            case BottomSheetBehavior.STATE_DRAGGING:
+                return "STATE_DRAGGING";
+            case BottomSheetBehavior.STATE_SETTLING:
+                return "STATE_SETTLING";
+            case BottomSheetBehavior.STATE_EXPANDED:
+                return "STATE_EXPANDED";
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                return "STATE_COLLAPSED";
+            case BottomSheetBehavior.STATE_HIDDEN:
+                return "STATE_HIDDEN";
+            case BottomSheetBehavior.STATE_HALF_EXPANDED:
+                return "STATE_HALF_EXPANDED";
+            default:
+                return "null state";
+        }
+
+    }
+
+    private String getPosition(int position) {
+        switch (position) {
+            case BOTTOM:
+                return "BOTTOM";
+            case MIDDLE:
+                return "MIDDLE";
+            case TOP:
+                return "TOP";
+            default:
+                return "null state";
+        }
+
+    }
+
     private void setState() {
-        Logger.i(TAG, "setState POSITION: " + POSITION);
         if (POSITION == BOTTOM) {
             mBehavior.setHideable(false);
             mBehavior.setPeekHeight(BOTTOM_PICK_HEIGHT);
@@ -221,6 +252,7 @@ public class MapActivity extends AppCompatActivity {
             uiSettings.setRotateGesturesEnabled(false);
             //logo放在右下角
             uiSettings.setLogoPosition(TencentMapOptions.LOGO_POSITION_BOTTOM_RIGHT);
+            uiSettings.setAllGesturesEnabled(false);
             //地图模式可选类型：MAP_TYPE_NORMAL:标准底图,MAP_TYPE_SATELLITE:卫星底图
             tMap.setMapType(TencentMap.MAP_TYPE_NORMAL);
             //缩放比例  地图的缩放级别一共分为 17 级，从 3 到 19。数字越大，展示的图面信息越精细。
