@@ -38,7 +38,6 @@ public class MapActivity extends AppCompatActivity {
     private final String TAG = "MapActivity";
     private MapView mapView;
     private TencentMap tMap;
-    private MapView map;
     private RelativeLayout rlTitleLayout;
     private TextView etvBack;
     private RecyclerView rcyLogistics;
@@ -53,6 +52,7 @@ public class MapActivity extends AppCompatActivity {
     private int MIDDLE_PICK_HEIGHT;
     private float ratio;
     private boolean isOnce;
+//    private TencentMapRelativeLayout mBottomSheetContent;
 
     private int totalHeight;
     private int dp200;
@@ -93,6 +93,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void initView() {
+//        mBottomSheetContent = findViewById(R.id.mBottomSheetContent);
         mapView = (MapView) findViewById(R.id.map);
         tMap = mapView.getMap();
         rlTitleLayout = (RelativeLayout) findViewById(R.id.rl_title_layout);
@@ -110,6 +111,7 @@ public class MapActivity extends AppCompatActivity {
         mBehavior = BottomSheetBehavior.from(rcyLogistics);
         mBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mBehavior.setHideable(true);
+//        mBottomSheetContent.setBehavior(mBehavior);
         mBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 
             @Override
@@ -234,6 +236,7 @@ public class MapActivity extends AppCompatActivity {
                 SizeUtils.dp2px(130),
                 SizeUtils.dp2px(150),
                 bottomMargin));
+
     }
 
     private void initMockData() {
@@ -243,21 +246,19 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void initMap() {
-        {
-            if (tMap == null) {
-                tMap = mapView.getMap();
-            }
-            if (tMap == null) return;
-            UiSettings uiSettings = tMap.getUiSettings();
-            uiSettings.setRotateGesturesEnabled(false);
-            //logo放在右下角
-            uiSettings.setLogoPosition(TencentMapOptions.LOGO_POSITION_BOTTOM_RIGHT);
-            uiSettings.setAllGesturesEnabled(false);
-            //地图模式可选类型：MAP_TYPE_NORMAL:标准底图,MAP_TYPE_SATELLITE:卫星底图
-            tMap.setMapType(TencentMap.MAP_TYPE_NORMAL);
-            //缩放比例  地图的缩放级别一共分为 17 级，从 3 到 19。数字越大，展示的图面信息越精细。
-//        aMap.moveCamera(CameraUpdateFactory.zoomTo(3f));
+        if (tMap == null) {
+            tMap = mapView.getMap();
         }
+        if (tMap == null) return;
+        UiSettings uiSettings = tMap.getUiSettings();
+        uiSettings.setRotateGesturesEnabled(false);
+        //logo放在右下角
+        uiSettings.setLogoPosition(TencentMapOptions.LOGO_POSITION_BOTTOM_RIGHT);
+//            uiSettings.setAllGesturesEnabled(false);
+        //地图模式可选类型：MAP_TYPE_NORMAL:标准底图,MAP_TYPE_SATELLITE:卫星底图
+        tMap.setMapType(TencentMap.MAP_TYPE_NORMAL);
+        //缩放比例  地图的缩放级别一共分为 17 级，从 3 到 19。数字越大，展示的图面信息越精细。
+//        aMap.moveCamera(CameraUpdateFactory.zoomTo(3f));
 
 
     }
