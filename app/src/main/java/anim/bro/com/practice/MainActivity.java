@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.constant.TimeConstants;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.gyf.immersionbar.ImmersionBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,9 +74,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        initScreenListener();
-
+        ImmersionBar.with(this).init();
+        
         //测试日期
         testData();
 
@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         }
 //        Log.i("bro", "value: " + shuabaoJson);
 //        resolveJsonMap(object.optJSONObject("alarmMsg"));
-        //9b17 ab78 408f 8f97 f460 a337 f0e5 3af5
     }
 
     private void testQrCodeEndterDebug() {
@@ -130,40 +129,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("bro", "jsonMap: " + object.toString());
 
         return object;
-
-    }
-
-
-    private void initScreenListener() {
-
-        BroadcastReceiver screenReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent == null) {
-                    return;
-                }
-                String action = intent.getAction();
-                switch (action) {
-                    case Intent.ACTION_SCREEN_ON:
-                        Log.i("bro", "屏幕点亮");
-                        Toast.makeText(MainActivity.this, "屏幕点亮", Toast.LENGTH_LONG).show();
-                        break;
-
-                    case Intent.ACTION_SCREEN_OFF:
-                        Log.i("bro", "屏幕关闭");
-                        Toast.makeText(MainActivity.this, "屏幕点亮", Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        registerReceiver(screenReceiver, filter);
-
 
     }
 

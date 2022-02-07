@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.gyf.immersionbar.ImmersionBar;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,9 +29,9 @@ public class RvCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rv_category);
         ButterKnife.bind(this);
+        ImmersionBar.with(this).titleBar(tvTest).init();
 
         initData();
-
     }
 
     private void initData() {
