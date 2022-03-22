@@ -1,2 +1,3 @@
 include ':app',':easyrecyclerview'
+include ':Rewrite'
 //include ':lib_modules:utilcode'

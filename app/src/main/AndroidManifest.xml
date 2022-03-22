@@ -63,6 +63,7 @@
             android:value="portrait|landscape" />
 
         <activity android:name=".ui.CycleBoxActivity" />
+        <activity android:name=".ui.PDFActivity" />
         <activity android:name=".goods.GoodsSaleActivity" />
         <activity android:name=".ui.BlurActivity" />
         <activity android:name=".ui.RedFlyActivity" />

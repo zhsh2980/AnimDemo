@@ -1,0 +1,96 @@
+buildscript {
+    repositories {
+//        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        google()
+        mavenCentral()
+    }
+}
+
+
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'maven'
+}
+apply from: rootDir.absolutePath + '/buildScripts/maven_push.gradle'
+
+group = 'com.coofee.rewrite'
+version = '1.0.10'
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = project.group
+            implementationClass = 'com.coofee.rewrite.RewritePlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation localGroovy()
+    implementation gradleApi()
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly 'com.android.tools.build:gradle:4.0.2'
+    compileOnly 'com.android.tools.build:gradle-api:4.0.2'
+
+    compile group: 'org.ow2.asm', name: 'asm-commons', version: '7.0'
+    compile group: 'org.apache.maven.shared', name: 'maven-dependency-analyzer', version: '1.11.1'
+    compile 'com.google.code.gson:gson:2.8.5'
+
+    compile 'com.github.javaparser:javaparser-symbol-solver-core:3.22.1'
+}
+
+compileJava {
+    sourceCompatibility "1.8"
+    targetCompatibility "1.8"
+}
+
+compileGroovy {
+    sourceCompatibility "1.8"
+    targetCompatibility "1.8"
+}
+
+repositories {
+//    maven { url 'https://maven.aliyun.com/repository/google' }
+//    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+
+    maven { url "https://jitpack.io" }
+    google()
+    mavenCentral()
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            maven(MavenPublication) {
+                groupId = project.group
+                artifactId = project.name.toLowerCase()
+                version = project.version
+
+                from components.java
+            }
+
+            pluginMaven(MavenPublication) {
+                groupId = project.group
+                artifactId = project.name.toLowerCase()
+                version = project.version
+            }
+        }
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri("${RELEASE_URL}")) {
+            authentication(userName: NAME, password: PASSWORD)
+        }
+
+        pom.groupId = project.group
+        pom.artifactId = project.name.toLowerCase()
+        pom.version = project.version
+    }
+}

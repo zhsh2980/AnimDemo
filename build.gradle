@@ -3,12 +3,14 @@
 buildscript {
 
     repositories {
-
+        mavenLocal()
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
-
+        mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url RELEASE_URL }
+        maven { url mvn_repo_path }
 
         google()
         jcenter()
@@ -19,7 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath 'com.coofee.rewrite:rewrite:1.0.10'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -27,12 +29,15 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
 
         maven { url "https://jitpack.io" }
-
+        mavenCentral()
+        maven { url RELEASE_URL }
+        maven { url mvn_repo_path }
         google()
         jcenter()
     }

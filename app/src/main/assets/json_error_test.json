@@ -1,0 +1,7 @@
+{
+  "object_test": {
+    "price": "15.50"
+  },
+  "object_error_test": [],
+  "int_test": "hello"
+}

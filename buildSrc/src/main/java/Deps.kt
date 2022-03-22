@@ -21,7 +21,7 @@ import LibsVersion.Companion.retrofit_version
  */
 object App {
     const val compileSdkVersion = 30
-    const val targetSdkVersion = 30
+    const val targetSdkVersion = 28
     const val buildToolsVersion = "30.0.3"
     const val minSdkVersion = 19
     const val appId = "anim.bro.com.practice"

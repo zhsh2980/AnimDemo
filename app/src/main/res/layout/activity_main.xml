@@ -214,7 +214,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:text="gson 解析测试" />
+            android:text="json 解析测试" />
 
         <Button
             android:id="@+id/btn_flexbox"
@@ -235,6 +235,16 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:text="腾讯地图" />
+
+        <Button
+            android:id="@+id/btn_pdf"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="pdf" />
 
 
     </LinearLayout>

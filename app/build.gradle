@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.coofee.rewrite'
 
 android {
     compileSdkVersion App.compileSdkVersion
@@ -82,7 +83,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.material:material:1.4.0'
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'org.jetbrains:annotations:16.0.2'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 //    implementation 'com.blankj:utilcode:1.30.6'
@@ -142,6 +143,9 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     // kotlin扩展（可选）
     implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
+
+    //PDF
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
 }
 repositories {

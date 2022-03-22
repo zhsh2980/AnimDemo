@@ -1,0 +1,6 @@
+{
+  "partner": "1200000120",
+  "data": "{\"payType\":801,\"extendParam\":{\"digitalCurrencyToken\":\"000004202203169574098337768\",\"hasAlipayPointDiscount\":\"0\",\"hasYwtApp\":\"0\",\"coip\":\"192.168.121.210\"},\"payFrom\":1,\"orderDetail\":[{\"orderId\":\"10143401430694\",\"amount\":32.00,\"cashType\":0,\"orderType\":0,\"shopId\":0,\"shopType\":0,\"custName\":\"测试地址\",\"identityNo\":null,\"isSelfSupport\":1,\"isNewCust\":0}],\"grandOrderId\":10143401430694}",
+  "sign": "e18244a3feb9488a607ff5b822be6f98",
+  "orderInfo": "10143401430694,32.00;"
+}

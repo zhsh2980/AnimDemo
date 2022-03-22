@@ -46,6 +46,7 @@ import anim.bro.com.practice.ui.CycleBoxActivity;
 import anim.bro.com.practice.ui.DuoDianActivity;
 import anim.bro.com.practice.ui.FlexBoxActivity;
 import anim.bro.com.practice.ui.GsonParseActivity;
+import anim.bro.com.practice.ui.PDFActivity;
 import anim.bro.com.practice.ui.PraiseActivity;
 import anim.bro.com.practice.ui.RedFlyActivity;
 import anim.bro.com.practice.ui.RedNewActivity;
@@ -75,21 +76,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ImmersionBar.with(this).init();
-        
+
         //测试日期
         testData();
 
         //正式环境打开 debug 界面
         testQrCodeEndterDebug();
 
-//        JSONObject object = testJsonMap();
-        String shuabaoJson = new GetJsonDataUtil().getJson(this, "shuabao.json");//获取assets目录下的json文件数据
-        try {
-            JSONObject jsonObject = new JSONObject(shuabaoJson);
-            resolveJsonMap(jsonObject.optJSONObject("alarmMsg"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        String shuabaoJson = new GetJsonDataUtil().getJson(this, "shuabao.json");//获取assets目录下的json文件数据
+//        try {
+//            JSONObject jsonObject = new JSONObject(shuabaoJson);
+//            resolveJsonMap(jsonObject.optJSONObject("alarmMsg"));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+
 //        Log.i("bro", "value: " + shuabaoJson);
 //        resolveJsonMap(object.optJSONObject("alarmMsg"));
     }
@@ -146,11 +148,33 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_gson_parse
             , R.id.btn_flexbox
             , R.id.btn_map_tencent
+            , R.id.btn_pdf
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_red_fly:
-                ActivityUtils.startActivity(RedFlyActivity.class);
+
+                String checkoutJson = new GetJsonDataUtil().getJson(this, "checkout.json");//获取assets目录下的json文件数据
+                try {
+                    JSONObject jsonObject = new JSONObject(checkoutJson);
+                    String dataStr = jsonObject.getString("data");
+                    JSONObject dataObj = new JSONObject(dataStr);
+
+                    String extendParamStr = dataObj.getString("extendParam");
+                    JSONObject extendParamObj = new JSONObject(extendParamStr);
+                    extendParamObj.put("token", "token123");
+
+                    dataObj.put("extendParam", extendParamObj.toString());
+                    jsonObject.put("data", dataObj.toString());
+
+                    String replace = jsonObject.toString()
+                            .replace("\\\\\\", "\\");
+                    Log.i("bro", "checkoutJson jsonObject: " + replace);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+//                ActivityUtils.startActivity(RedFlyActivity.class);
                 break;
             case R.id.btn_praise:
                 ActivityUtils.startActivity(PraiseActivity.class);
@@ -210,6 +234,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_map_tencent:
                 ActivityUtils.startActivity(MapActivity.class);
+                break;
+            case R.id.btn_pdf:
+                ActivityUtils.startActivity(PDFActivity.class);
                 break;
             default:
         }
