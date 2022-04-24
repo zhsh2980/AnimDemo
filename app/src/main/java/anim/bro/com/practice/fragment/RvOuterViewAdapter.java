@@ -71,7 +71,7 @@ public class RvOuterViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder instanceof Fragment1Holder) {
             final Fragment1Holder fragment1Holder = (Fragment1Holder) holder;
             FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(fragment1Holder.frameDetailsContainer.getId(), new RvFragment1()).commitAllowingStateLoss();
+            fragmentManager.beginTransaction().replace(fragment1Holder.frameDetailsContainer.getId(), new MyDangDang2022Fragment()).commitAllowingStateLoss();
         } else if (holder instanceof Fragment2Holder) {
             final Fragment2Holder fragment2Holder = (Fragment2Holder) holder;
             FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();

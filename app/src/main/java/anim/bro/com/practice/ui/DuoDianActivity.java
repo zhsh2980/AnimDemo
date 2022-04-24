@@ -5,11 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
@@ -19,7 +19,6 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -39,12 +38,13 @@ import anim.bro.com.practice.util.TextLabelUtil;
 import anim.bro.com.practice.view.AdvertThreeTextView;
 import anim.bro.com.practice.view.AppendViewAfterTextView;
 
-public class DuoDianActivity extends BaseActivity {
+public class DuoDianActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_test;
     private TextView tv_normal;
     private ImageView iv_qrcode;
     private EditText etLength;
+    private Button btnSetLabel;
     private ViewFlipper fliper1;
     private ViewFlipper fliper2;
     private ViewFlipper fliper3;
@@ -81,21 +81,22 @@ public class DuoDianActivity extends BaseActivity {
         return "多点";
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void initView() {
         tv_test = findViewById(R.id.tv_test);
         tv_normal = findViewById(R.id.tv_normal);
         iv_qrcode = findViewById(R.id.iv_qrcode);
         etLength = findViewById(R.id.et_length);
-        etLength.addTextChangedListener(new ETCheckNumLengthWatcher(etLength , this));
+        btnSetLabel = findViewById(R.id.btn_set_label);
+        btnSetLabel.setOnClickListener(this);
+        etLength.addTextChangedListener(new ETCheckNumLengthWatcher(etLength, this));
 
         View flipItemView = findViewById(R.id.view_flipper);
         fliper1 = flipItemView.findViewById(R.id.fliper_1);
         fliper2 = flipItemView.findViewById(R.id.fliper_2);
         fliper3 = flipItemView.findViewById(R.id.fliper_3);
         fliper4 = flipItemView.findViewById(R.id.fliper_4);
-        setLabelText();
+//        setLabelText();
 
         setFlipper();
 
@@ -206,15 +207,14 @@ public class DuoDianActivity extends BaseActivity {
                 .setLabelCorner(SizeUtils.dp2px(2))
                 .setLabelPadding(new int[]{SizeUtils.dp2px(3), SizeUtils.dp2px(0), SizeUtils.dp2px(3), SizeUtils.dp2px(0)})
                 .setLabelText("明星店铺")
-                .hideLabel(false)
-                .setTargetTvCutMiddle(false)
                 .setLabelTextColor("#654321")
                 .setLabelBackground("#123456")
                 .setLabelLeft(true)
-//                .setMaxLines(2)
-                .setLabelTextDrawableLocal(drawable)
+                .setLabelRightMarginPx(SizeUtils.dp2px(3))
+                .setLabelCorner(SizeUtils.dp2px(2))
                 .build()
                 .addLabelToTextView();
+
 //        appendViewAfterTextView = findViewById(R.id.append_text);
 //        appendViewAfterTextView.setText("我是正常的文字我是正常的文字我是正常的文字我是正常的文字");
 //        appendViewAfterTextView.setSpecialViewText("我是按钮");
@@ -227,4 +227,10 @@ public class DuoDianActivity extends BaseActivity {
     public void initData() {
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_set_label) {
+            setLabelText();
+        }
+    }
 }

@@ -3,8 +3,10 @@ import LibsVersion.Companion.appcompat_version
 import LibsVersion.Companion.arouter_api_version
 import LibsVersion.Companion.arouter_compiler_version
 import LibsVersion.Companion.constraintlayout_version
+import LibsVersion.Companion.core_ktx
 import LibsVersion.Companion.coroutines_version
 import LibsVersion.Companion.datastore_version
+import LibsVersion.Companion.flexbox
 import LibsVersion.Companion.fragment_ktx_version
 import LibsVersion.Companion.jetpack_version
 import LibsVersion.Companion.kotlin_version
@@ -42,11 +44,15 @@ object Deps {
     //LeakCanary
     const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.7"
 
+    const val flex_box = "com.google.android.flexbox:flexbox:$flexbox"
+
     // Gson 解析容错：https://github.com/getActivity/GsonFactory
     const val GsonFactory = "com.github.getActivity:GsonFactory:5.2"
 
     //ktx扩展列表：https://developer.android.com/kotlin/ktx/extensions-list
     //Jetpack相关
+    const val androidx_core = "androidx.core:core-ktx:$core_ktx"
+    const val lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:${LibsVersion.lifecycle_extensions}"
     const val jetpack_livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$jetpack_version"
     const val jetpack_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$jetpack_version"
     const val jetpack_activity_ktx = "androidx.activity:activity-ktx:$activity_ktx_version"
@@ -85,27 +91,35 @@ object Deps {
     //retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
     const val retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    const val dokit = "3.5.0"
+
 }
 
 internal class LibsVersion {
 
     companion object {
 
+        const val core_ktx = "1.7.0"
         const val multidex_version = "2.0.1"
-        const val okhttp_version = "4.9.0"
+        const val okhttp_version = "4.9.3"
         const val retrofit_version = "2.9.0"
         const val legacy_version = "1.0.0"
-        const val jetpack_version = "2.4.0-alpha01"
-        const val activity_ktx_version = "1.3.1"
-        const val fragment_ktx_version = "1.3.6"
+        const val lifecycle_extensions = "2.2.0"
+        const val jetpack_version = "2.4.1"
+        const val activity_ktx_version = "1.4.0"
+        const val fragment_ktx_version = "1.4.1"
         const val datastore_version = "1.0.0"
         const val kotlin_version = "1.4.32"
         const val coroutines_version = "1.5.2"
         const val arouter_api_version = "1.5.1"
         const val arouter_compiler_version = "1.5.1"
-        const val material_version = "1.2.1"
-        const val appcompat_version = "1.3.0"
+        const val material_version = "1.4.0"
+        const val appcompat_version = "1.4.1"
         const val recyclerview_version = "1.1.0"
-        const val constraintlayout_version = "1.1.3"
+        const val constraintlayout_version = "2.1.3"
+        const val flexbox = "3.0.0"
+
+
     }
 }

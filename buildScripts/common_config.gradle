@@ -1,0 +1,49 @@
+//通用配置, 原依赖转移到 buildSrc/src/main/java/CommonConfig.kt 中
+apply plugin: 'kotlin-android'
+
+// 通用配置
+android {
+    compileSdkVersion App.compileSdkVersion
+    defaultConfig {
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
+    }
+
+    // 支持 Java JDK 8
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        htmlReport true
+        textReport false
+        xmlReport false
+        disable 'GoogleAppIndexingWarning'
+    }
+
+    viewBinding {
+        enabled = true
+    }
+//    buildFeatures {
+//        dataBinding = true
+//        viewBinding = true
+//    }
+
+}
+
+
+apply plugin: 'img-optimizer'
+//压缩图片
+optimizerOptions {
+    triggerSize 5 // 触发优化的图片的大小, 单位 Kb
+    type "lossy"
+}

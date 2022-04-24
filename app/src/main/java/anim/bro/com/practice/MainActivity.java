@@ -8,7 +8,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.constant.TimeConstants;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -46,6 +49,7 @@ import anim.bro.com.practice.ui.CycleBoxActivity;
 import anim.bro.com.practice.ui.DuoDianActivity;
 import anim.bro.com.practice.ui.FlexBoxActivity;
 import anim.bro.com.practice.ui.GsonParseActivity;
+import anim.bro.com.practice.ui.OkHttpTestActivity;
 import anim.bro.com.practice.ui.PDFActivity;
 import anim.bro.com.practice.ui.PraiseActivity;
 import anim.bro.com.practice.ui.RedFlyActivity;
@@ -77,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         ImmersionBar.with(this).init();
 
+        int sdkVersionCode = DeviceUtils.getSDKVersionCode();//获取设备系统版本码
+        String sdkVersionName = DeviceUtils.getSDKVersionName();//获取设备系统版本号
+        String manufacturer = DeviceUtils.getManufacturer();//获取设备厂商
+        String model = DeviceUtils.getModel();//获取设备型号
+        Log.i("bro", "---sdkVersionCode: " + sdkVersionCode
+                + "---sdkVersionName: " + sdkVersionName
+                + "---manufacturer: " + manufacturer
+                + "---model: " + model);
+
         //测试日期
         testData();
 
@@ -90,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-
 
 //        Log.i("bro", "value: " + shuabaoJson);
 //        resolveJsonMap(object.optJSONObject("alarmMsg"));
@@ -149,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.btn_flexbox
             , R.id.btn_map_tencent
             , R.id.btn_pdf
+            , R.id.btn_okhttp
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -237,6 +250,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_pdf:
                 ActivityUtils.startActivity(PDFActivity.class);
+                break;
+            case R.id.btn_okhttp:
+                ActivityUtils.startActivity(OkHttpTestActivity.class);
                 break;
             default:
         }

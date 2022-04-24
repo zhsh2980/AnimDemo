@@ -12,10 +12,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:maxAspectRatio="2.4"
+        android:networkSecurityConfig="@xml/test_security"
+
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.OkHttpTestActivity"></activity>
         <activity
             android:name=".ui.TestInputActivity"
             android:exported="false" />
@@ -43,21 +46,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".goods.GlideActivity" />
-        <activity android:name=".ui.DuoDianActivity"></activity>
+        <activity android:name=".ui.DuoDianActivity" />
 
         <meta-data
             android:name="android.min_aspect"
             android:value="1.0" />
-
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.4" />
-
-        <!--适配华为（huawei）刘海屏-->
+            android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
             android:name="android.notch_support"
-            android:value="true" />
-        <!--适配小米（xiaomi）刘海屏-->
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
@@ -82,8 +81,7 @@
         <activity android:name=".tuibida.ui.TabFragmentActivity" />
         <activity android:name=".tuibida.ui.SwitchActivity" />
         <activity android:name=".tuibida.ui.GridActivity" />
-        <activity android:name=".tuibida.MainTuiBiDaActivity"></activity>
-        <!-- 腾讯地图和定位相关start -->
+        <activity android:name=".tuibida.MainTuiBiDaActivity" /> <!-- 腾讯地图和定位相关start -->
         <meta-data
             android:name="TencentMapSDK"
             android:value="6CLBZ-EGACJ-T6KF7-KJ7DP-WR3P7-PHFRU" />

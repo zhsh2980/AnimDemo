@@ -42,7 +42,7 @@ class RewriteTransform extends Transform {
         this.project = project;
         this.appExtension = appExtension;
 
-        if (project.getPlugins().hasPlugin(DynamicFeaturePlugin.class)) {
+        if (project.getPlugins().hasPlugin(String.valueOf(DynamicFeaturePlugin.class))) {
             scopeSet = TransformManager.SCOPE_FULL_WITH_FEATURES;
         } else {
             scopeSet = TransformManager.SCOPE_FULL_PROJECT;
