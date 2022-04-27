@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import anim.bro.com.practice.R;
+import anim.bro.com.practice.tuibida.multidrag.SpacesItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -22,8 +23,8 @@ public class RVActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this , DividerItemDecoration.HORIZONTAL));
-        recyclerView.setAdapter(new RvAdapter());
+        recyclerView.addItemDecoration(new SpacesItemDecoration(12));
+        recyclerView.setAdapter(new SpaceAdapter());
 
     }
 }
