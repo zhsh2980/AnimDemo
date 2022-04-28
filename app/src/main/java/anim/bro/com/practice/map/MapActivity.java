@@ -66,6 +66,7 @@ public class MapActivity extends AppCompatActivity {
         initMap();
 
         initData();
+
     }
 
     private void initData() {

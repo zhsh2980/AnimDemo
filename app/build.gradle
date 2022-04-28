@@ -14,7 +14,7 @@ android {
 
         multiDexEnabled true
 
-        buildConfigField 'Boolean', 'DEBUG', 'true'
+//        buildConfigField 'Boolean', 'DEBUG', 'true'
         buildConfigField 'int', 'taskId', '16'
         buildConfigField 'String', 'BASE_URL', '"http:www.baidu.com"'
 
@@ -78,6 +78,10 @@ android {
         enabled = true
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -130,8 +134,8 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.airbnb.android:lottie:2.7.0'
     api project(':easyrecyclerview')
-//    api project(':lint_tools')
-//    api project(':lib_modules:utilcode')
+
+    //    api project(':lib_modules:utilcode')
 
     debugImplementation Deps.leakcanary
 
@@ -156,16 +160,13 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
 
-    //核心模块
-//    debugImplementation "io.github.didi.dokit:dokitx:${Deps.dokit}"
-//文件同步模块
-//    debugImplementation "io.github.didi.dokit:dokitx-ft:${Deps.dokit}"
-//一机多控模块
-//    debugImplementation "io.github.didi.dokit:dokitx-mc:${Deps.dokit}"
-//weex模块
-//    debugImplementation "io.github.didi.dokit:dokitx-weex:${Deps.dokit}"
-//no-op 模块
-//    releaseImplementation "io.github.didi.dokit:dokitx-no-op:${Deps.dokit}"
+    //引用 aar , 直接生效
+//        implementation Deps.lint_dangdang
+    //打 aar 包(并上传)专用
+//    implementation project(':libLint')
+    //实时预览 , 调试模式(3.6.4 不能实时预览,4.2.2 可以)
+    lintChecks project(':lintJavaLib')
+
 
 }
 repositories {

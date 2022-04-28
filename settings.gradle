@@ -1,4 +1,5 @@
 include ':app',':easyrecyclerview'
 include ':Rewrite'
 //include ':lib_modules:utilcode'
-include ':lint_tools'
+include ':lintJavaLib'
+include ':libLint'
