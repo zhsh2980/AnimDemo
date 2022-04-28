@@ -9,21 +9,17 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url "https://jitpack.io" }
         maven { url RELEASE_URL }
         maven { url mvn_repo_path }
 
     }
-//    ext.kotlin_version = '1.5.31'  // kotlin版本号
-//    ext.kotlin_version = '1.3.61'  // kotlin版本号
-    ext.kotlin_version = '1.4.32'  // kotlin版本号
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        classpath "com.android.tools.build:gradle:$LibsVersion.agp_364"
+        classpath "com.android.tools.build:gradle:$LibsVersion.agp_422"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$LibsVersion.kotlin_version"
         classpath 'com.coofee.rewrite:rewrite:1.0.10'
-//        classpath "io.github.didi.dokit:dokitx-plugin:${Deps.dokit}"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -35,7 +31,7 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
-
+        maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url "https://jitpack.io" }
         maven { url RELEASE_URL }
         maven { url mvn_repo_path }

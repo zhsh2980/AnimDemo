@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'maven'
+}
+
+android {
+    compileSdkVersion App.compileSdkVersion
+    defaultConfig {
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+//    https://juejin.cn/post/6844903895429464078
+//    在Android Studio 3.4+，lintChecks project(':lib')：lint检查只在当前工程生效，
+//    也就是Android Library,并不会打包到AAR文件中。
+
+    //调试放开 lintChecks
+    lintChecks project(':lintJavaLib')
+
+    //打包 aar 时放开lintPublish
+//    另外需要把:
+//      1. lintJavaLib 改为高版本(27.2.2),规则是 agp: x.y.z   lint x+23.y.z
+//      2. agp改为高版本 4.2.2
+//      3. 否则不能实时预览(报错提示)
+//    lintPublish project(':lintJavaLib')
+}
+
+
+//上传命令: ./gradlew :libLint:uploadArchives
+group = 'com.dangdang.lint'
+version = '1.0.0'
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri("${RELEASE_URL}")) {
+            authentication(userName: NAME, password: PASSWORD)
+        }
+        pom.groupId = project.group
+        pom.artifactId = project.name.toLowerCase()
+        pom.version = project.version
+    }
+}

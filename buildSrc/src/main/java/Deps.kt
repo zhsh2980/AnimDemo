@@ -11,6 +11,8 @@ import LibsVersion.Companion.fragment_ktx_version
 import LibsVersion.Companion.jetpack_version
 import LibsVersion.Companion.kotlin_version
 import LibsVersion.Companion.legacy_version
+import LibsVersion.Companion.lint664
+import LibsVersion.Companion.lint722
 import LibsVersion.Companion.material_version
 import LibsVersion.Companion.multidex_version
 import LibsVersion.Companion.okhttp_version
@@ -29,6 +31,18 @@ object App {
     const val appId = "anim.bro.com.practice"
     const val versionCode = 1
     const val versionName = "1.0"
+
+
+}
+
+object Lint {
+
+    const val lintApi722 = "com.android.tools.lint:lint-api:$lint722"
+    const val lintCheck722 = "com.android.tools.lint:lint-checks:$lint722"
+
+    const val lintApi664 = "com.android.tools.lint:lint-api:$lint664"
+    const val lintCheck664 = "com.android.tools.lint:lint-checks:$lint664"
+
 }
 
 object Deps {
@@ -94,7 +108,10 @@ object Deps {
 
     const val dokit = "3.5.0"
 
+    const val lint_dangdang = "com.dangdang.lint:liblint:1.0.0@aar"
+
 }
+
 
 internal class LibsVersion {
 
@@ -119,7 +136,11 @@ internal class LibsVersion {
         const val recyclerview_version = "1.1.0"
         const val constraintlayout_version = "2.1.3"
         const val flexbox = "3.0.0"
-
+        const val lint722 = "27.2.2"
+        const val lint664 = "26.6.4"
+        //Android Gradle Plugin
+        const val agp_422 = "4.2.2"
+        const val agp_364 = "3.6.4"
 
     }
 }

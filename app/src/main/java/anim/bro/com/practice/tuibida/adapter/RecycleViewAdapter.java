@@ -1,12 +1,15 @@
 package anim.bro.com.practice.tuibida.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -19,28 +22,38 @@ import anim.bro.com.practice.R;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
     private Context context;
     private List<String> dataList;
+
     public RecycleViewAdapter(Context context, List<String> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.recycleview_item, parent, false);
         return new MyViewHolder(view);
     }
+
     @Override
     public int getItemCount() {
         return dataList.size();
     }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.itemView.post(() -> {
+                int height = holder.itemView.getHeight();
+                Log.i("bro", "height: " + height);
+            });
         holder.tv_text.setText(dataList.get(position));
     }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_text;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            tv_text=(TextView) itemView.findViewById(R.id.tv_text);
+            tv_text = (TextView) itemView.findViewById(R.id.tv_text);
         }
     }
 }
