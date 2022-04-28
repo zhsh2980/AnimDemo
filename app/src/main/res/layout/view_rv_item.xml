@@ -11,8 +11,8 @@
         android:layout_marginLeft="10dp"
         android:background="@color/jumei_red" />
 
-    <RelativeLayout
-        android:id="@+id/rela_right"
+    <LinearLayout
+        android:id="@+id/ll_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -31,7 +31,6 @@
             android:id="@+id/tv_function"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_title"
             android:layout_marginTop="5dp"
             android:text="定频 机械控温" />
 
@@ -39,43 +38,30 @@
             android:id="@+id/tv_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_function"
             android:layout_marginTop="5dp"
             android:text="¥939" />
 
-        <LinearLayout
-            android:id="@+id/ll_bottom"
+        <Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0" />
+
+        <TextView
+            android:id="@+id/tv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_price"
-            android:orientation="vertical">
+            android:layout_marginTop="5dp"
+            android:text="16537人评价" />
 
-            <Space
-                android:id="@+id/space"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_bottom_maybe_long"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="我是一个很长的文字" />
 
-            <TextView
-                android:id="@+id/tv_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_price"
-                android:layout_marginTop="5dp"
-                android:text="16537人评价" />
-
-            <TextView
-                android:id="@+id/tv_bottom_maybe_long"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_comment"
-                android:layout_marginTop="5dp"
-                android:text="我是一个长文字我是一个长文字我是一个长文字我是一个长文字我是一个长文字我是一个长文字我是一个长文字我是一个长文字我是一个长文字我是一个长文字" />
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

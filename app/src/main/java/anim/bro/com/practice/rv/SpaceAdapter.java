@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -66,8 +65,7 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.DemoViewHold
 
     static class DemoViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_left;
-        RelativeLayout relaRight;
-        LinearLayout ll_bottom;
+        LinearLayout ll_right;
         TextView tvTitle;
         Space space;
         TextView tvBottomMaybeLong;
@@ -75,64 +73,44 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.DemoViewHold
         public DemoViewHolder(@NonNull final View itemView) {
             super(itemView);
             iv_left = itemView.findViewById(R.id.iv_left);
-            relaRight = itemView.findViewById(R.id.rela_right);
-            ll_bottom = itemView.findViewById(R.id.ll_bottom);
+            ll_right = itemView.findViewById(R.id.ll_right);
             tvTitle = itemView.findViewById(R.id.tv_title);
             space = itemView.findViewById(R.id.space);
             tvBottomMaybeLong = itemView.findViewById(R.id.tv_bottom_maybe_long);
         }
 
-        public void setData() {
-            int ivLeftHeight = iv_left.getHeight();
-            int llRightHeight = relaRight.getHeight();
-            Log.i("bro", "ivLeftHeight: " + ivLeftHeight + "---llRightHeight: " + llRightHeight);
-            if (llRightHeight > ivLeftHeight) {
-                //右侧 > 图片高度
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) relaRight.getLayoutParams();
-                params.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-                params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                relaRight.setLayoutParams(params);
-
-                RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) ll_bottom.getLayoutParams();
-                params2.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                ll_bottom.setLayoutParams(params2);
-            } else {
-                //右侧 < 图片高度
-                RelativeLayout.LayoutParams llRightLayoutParams = (RelativeLayout.LayoutParams) relaRight.getLayoutParams();
-                llRightLayoutParams.height = ivLeftHeight;
-                relaRight.setLayoutParams(llRightLayoutParams);
-
-                RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) ll_bottom.getLayoutParams();
-                params2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                ll_bottom.setLayoutParams(params2);
-            }
-            itemView.invalidate();
-        }
-
         public void bindTo(RvSpaceBean rvBean) {
+
+            //恢复默认布局: 右边大于左边
+            ViewGroup.LayoutParams params = ll_right.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            ll_right.setLayoutParams(params);
+
+            LinearLayout.LayoutParams spaceLayoutParams = (LinearLayout.LayoutParams) space.getLayoutParams();
+            spaceLayoutParams.weight = 0;
+            space.setLayoutParams(spaceLayoutParams);
+
             tvTitle.setText(rvBean.title);
             tvBottomMaybeLong.setText(rvBean.bottomText);
-            itemView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                    测量右侧高度
-                    int ivLeftHeight = iv_left.getHeight();
-                    int llRightHeight = relaRight.getHeight();
-                    if (ivLeftHeight == 0 || llRightHeight == 0) {
-                        Log.i("bro", "ivLeftHeight == 0");
-                        itemView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                setData();
-                            }
-                        });
-                    } else {
-                        Log.i("bro", "ivLeftHeight != 0");
-                        setData();
-                    }
+
+            //测量右侧高度
+            ll_right.post(() -> {
+                int ivLeftHeight = iv_left.getHeight();
+                int llRightHeight = ll_right.getHeight();
+                Log.i("bro", "ivLeftHeight: " + ivLeftHeight + "---llRightHeight: " + llRightHeight);
+                if (llRightHeight < ivLeftHeight) {
+                    //右侧 < 图片高度
+                    ViewGroup.LayoutParams llRightLayoutParams = ll_right.getLayoutParams();
+                    llRightLayoutParams.height = ivLeftHeight;
+                    ll_right.setLayoutParams(llRightLayoutParams);
+
+                    LinearLayout.LayoutParams spaceLayoutParams1 = (LinearLayout.LayoutParams) space.getLayoutParams();
+                    spaceLayoutParams1.weight = 1;
+                    space.setLayoutParams(spaceLayoutParams1);
                 }
             });
-//
+
+
         }
     }
 
