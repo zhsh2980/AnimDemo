@@ -140,6 +140,7 @@ internal class LibsVersion {
         const val lint664 = "26.6.4"
         //Android Gradle Plugin
         const val agp_422 = "4.2.2"
+        const val agp_412 = "4.1.2"
         const val agp_364 = "3.6.4"
 
     }

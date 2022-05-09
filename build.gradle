@@ -16,8 +16,8 @@ buildscript {
 
     }
     dependencies {
-//        classpath "com.android.tools.build:gradle:$LibsVersion.agp_364"
-        classpath "com.android.tools.build:gradle:$LibsVersion.agp_422"
+        classpath "com.android.tools.build:gradle:$LibsVersion.agp_412"
+//        classpath "com.android.tools.build:gradle:$LibsVersion.agp_422"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$LibsVersion.kotlin_version"
 //        classpath 'com.coofee.rewrite:rewrite:1.0.10'
     }
