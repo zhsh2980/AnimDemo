@@ -12,6 +12,7 @@ import anim.bro.com.practice.R;
 import anim.bro.com.practice.tuibida.multidrag.MultiDragActivity;
 import anim.bro.com.practice.tuibida.ui.BaseActivity;
 import anim.bro.com.practice.tuibida.ui.CoordinatorActivity;
+import anim.bro.com.practice.tuibida.ui.CoordinatorActivity2;
 import anim.bro.com.practice.tuibida.ui.CountDownActivity;
 import anim.bro.com.practice.tuibida.ui.DialogActivity;
 import anim.bro.com.practice.tuibida.ui.DramViewHeightActivity;
@@ -70,7 +71,7 @@ public class MainTuiBiDaActivity extends BaseActivity {
                 ActivityUtils.startActivity(HideViewActivity.class);
                 break;
             case R.id.btn_coordinator:
-                ActivityUtils.startActivity(CoordinatorActivity.class);
+                ActivityUtils.startActivity(CoordinatorActivity2.class);
                 break;
             case R.id.btn_dram:
                 ActivityUtils.startActivity(DramViewHeightActivity.class);

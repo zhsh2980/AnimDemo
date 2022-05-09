@@ -94,6 +94,7 @@
 
         <activity android:name=".tuibida.ui.HideViewActivity" />
         <activity android:name=".tuibida.ui.CoordinatorActivity" />
+        <activity android:name=".tuibida.ui.CoordinatorActivity2" />
         <activity android:name=".tuibida.ui.RedTaskActivity" />
         <activity android:name=".tuibida.ui.ViewModelActivity" />
         <activity

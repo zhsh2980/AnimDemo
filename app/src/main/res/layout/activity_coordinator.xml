@@ -31,7 +31,7 @@
                 android:src="@drawable/zhiwu"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.5"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+                app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -41,7 +41,7 @@
                 app:contentInsetStart="0dp"
                 app:contentScrim="@color/transparent"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             </androidx.appcompat.widget.Toolbar>

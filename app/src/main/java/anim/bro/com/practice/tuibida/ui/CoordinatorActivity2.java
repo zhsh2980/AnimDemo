@@ -3,6 +3,7 @@ package anim.bro.com.practice.tuibida.ui;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ import anim.bro.com.practice.tuibida.utils.BlurUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CoordinatorActivity extends AppCompatActivity {
+public class CoordinatorActivity2 extends AppCompatActivity {
 
     @BindView(R.id.collapsingToolbar)
     CollapsingToolbarLayout mCollapsingToolbar;
@@ -38,11 +39,12 @@ public class CoordinatorActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<String> dataList = new ArrayList<String>();
     private RecycleViewAdapter recycleViewAdapter;
+    boolean isAppBarFold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordinator);
+        setContentView(R.layout.activity_coordinator_2);
         ButterKnife.bind(this);
         initData(1);
         initView();
@@ -55,9 +57,10 @@ public class CoordinatorActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        initAppBarLayoutListener();
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolabar替换actionBar,需在清单文件中设置style = noActionBar
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         //设置布局
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -66,19 +69,19 @@ public class CoordinatorActivity extends AppCompatActivity {
         //设置适配器
         recycleViewAdapter = new RecycleViewAdapter(this, dataList);
         recyclerView.setAdapter(recycleViewAdapter);
-        Glide.with(this).asBitmap().load(R.drawable.zhiwu).into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                Bitmap doBlurBitmap = BlurUtil.doBlur(bitmap, 15, 10);
-                mCollapsingToolbar.setContentScrim(new BitmapDrawable(doBlurBitmap));
-            }
-        });
+//        Glide.with(this).asBitmap().load(R.drawable.zhiwu).into(new SimpleTarget<Bitmap>() {
+//            @Override
+//            public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+//                Bitmap doBlurBitmap = BlurUtil.doBlur(bitmap, 15, 10);
+//                mCollapsingToolbar.setContentScrim(new BitmapDrawable(doBlurBitmap));
+//            }
+//        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.i("bro", "newState: " + newState );
+                Log.i("bro", "newState: " + newState);
             }
 
             @Override
@@ -87,6 +90,8 @@ public class CoordinatorActivity extends AppCompatActivity {
                 Log.i("bro", "dx: " + dx + "---dy: " + dy);
             }
         });
+
+
 //        ImageLoaderCompact.getInstance().asyncFetchBitmapByUrl(postImage.url, new OnFetchBitmapListener() {
 //            @Override
 //            public void onFetchBitmapSuccess(String s, Bitmap bitmap) {
@@ -105,4 +110,37 @@ public class CoordinatorActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+    //	/**
+//	 * 初始化APPBarLayout监听
+//	 */
+    private void initAppBarLayoutListener() {
+        mAppbarlayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (verticalOffset == 0) {
+                    Log.i("bro", "不折叠 1");
+						isAppBarFold = false;
+                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+                    //此时为折叠状态
+                    Log.i("bro", "折叠");
+						isAppBarFold = true;
+                } else {
+                    //折叠中间状态
+                    Log.i("bro", "不折叠中间状态");
+						isAppBarFold = false;
+                }
+            }
+        });
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mAppbarlayout.setExpanded(true, true);
+//            }
+//        }, 5000);
+
+    }
+
 }
