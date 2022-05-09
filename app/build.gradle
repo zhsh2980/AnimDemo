@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.coofee.rewrite'
+//apply plugin: 'com.coofee.rewrite'
 
 android {
     compileSdkVersion App.compileSdkVersion
@@ -169,7 +169,7 @@ dependencies {
 
 //    var codelocator = "1.0.0"
 //    implementation "com.bytedance.tools.codelocator:codelocator-core:${codelocator}"
-    implementation "com.bytedance.tools.codelocator:codelocator-core:1.0.0"
+//    implementation "com.bytedance.tools.codelocator:codelocator-core:1.0.0"
 
 
 
