@@ -35,7 +35,7 @@ android {
 
                 //完成后改名
                 variant.outputs.all { output ->
-                    outputFileName = "dangdang.apk"
+                    outputFileName = "anim.apk"
 //                    def outputFile = output.outputFile
 //                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                        def fileName = "dangdang.apk"
@@ -54,7 +54,7 @@ android {
 
                 //完成后改名
                 variant.outputs.all { output ->
-                    outputFileName = "dangdang.apk"
+                    outputFileName = "anim.apk"
 //                    def outputFile = output.outputFile
 //                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
 //                        def fileName = "dangdang.apk"

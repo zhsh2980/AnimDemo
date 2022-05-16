@@ -1,22 +1,23 @@
 package anim.bro.com.practice.ui;
 
 
-import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
-import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import anim.bro.com.practice.R;
+import anim.bro.com.practice.util.DownloadUtil;
 
 public class PDFActivity extends BaseActivity implements OnPageChangeListener, OnPageErrorListener {
 
@@ -41,9 +42,30 @@ public class PDFActivity extends BaseActivity implements OnPageChangeListener, O
 
     @Override
     public void initData() {
-        String filePath = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/gohome/Android_%E7%8E%8B%E5%9B%BD%E7%90%B3.pdf";
-//        String filePath = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/dangdang/3.pdf";
-        new RetrivePDFStream().execute(filePath);
+
+        String mSDCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();//SD卡路径
+//        String appPath= getApplicationContext().getFilesDir().getAbsolutePath();//此APP的files路径
+
+//        String filePath = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/gohome/Android_%E7%8E%8B%E5%9B%BD%E7%90%B3.pdf";
+        String filePath = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/gohome/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%BE%E7%A8%8B%E8%AE%B2%E4%B9%89V4-%E4%BF%AE%E6%94%B9.pdf";
+        DownloadUtil.get().download(filePath, mSDCardPath + "/gome/pdf/", "1.pdf", new DownloadUtil.OnDownloadListener() {
+            @Override
+            public void onDownloadSuccess(File file) {
+                pdfView.fromFile(file).load();
+            }
+
+            @Override
+            public void onDownloading(int progress) {
+                Log.i("bro", "下载进度: " + progress);
+            }
+
+            @Override
+            public void onDownloadFailed(Exception e) {
+                Log.i("bro", "pdf 下载失败");
+            }
+        });
+        //        String filePath = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/dangdang/3.pdf";
+//        new RetrivePDFStream().execute(filePath);
 //        String pdfUrl = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/gohome/Android_%E7%8E%8B%E5%9B%BD%E7%90%B3.pdf";
 //        String pdfUrl = "https://bro-1257528710.cos.ap-beijing.myqcloud.com/dangdang/3.pdf";
 //        String pdfUrl = "https://github.com/barteksc/AndroidPdfViewer/blob/master/sample/src/main/assets/sample.pdf";
@@ -88,10 +110,12 @@ public class PDFActivity extends BaseActivity implements OnPageChangeListener, O
             }
             return inputStream;
         }
+
         @Override
         protected void onPostExecute(InputStream inputStream) {
             pdfView.fromStream(inputStream).load();
         }
     }
+
 
 }
