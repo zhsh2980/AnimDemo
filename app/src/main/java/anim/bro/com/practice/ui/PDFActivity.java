@@ -1,7 +1,6 @@
 package anim.bro.com.practice.ui;
 
 
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
@@ -9,12 +8,7 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.util.DownloadUtil;
@@ -92,29 +86,6 @@ public class PDFActivity extends BaseActivity implements OnPageChangeListener, O
     @Override
     public void onPageError(int page, Throwable t) {
         Log.i("bro", "page: " + page + "--- Throwable t: " + t.getLocalizedMessage());
-    }
-
-
-    class RetrivePDFStream extends AsyncTask<String, Void, InputStream> {
-        @Override
-        protected InputStream doInBackground(String... strings) {
-            InputStream inputStream = null;
-            try {
-                URL uri = new URL(strings[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) uri.openConnection();
-                if (urlConnection.getResponseCode() == 200) {
-                    inputStream = new BufferedInputStream(urlConnection.getInputStream());
-                }
-            } catch (IOException e) {
-                return null;
-            }
-            return inputStream;
-        }
-
-        @Override
-        protected void onPostExecute(InputStream inputStream) {
-            pdfView.fromStream(inputStream).load();
-        }
     }
 
 
