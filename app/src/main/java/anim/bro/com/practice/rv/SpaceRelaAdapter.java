@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -21,11 +22,11 @@ import anim.bro.com.practice.R;
 /**
  * Created by zhangshan on 4/21/21 7:16 PM.
  */
-public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.DemoViewHolder> {
+public class SpaceRelaAdapter extends RecyclerView.Adapter<SpaceRelaAdapter.DemoViewHolder> {
 
     private List<RvSpaceBean> list;
 
-    public SpaceAdapter() {
+    public SpaceRelaAdapter() {
         list = new ArrayList();
         for (int i = 0; i <= 100; i++) {
             RvSpaceBean rvSpaceBean = new RvSpaceBean();
@@ -49,7 +50,7 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.DemoViewHold
     @NonNull
     @Override
     public DemoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_rv_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_rv_item_rela, parent, false);
         return new DemoViewHolder(view);
     }
 
@@ -65,48 +66,50 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.DemoViewHold
 
     static class DemoViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_left;
-        LinearLayout ll_right;
+        RelativeLayout rela_right;
+        LinearLayout ll_bottom;
         TextView tvTitle;
-        Space space;
         TextView tvBottomMaybeLong;
 
         public DemoViewHolder(@NonNull final View itemView) {
             super(itemView);
             iv_left = itemView.findViewById(R.id.iv_left);
-            ll_right = itemView.findViewById(R.id.rela_right);
+            rela_right = itemView.findViewById(R.id.rela_right);
+            ll_bottom = itemView.findViewById(R.id.ll_bottom);
             tvTitle = itemView.findViewById(R.id.tv_title);
-            space = itemView.findViewById(R.id.space);
             tvBottomMaybeLong = itemView.findViewById(R.id.tv_bottom_maybe_long);
         }
 
         public void bindTo(RvSpaceBean rvBean) {
 
             //恢复默认布局: 右边大于左边
-            ViewGroup.LayoutParams params = ll_right.getLayoutParams();
+            ViewGroup.LayoutParams params = rela_right.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            ll_right.setLayoutParams(params);
+            rela_right.setLayoutParams(params);
 
-            LinearLayout.LayoutParams spaceLayoutParams = (LinearLayout.LayoutParams) space.getLayoutParams();
-            spaceLayoutParams.weight = 0;
-            space.setLayoutParams(spaceLayoutParams);
+            RelativeLayout.LayoutParams llBottomLayoutParams = (RelativeLayout.LayoutParams) ll_bottom.getLayoutParams();
+            llBottomLayoutParams.addRule(RelativeLayout.BELOW, R.id.tv_price);
+            llBottomLayoutParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            ll_bottom.setLayoutParams(llBottomLayoutParams);
 
             tvTitle.setText(rvBean.title);
             tvBottomMaybeLong.setText(rvBean.bottomText);
 
             //测量右侧高度
-            ll_right.post(() -> {
+            rela_right.post(() -> {
                 int ivLeftHeight = iv_left.getHeight();
-                int llRightHeight = ll_right.getHeight();
+                int llRightHeight = rela_right.getHeight();
                 Log.i("bro", "ivLeftHeight: " + ivLeftHeight + "---llRightHeight: " + llRightHeight);
                 if (llRightHeight < ivLeftHeight) {
                     //右侧 < 图片高度
-                    ViewGroup.LayoutParams llRightLayoutParams = ll_right.getLayoutParams();
+                    ViewGroup.LayoutParams llRightLayoutParams = rela_right.getLayoutParams();
                     llRightLayoutParams.height = ivLeftHeight;
-                    ll_right.setLayoutParams(llRightLayoutParams);
+                    rela_right.setLayoutParams(llRightLayoutParams);
 
-                    LinearLayout.LayoutParams spaceLayoutParams1 = (LinearLayout.LayoutParams) space.getLayoutParams();
-                    spaceLayoutParams1.weight = 1;
-                    space.setLayoutParams(spaceLayoutParams1);
+                    RelativeLayout.LayoutParams llBottomLayoutParams2 = (RelativeLayout.LayoutParams) ll_bottom.getLayoutParams();
+                    llBottomLayoutParams2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    llBottomLayoutParams2.removeRule(RelativeLayout.BELOW);
+                    ll_bottom.setLayoutParams(llBottomLayoutParams2);
                 }
             });
 

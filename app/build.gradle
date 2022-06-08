@@ -165,15 +165,14 @@ dependencies {
     //打 aar 包(并上传)专用
 //    implementation project(':libLint')
     //实时预览 , 调试模式(3.6.4 不能实时预览,4.2.2 可以)
-    lintChecks project(':lintJavaLib')
+//    lintChecks project(':lintJavaLib')
 
 //    var codelocator = "1.0.0"
 //    implementation "com.bytedance.tools.codelocator:codelocator-core:${codelocator}"
 //    implementation "com.bytedance.tools.codelocator:codelocator-core:1.0.0"
 
-
-
 }
+
 repositories {
     mavenCentral()
 }
