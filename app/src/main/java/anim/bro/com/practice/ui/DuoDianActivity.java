@@ -1,21 +1,29 @@
 package anim.bro.com.practice.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
+import android.text.Layout;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +34,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
+import com.yy.mobile.rollingtextview.RollingTextView;
+
+import java.util.Calendar;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import anim.bro.com.practice.R;
 import anim.bro.com.practice.bean.AgileBodyPromotionInfoModel;
@@ -37,6 +49,7 @@ import anim.bro.com.practice.util.QrCodeUtil;
 import anim.bro.com.practice.util.TextLabelUtil;
 import anim.bro.com.practice.view.AdvertThreeTextView;
 import anim.bro.com.practice.view.AppendViewAfterTextView;
+import anim.bro.com.practice.view.CustomTextSwitcher;
 
 public class DuoDianActivity extends BaseActivity implements View.OnClickListener {
 
@@ -103,6 +116,88 @@ public class DuoDianActivity extends BaseActivity implements View.OnClickListene
         setQrCode();
 
         setNotification();
+
+        setRollingTextView();
+
+        initFillTest();
+
+    }
+
+    private void initFillTest() {
+        TextView timestampText = findViewById(R.id.tv_fill_test);
+        timestampText.post(new Runnable() {
+            @Override
+            public void run() {
+                Layout l = timestampText.getLayout();
+                if (l != null) {
+                    if (l.getEllipsisCount(l.getLineCount()-1) > 0){
+                        Log.d("bro", "文字展示不开,隐藏");
+                    }else{
+                        Log.d("bro", "文字可以展示开,显示");
+                    }
+                }
+            }
+        });
+
+
+
+    }
+
+    private void setRollingTextView() {
+        RollingTextView tv_hour = findViewById(R.id.tv_hour);
+        RollingTextView tv_minute = findViewById(R.id.tv_minute);
+        RollingTextView tv_second = findViewById(R.id.tv_second);
+
+        tv_hour.setAnimationDuration(300);
+        tv_minute.setAnimationDuration(300);
+        tv_second.setAnimationDuration(300);
+//        tv_hour.setLetterSpacingExtra(10);
+
+
+        CustomTextSwitcher ts_1 = findViewById(R.id.ts_1);
+        CustomTextSwitcher ts_2 = findViewById(R.id.ts_2);
+        CustomTextSwitcher ts_3 = findViewById(R.id.ts_3);
+        initTextSwitcher(ts_1);
+        initTextSwitcher(ts_2);
+        initTextSwitcher(ts_3);
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                int minute = Calendar.getInstance().get(Calendar.MINUTE);
+                int second = Calendar.getInstance().get(Calendar.SECOND);
+                tv_hour.setText(hour + "");
+                tv_minute.setText(minute + "");
+                tv_second.setText(second + "");
+
+                ts_1.setTextContent(hour + "");
+                ts_2.setTextContent(minute + "");
+                ts_3.setTextContent(second + "");
+
+                handler.postDelayed(this, 1000L);
+            }
+        });
+
+
+    }
+
+    private void initTextSwitcher(TextSwitcher ts) {
+        ts.setFactory(() -> {
+            final TextView tv = new TextView(DuoDianActivity.this);
+            tv.setTextSize(20);
+            tv.setTextColor(Color.RED);
+            tv.setGravity(Gravity.CENTER);
+            //设置点击事件
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(DuoDianActivity.this, tv.getText().toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            return tv;
+        });
+
 
     }
 
@@ -232,5 +327,7 @@ public class DuoDianActivity extends BaseActivity implements View.OnClickListene
         if (view.getId() == R.id.btn_set_label) {
             setLabelText();
         }
+
+
     }
 }

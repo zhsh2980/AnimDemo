@@ -159,6 +159,9 @@ dependencies {
     //PDF
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
+    implementation "com.github.YvesCheung.RollingText:RollingText:1.2.11"
+    implementation 'com.sdsmdg.harjot:rotatingtext:1.0.2'
+
 
     //引用 aar , 直接生效
 //        implementation Deps.lint_dangdang
@@ -172,11 +175,6 @@ dependencies {
 //    implementation "com.bytedance.tools.codelocator:codelocator-core:1.0.0"
 
 }
-
-repositories {
-    mavenCentral()
-}
-
 
 afterEvaluate {
     println tasks.getByName("packageDebug")
